@@ -28,7 +28,7 @@ export const StyledNavbar = styled(AppBar)`
             svg{
                 color:#F4511E;
                 margin-bottom: -8px;
-                margin-left: 10px;
+                margin-right: 25px;
             }
         }
         .menu-icon, .logo-mobile{
