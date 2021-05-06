@@ -7,6 +7,7 @@ interface Data {
     h1: string,
     p: string,
     button: string,
+    background: string
 }
 
 interface Props {
@@ -20,7 +21,7 @@ export const Slide: React.FC<Props> = ({data}) => {
     }
 
     return (
-        <StyledSlide>
+        <StyledSlide style={{backgroundImage: data.background}}>
             <div id="overlay"></div>
             <div className="content">
                 <h3>{data.h3}</h3>
