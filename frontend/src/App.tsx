@@ -4,6 +4,7 @@ import { MainSlider }  from './components/MainSlider/MainSlider';
 import { ProductsCarousel } from "./components/ProductsCarousel/ProductsCarousel"
 import { SalesContainer } from "./components/SalesContainer/SalesContainer"
 import { Newsletter } from "./components/Newsletter/Newsletter"
+import { Footer } from "./components/Footer/Footer"
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
       <SalesContainer/>
       <ProductsCarousel/>
       <Newsletter/>
+      <Footer/>
     </div>
   );
 }
