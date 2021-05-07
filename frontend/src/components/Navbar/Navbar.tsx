@@ -19,8 +19,9 @@ export const Navbar: React.FC = () => {
                 <Toolbar>
                     <div className="navigation">
                         <Typography variant="h6">
-                            E-FootWear
+                            <span>e</span>FootWear
                         </Typography>
+                        <Button style={{color: '#F4511E'}}>Home</Button>
                         <Button color="inherit">Man</Button>
                         <Button color="inherit">Woman</Button>
                         <Button color="inherit">Kids</Button>
@@ -29,11 +30,11 @@ export const Navbar: React.FC = () => {
                     </div>
                     <div className="auth">
                         <Button variant="outlined" color="inherit">Sign In</Button>
-                        <Button variant="contained" color="inherit">Sign Up</Button>
+                        <Button variant="contained" color="inherit" className="signup">Sign Up</Button>
                         <LocalMallIcon />
                     </div>
                     <Typography className="logo-mobile" variant="h6">
-                            E-FootWear
+                            <span>e</span>FootWear
                         </Typography>
                     <IconButton className="menu-icon" edge="start" color="inherit" aria-label="menu" onClick={()=>setOpen(true)}>
                             <MenuIcon />
