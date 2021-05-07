@@ -48,7 +48,6 @@ export const MainSlider: React.FC = () => {
             if(mainRef){
                 //@ts-ignore
                 i < (mainRef.current.children.length - 2) ? i++ : i = 0;
-                console.log(i);
                 setNum(i);
             }
         }, 10000);
@@ -61,8 +60,6 @@ export const MainSlider: React.FC = () => {
     }, [cooldown])
 
     useEffect(() => {
-        //@ts-ignore
-        console.log(mainRef.current.children);
         if(mainRef){
             //@ts-ignore
             Array.from(mainRef.current.children).filter((slide) => (slide.nodeName === 'DIV')).forEach((slide)=>{
