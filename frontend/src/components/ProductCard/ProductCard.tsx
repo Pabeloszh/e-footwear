@@ -13,9 +13,12 @@ export const ProductCard: React.FC = () => {
                 <FavoriteBorderIcon />
                 <FavoriteIcon />
             </div>
+            <div className="sale">
+                <h5>-35%</h5>
+            </div>
             <div className="desc">
-                <p>Nike</p>
-                <h5>All Star Black Sneakers</h5>
+                <h5>Nike</h5>
+                <p>All Star Black Sneakers</p>
                 <h6>299.99zł</h6>
             </div>
         </StyledProductCard>
