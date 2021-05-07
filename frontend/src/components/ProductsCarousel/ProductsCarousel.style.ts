@@ -32,10 +32,8 @@ export const StyledProductsCarousel = styled.div`
             padding-right:35px;
             h2{
                 font-size:24px;
-                font-family: 'Work Sans', sans-serif;
             }
         }
-        /* react-multi-carousel-list   */
         li:first-child{
             margin-left:35px;
         }
