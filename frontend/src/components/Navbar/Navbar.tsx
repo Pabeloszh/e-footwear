@@ -15,7 +15,7 @@ export const Navbar: React.FC = () => {
     
     return (
         <>
-            <StyledNavbar position="static">
+            <StyledNavbar position="fixed">
                 <Toolbar>
                     <div className="navigation">
                         <Typography variant="h6">

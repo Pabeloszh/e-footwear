@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 
 export const StyledNavbar = styled(AppBar)`
     background-color: #170312 !important;
-    z-index: 2 !important;
+    z-index: 1001 !important;
     .MuiToolbar-root{
         justify-content:space-between;
         .navigation{
