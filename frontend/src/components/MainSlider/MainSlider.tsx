@@ -51,7 +51,7 @@ export const MainSlider: React.FC = () => {
                 console.log(i);
                 setNum(i);
             }
-        }, 5000);
+        }, 10000);
         if(cooldown) {
             clearInterval(interval)
             setTimeout(()=> isCooldown(false), 5000);
@@ -81,8 +81,6 @@ export const MainSlider: React.FC = () => {
             mainRef.current.children[num].style.opacity = '1';
         }
     }, [num])
-
-    slideData.forEach(slide => console.log(123))
 
     return (
         <>

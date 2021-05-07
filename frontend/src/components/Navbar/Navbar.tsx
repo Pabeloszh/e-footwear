@@ -29,9 +29,9 @@ export const Navbar: React.FC = () => {
                         <Button color="inherit">Sales</Button>
                     </div>
                     <div className="auth">
+                        <LocalMallIcon />
                         <Button variant="outlined" color="inherit">Sign In</Button>
                         <Button variant="contained" color="inherit" className="signup">Sign Up</Button>
-                        <LocalMallIcon />
                     </div>
                     <Typography className="logo-mobile" variant="h6">
                             <span>e</span>FootWear
