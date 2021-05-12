@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
 import { SettingsInputAntennaTwoTone } from '@material-ui/icons';
 
 export const Navbar: React.FC = () => {
@@ -29,7 +28,7 @@ export const Navbar: React.FC = () => {
                         <Button color="inherit">Sales</Button>
                     </div>
                     <div className="auth">
-                        <LocalMallIcon />
+                        <ShoppingCartIcon />
                         <Button variant="outlined" color="inherit">Sign In</Button>
                         <Button variant="contained" color="inherit" className="signup">Sign Up</Button>
                     </div>

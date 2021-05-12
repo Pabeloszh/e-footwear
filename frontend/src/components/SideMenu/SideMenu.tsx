@@ -1,17 +1,13 @@
 import React from 'react';  
 import {StyledSideMenu} from "./SideMenu.style"
-import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Divider from '@material-ui/core/Divider';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import Backdrop from '@material-ui/core/Backdrop';
+import CloseIcon from '@material-ui/icons/Close';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 interface Props {
     open: boolean;
@@ -28,7 +24,7 @@ const SideMenu: React.FC<Props> = ({open, setOpen}) => {
             open={open}>
                 <div>
                     <IconButton onClick={()=>{setOpen(false)}}>
-                        <ChevronRightIcon />
+                        <CloseIcon />
                     </IconButton>
                 </div>
                 <Divider/>
@@ -46,6 +42,11 @@ const SideMenu: React.FC<Props> = ({open, setOpen}) => {
                         <ListItemText primary={text} />
                     </ListItem>
                 ))}
+                </List>
+                <List>
+                    <ListItem button className="cart">
+                        <ListItemText><ShoppingCartIcon/> Shopping Cart</ListItemText>
+                    </ListItem>
                 </List>
             </StyledSideMenu>
             <Backdrop open={open} onClick={()=>{setOpen(false)}} style={{zIndex: 5, backdropFilter: 'blur(2px)'}}>

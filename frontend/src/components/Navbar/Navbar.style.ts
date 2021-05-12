@@ -19,6 +19,8 @@ export const StyledNavbar = styled(AppBar)`
             }
         }
         .auth{
+            display:flex;
+            align-items:center;
             button{
                 margin: 0 6px;
             }
@@ -26,9 +28,12 @@ export const StyledNavbar = styled(AppBar)`
                 background-color: #F4511E;
             }
             svg{
-                color:#F4511E;
-                margin-bottom: -8px;
-                margin-right: 25px;
+                padding:15px;
+                width:60px;
+                color:#fff;
+                margin-right: 15px;
+                height:64px;
+                background-color:#F4511E;
             }
         }
         .menu-icon, .logo-mobile{
