@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -8,13 +8,25 @@ import {StyledNewsletter} from "./Newsletter.style"
 import { Button } from '@material-ui/core';
 
 export const Newsletter: React.FC = () => {
+    const formRef = useRef(null);
+    const options = {};
+    useEffect(() => {
+        //@ts-ignore
+        formRef && observer.observe(formRef.current);
+    }, [formRef])
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            console.log(entry);
+        })
+    }, options);
+    
     return (
         <StyledNewsletter>
             <div className="overlay"></div>
             <div className="container">
                 <h2>Subscribe to our Newsletter</h2>
                 <h4>To be updated with all latest products</h4>
-                <form>
+                <form ref={formRef}>
                     <FormControl color="secondary">
                         <InputLabel htmlFor="first">First name</InputLabel>
                         <Input id="first"/>

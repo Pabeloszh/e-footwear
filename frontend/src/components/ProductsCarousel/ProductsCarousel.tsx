@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Carousel from "react-multi-carousel";
 import { ProductCard } from "../ProductCard/ProductCard"
 import "react-multi-carousel/lib/styles.css";
@@ -49,9 +49,31 @@ const responsive = {
   };
 
 export const ProductsCarousel: React.FC = () => {
+    // const [top, setTop] = useState(window.scrollY);
+    // const titleRef = useRef(null);
+
+    // useEffect(() => {
+    //   //@ts-ignore
+    //   titleRef.current.getBoundingClientRect().height < top * 1.5 && titleRef.current.classList.add('title-animate');
+    //   //@ts-ignore
+    //   console.log(titleRef.current.getBoundingClientRect());
+    // //   console.log(top);
+    // }, [top])
+    // useEffect(() => {
+    //   function watchScroll() {
+    //     window.addEventListener("scroll", () => setTop(window.scrollY));
+    //   }
+    //   watchScroll();
+    //   return () => {
+    //     window.removeEventListener("scroll", () => setTop(window.scrollY));
+    //   };
+    // });
+
+
+
     return (
         <StyledProductsCarousel>
-            <div className="title">
+            <div className="title" /*ref={titleRef}*/>
               <h2>You may like on of those...</h2>  
             </div>      
             {/*@ts-ignore*/} 
