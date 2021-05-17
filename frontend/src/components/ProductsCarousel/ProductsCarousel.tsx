@@ -49,6 +49,30 @@ const responsive = {
   };
 
 export const ProductsCarousel: React.FC = () => {
+    const titleRef = useRef(null);
+
+    const options = {
+        root: null,
+        threshold: 0.25,
+        rootMargin: '0px'
+    };
+    useEffect(() => {
+        //@ts-ignore
+        titleRef && observer.observe(titleRef.current);
+    }, [titleRef]);
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if(!entry.isIntersecting){
+                return;
+            }
+            console.log(entry.target);
+            entry.target.classList.contains('title') && entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+        })
+    }, options);
+    
+
     // const [top, setTop] = useState(window.scrollY);
     // const titleRef = useRef(null);
 
@@ -73,7 +97,7 @@ export const ProductsCarousel: React.FC = () => {
 
     return (
         <StyledProductsCarousel>
-            <div className="title" /*ref={titleRef}*/>
+            <div className="title" ref={titleRef}>
               <h2>You may like on of those...</h2>  
             </div>      
             {/*@ts-ignore*/} 

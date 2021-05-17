@@ -15,7 +15,7 @@ export const StyledSales = styled.div`
     .container{
         display:flex;
         .photo{
-            transition: all 650ms cubic-bezier(0.79, 0.02, 1, 1);; 
+            transition: all 800ms ease-out;; 
             transform-origin: left;
             transform: scaleX(0);
             width:50%;
@@ -47,11 +47,7 @@ export const StyledSales = styled.div`
 
             }
         }
-        .photo-active{
-            transition: all 650ms cubic-bezier(0.79, 0.02, 1, 1);; 
-            transform-origin: left;
-            transform: scaleX(1);
-        }
+        
         .desc{
             transition: all 800ms ease-in;
             transform: translateY(-15px);
@@ -87,11 +83,10 @@ export const StyledSales = styled.div`
                 }
             }
         }
-        .desc-active{
-            transition: all 800ms ease-in;
-            transform: translateY(0);
+        .animated{
+            transform-origin: left;
+            transform: scaleX(1) translateY(0);
             opacity:1;
-
         }
     }
     @media only screen and (max-width: 1250px){

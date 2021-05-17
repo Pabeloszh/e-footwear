@@ -3,26 +3,31 @@ import Button from '@material-ui/core/Button';
 import {StyledSales} from "./SalesContainer.style";
 
 export const SalesContainer:React.FC = () => {
-    const [top, setTop] = useState(window.scrollY);
     const photoRef = useRef(null);
     const descRef = useRef(null);
 
+    const options = {
+        root: null,
+        threshold: 0.25,
+        rootMargin: '0px'
+    };
+    useEffect(() => {
+        //@ts-ignore
+        photoRef && observer.observe(photoRef.current);
+        //@ts-ignore
+        descRef && observer.observe(descRef.current);
+    }, [photoRef]);
 
-    useEffect(() => {
-        //@ts-ignore
-        photoRef.current.getBoundingClientRect().y < photoRef.current.getBoundingClientRect().height * 1.5 && photoRef.current.classList.add('photo-active');
-        //@ts-ignore
-        descRef.current.getBoundingClientRect().y < descRef.current.getBoundingClientRect().height * 1.5 && descRef.current.classList.add('desc-active');;
-    }, [top])
-    useEffect(() => {
-        function watchScroll() {
-          window.addEventListener("scroll", () => setTop(window.scrollY));
-        }
-        watchScroll();
-        return () => {
-          window.removeEventListener("scroll", () => setTop(window.scrollY));
-        };
-      });
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if(!entry.isIntersecting){
+                return;
+            }
+            entry.target.classList.contains('photo') && entry.target.classList.add('animated');
+            entry.target.classList.contains('desc') && entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+        })
+    }, options);
     
     return (
         <StyledSales>

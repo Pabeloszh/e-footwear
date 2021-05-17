@@ -4,12 +4,19 @@ export const StyledNewsletter = styled.div`
     padding: 80px 10%;
     width:100%;
     height:600px;
-    background-image: url('https://images.unsplash.com/photo-1511318316897-47dc82cd9ebb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1779&q=80');
-    background-attachment: fixed;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
     position:relative;
+    overflow:hidden;
+    .image{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100vw;
+        height: 800px;
+        background-image: url('https://images.unsplash.com/photo-1511318316897-47dc82cd9ebb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1779&q=80');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
     .overlay{
         z-index:1;
         position:absolute;
@@ -24,20 +31,28 @@ export const StyledNewsletter = styled.div`
         z-index:2;
         width:80%;
         text-align:center;
-        h2{
-            color:#f4511e;
-            font-size:48px;
-            font-family: 'Work Sans', sans-serif;
-            letter-spacing:1px;
-            margin-bottom:10px;
-        }
-        h4{
-            color:#fff;
-            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-            font-size:24px;
-            margin-bottom:35px;
+        .title{
+            transition: all 800ms ease-in;
+            transform: translateY(-15px);
+            opacity:0;
+            h2{
+                color:#f4511e;
+                font-size:48px;
+                font-family: 'Work Sans', sans-serif;
+                letter-spacing:1px;
+                margin-bottom:10px;
+            }
+            h4{
+                color:#fff;
+                font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                font-size:24px;
+                margin-bottom:35px;
+            }
         }
         form{
+            transition: all 1000ms ease-in;
+            transform: translateY(-15px);
+            opacity:0;
             width:60%;
             height: 250px;
             margin:auto;
@@ -69,18 +84,24 @@ export const StyledNewsletter = styled.div`
                 background-color:#f4511e !important;
             }
         }
+        .animated{
+            transform: translateY(0);
+            opacity:1 !important;
+        }
 
     }
 
     @media only screen and (max-width: 768px){
         .container{
-            h2{
-                font-size:28px;
-                letter-spacing:1px;
-            }
-            h4{
-                font-size:16px;
-                margin-bottom:25px;
+            .title{
+                h2{
+                    font-size:28px;
+                    letter-spacing:1px;
+                }
+                h4{
+                    font-size:16px;
+                    margin-bottom:25px;
+                }
             }
             form{
                 width:100%;

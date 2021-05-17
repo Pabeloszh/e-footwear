@@ -1,20 +1,15 @@
 import styled from 'styled-components';
-import main1 from "../../../img/mainslider/main1.jpg"
 
 export const StyledSlide = styled.div`
     position:absolute;
-    /* display:none; */
     width:100%;
     height:100%;
-    /* background-image: url('https://images.unsplash.com/photo-1581327390731-312ec8f2a7dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1988&q=80'); */
-    background-attachment: fixed;
-    background-position: bottom;
+    background-position: center bottom;
     background-repeat: no-repeat;
     background-size: cover;
-    visibility: hidden;
-    opacity: 0;
-    z-index:1;
-    transition: all 2000ms ease-in-out;
+    transition-property: opacity, visibility, z-index;
+    transition-duration: 1250ms;
+    transition-timing-function: ease-in-out;
     #overlay{
         z-index:1;
         width:100%;
@@ -22,6 +17,9 @@ export const StyledSlide = styled.div`
         background-color: #00000073;
     }
     .content{
+        transition-property: opacity, visibility, transform;
+        transition-duration: 1000ms;
+        transition-timing-function: ease-out;
         width:768px;
         color:#fff;
         position:absolute;

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledProductsCarousel = styled.div`
-    /* height:00px; */
     background-color:#f6f6f6;
-    /* padding: 75px 0 75px 6%; */
     padding: 50px 0;
     .title{
+        transition: all 800ms ease-in;
+        transform: translateY(-15px);
+        opacity:0;
         margin-bottom:25px;
         margin-left: 75px;
         padding-right:75px;
@@ -15,12 +16,13 @@ export const StyledProductsCarousel = styled.div`
             font-family: 'Work Sans', sans-serif;
         }
     }
-    /* react-multi-carousel-list   */
+    .animated{
+        transition: all 800ms ease-in;
+        transform: translateY(0);
+        opacity:1;
+    }
     li:first-child{
         margin-left:75px;
-    }
-    li:last-child{
-        /* margin-right:45px; */
     }
 
     @media only screen and (max-width: 660px){
@@ -37,9 +39,5 @@ export const StyledProductsCarousel = styled.div`
         li:first-child{
             margin-left:35px;
         }
-        li:last-child{
-            /* margin-right:45px; */
-        }
-
     }
 `

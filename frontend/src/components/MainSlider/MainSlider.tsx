@@ -30,16 +30,11 @@ export const MainSlider: React.FC = () => {
     const mainRef = useRef(null);
     const [cooldown, isCooldown] = useState(false); 
     const [num, setNum] = useState(0);
-    let i = 0;
-
+    
     useEffect(() => {
         if(mainRef){
-            //@ts-ignore
-            mainRef.current.children[num].style.visibility = 'visible';
-            //@ts-ignore
-            mainRef.current.children[num].style.zIndex = '2';
-            //@ts-ignore
-            mainRef.current.children[num].style.opacity = '1';
+            // @ts-ignore
+            mainRef.current.children[num].classList.add('active');
         }
     }, [mainRef])
 
@@ -47,10 +42,9 @@ export const MainSlider: React.FC = () => {
         const interval = setInterval(() => {
             if(mainRef){
                 //@ts-ignore
-                i < (mainRef.current.children.length - 2) ? i++ : i = 0;
-                setNum(i);
+                setNum(prevNum => prevNum + 1);
             }
-        }, 10000);
+        }, 7500);
         if(cooldown) {
             clearInterval(interval)
             setTimeout(()=> isCooldown(false), 5000);
@@ -61,21 +55,14 @@ export const MainSlider: React.FC = () => {
 
     useEffect(() => {
         if(mainRef){
+            num === 3 && setNum(0)
             //@ts-ignore
             Array.from(mainRef.current.children).filter((slide) => (slide.nodeName === 'DIV')).forEach((slide)=>{
                 //@ts-ignore
-                slide.style.visibility = 'hidden';
-                //@ts-ignore
-                slide.style.zIndex = '1';
-                //@ts-ignore
-                slide.style.opacity = '0';
+                slide.classList.remove('active');
             });
             //@ts-ignore
-            mainRef.current.children[num].style.visibility = 'visible';
-            //@ts-ignore
-            mainRef.current.children[num].style.zIndex = '2';
-            //@ts-ignore
-            mainRef.current.children[num].style.opacity = '1';
+            mainRef.current.children[num].classList.add('active');
         }
     }, [num])
 
@@ -88,7 +75,7 @@ export const MainSlider: React.FC = () => {
                     )
                 })}
                 <span className="dots" onClick={()=>isCooldown(true)}>
-                    {slideData.map((slide, index) => (<p style={{opacity: num === index ? '1' : '0.5'}} onClick={()=>{i=index; setNum(index);}}>&bull;</p>))}
+                    {slideData.map((slide, index) => (<p style={{opacity: num === index ? '1' : '0.5'}} onClick={()=>{setNum(index);}}>&bull;</p>))}
                 </span>
             </StyledMainSlider>
         </>
