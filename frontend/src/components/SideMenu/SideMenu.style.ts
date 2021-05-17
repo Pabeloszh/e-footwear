@@ -8,8 +8,8 @@ export const StyledSideMenu = styled(Drawer)`
         width: 225px !important;
         .MuiIconButton-label{
             .MuiSvgIcon-root{
-            color:#F4511E !important;
-        }
+                color:#F4511E !important;
+            }
         }
         .MuiSvgIcon-root{
             color:#fff !important;

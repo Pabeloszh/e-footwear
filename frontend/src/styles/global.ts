@@ -6,5 +6,6 @@ export default createGlobalStyle`
         margin: 0;
         padding: 0;
         outline: 0;
+        -webkit-tap-highlight-color: transparent;
     }
 `;

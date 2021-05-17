@@ -15,6 +15,9 @@ export const StyledSales = styled.div`
     .container{
         display:flex;
         .photo{
+            transition: all 800ms ease-out;; 
+            transform-origin: left;
+            transform: scaleX(0);
             width:50%;
             height:400px;
             position:relative;
@@ -44,7 +47,11 @@ export const StyledSales = styled.div`
 
             }
         }
+        
         .desc{
+            transition: all 800ms ease-in;
+            transform: translateY(-15px);
+            opacity:0;
             height:383px;
             width:50%;
             padding:0 35px;
@@ -75,6 +82,11 @@ export const StyledSales = styled.div`
                     color:#fff;
                 }
             }
+        }
+        .animated{
+            transform-origin: left;
+            transform: scaleX(1) translateY(0);
+            opacity:1;
         }
     }
     @media only screen and (max-width: 1250px){
