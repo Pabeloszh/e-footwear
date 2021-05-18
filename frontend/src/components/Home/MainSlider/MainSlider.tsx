@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react'
 import { StyledMainSlider } from "./MainSlider.style"
-import { Slide } from "./Slide/Slide"
+import { Slide } from "./Slide/"
 import slide1 from "../../../img/slide-1.webp";
 import slide2 from "../../../img/slide-2.webp";
 import slide3 from "../../../img/slide-3.webp";
