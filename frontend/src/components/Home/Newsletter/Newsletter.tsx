@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
-
-import {StyledNewsletter} from "./Newsletter.style"
+import { StyledNewsletter } from "./Newsletter.style"
 import { Button } from '@material-ui/core';
 
 export const Newsletter: React.FC = () => {

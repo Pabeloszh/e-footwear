@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import newsletterr from "../../../img/newsletter.webp"
 
 export const StyledNewsletter = styled.div`
     padding: 80px 10%;
@@ -12,7 +13,7 @@ export const StyledNewsletter = styled.div`
         left:0;
         width:100vw;
         height: 800px;
-        background-image: url('https://images.unsplash.com/photo-1511318316897-47dc82cd9ebb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1779&q=80');
+        background-image: url(${newsletterr});
         background-repeat: no-repeat;
         background-size: cover;
 
