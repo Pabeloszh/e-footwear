@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import Carousel from "react-multi-carousel";
-import { ProductCard } from "../ProductCard/ProductCard"
+import { ProductCard } from "../../ProductCard/ProductCard"
 import "react-multi-carousel/lib/styles.css";
 import { StyledProductsCarousel } from "./ProductsCarousel.style";
 

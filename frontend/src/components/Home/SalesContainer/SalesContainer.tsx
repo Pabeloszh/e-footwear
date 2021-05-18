@@ -1,6 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
-import Button from '@material-ui/core/Button';
-import {StyledSales} from "./SalesContainer.style";
+import React, { useEffect, useRef } from 'react';
+import { StyledSales } from "./SalesContainer.style";
 
 export const SalesContainer:React.FC = () => {
     const photoRef = useRef(null);
