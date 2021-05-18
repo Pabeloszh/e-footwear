@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from 'react'
 import Carousel from "react-multi-carousel";
-import { ProductCard } from "../../ProductCard/ProductCard"
-import "react-multi-carousel/lib/styles.css";
+import { ProductCard } from "../../ProductCard/"
 import { StyledProductsCarousel } from "./ProductsCarousel.style";
+import "react-multi-carousel/lib/styles.css";
 
 const responsive = {
     superLargeDesktop: {
@@ -56,6 +56,7 @@ export const ProductsCarousel: React.FC = () => {
         threshold: 0.25,
         rootMargin: '0px'
     };
+    
     useEffect(() => {
         //@ts-ignore
         titleRef && observer.observe(titleRef.current);
@@ -72,29 +73,6 @@ export const ProductsCarousel: React.FC = () => {
         })
     }, options);
     
-
-    // const [top, setTop] = useState(window.scrollY);
-    // const titleRef = useRef(null);
-
-    // useEffect(() => {
-    //   //@ts-ignore
-    //   titleRef.current.getBoundingClientRect().height < top * 1.5 && titleRef.current.classList.add('title-animate');
-    //   //@ts-ignore
-    //   console.log(titleRef.current.getBoundingClientRect());
-    // //   console.log(top);
-    // }, [top])
-    // useEffect(() => {
-    //   function watchScroll() {
-    //     window.addEventListener("scroll", () => setTop(window.scrollY));
-    //   }
-    //   watchScroll();
-    //   return () => {
-    //     window.removeEventListener("scroll", () => setTop(window.scrollY));
-    //   };
-    // });
-
-
-
     return (
         <StyledProductsCarousel>
             <div className="title" ref={titleRef}>

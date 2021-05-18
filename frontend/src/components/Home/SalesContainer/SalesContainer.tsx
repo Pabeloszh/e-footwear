@@ -10,6 +10,7 @@ export const SalesContainer:React.FC = () => {
         threshold: 0.25,
         rootMargin: '0px'
     };
+    
     useEffect(() => {
         //@ts-ignore
         photoRef && observer.observe(photoRef.current);

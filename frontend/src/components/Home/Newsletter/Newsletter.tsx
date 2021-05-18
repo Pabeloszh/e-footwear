@@ -16,6 +16,7 @@ export const Newsletter: React.FC = () => {
         threshold: 0.25,
         rootMargin: '0px'
     };
+    
     useEffect(() => {
         //@ts-ignore
         formRef && observer.observe(formRef.current);

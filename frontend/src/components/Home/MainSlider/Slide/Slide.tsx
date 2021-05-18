@@ -1,20 +1,9 @@
 import React, {useEffect, useRef} from 'react'
+import { SlideProps } from "./Slide.interfaces"
 import { Button } from '@material-ui/core'
 import { StyledSlide } from "./Slide.style"
 
-interface Data {
-    h3: string,
-    h1: string,
-    p: string,
-    button: string,
-    background: string
-}
-
-interface Props {
-    data: Data;
-}
-
-export const Slide: React.FC<Props> = ({data}) => {
+export const Slide: React.FC<SlideProps> = ({data}) => {
     const slideRef = useRef(null);
 
     useEffect(() => {
