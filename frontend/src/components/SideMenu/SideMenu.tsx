@@ -10,42 +10,43 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen}) => {
+export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen, authWindow, toggleAuthWindow}) => {
     return (
         <>
-        <StyledSideMenu
-            variant="persistent"
-            anchor="right"
-            open={open}>
-            <div>
-                <IconButton onClick={()=>{setOpen(false)}}>
-                    <CloseIcon />
-                </IconButton>
-            </div>
-            <Divider/>
-            <List>
-            {['Man', 'Woman', 'Kids', 'Sport', 'Sales'].map((text, index) => (
-                <ListItem button key={text}>
-                    <ListItemText primary={text} />
-                </ListItem>
-            ))}
-            </List>
-            <Divider/>
-            <List>
-            {['Sign In', 'Sign Up'].map((text, index) => (
-                <ListItem button key={text}>
-                    <ListItemText primary={text} />
-                </ListItem>
-            ))}
-            </List>
-            <List>
-                <ListItem button className="cart">
-                    <ListItemText><ShoppingCartIcon/> Shopping Cart</ListItemText>
-                </ListItem>
-            </List>
-        </StyledSideMenu>
-        <Backdrop open={open} onClick={()=>{setOpen(false)}} style={{zIndex: 5, backdropFilter: 'blur(2px)'}}>
-        </Backdrop>
-    </>
+            <StyledSideMenu
+                variant="persistent"
+                anchor="right"
+                open={open}>
+                <div>
+                    <IconButton onClick={()=>{setOpen(false)}}>
+                        <CloseIcon />
+                    </IconButton>
+                </div>
+                <Divider/>
+                <List>
+                {['Man', 'Woman', 'Kids', 'Sport', 'Sales'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+                </List>
+                <Divider/>
+                <List>
+                    <ListItem button>
+                        <ListItemText primary='Sign In' onClick={()=>toggleAuthWindow(true)}/>
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemText primary='Sign Up'/>
+                    </ListItem>
+                </List>
+                <List>
+                    <ListItem button className="cart">
+                        <ListItemText><ShoppingCartIcon/> Shopping Cart</ListItemText>
+                    </ListItem>
+                </List>
+            </StyledSideMenu>
+            <Backdrop open={open} onClick={()=>{setOpen(false)}} style={{zIndex: 5, backdropFilter: 'blur(2px)'}}>
+            </Backdrop>
+        </>
     )
 }

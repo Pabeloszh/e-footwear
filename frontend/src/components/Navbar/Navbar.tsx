@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavbarProps } from "./Navbar.interfaces";
 import { SideMenu } from "../SideMenu/"
 import { StyledNavbar } from "./Navbar.style"
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<NavbarProps> = ({authWindow, toggleAuthWindow}) => {
     const [open, setOpen] = React.useState(false);
     
     return (
@@ -28,7 +29,7 @@ export const Navbar: React.FC = () => {
                     </div>
                     <div className="auth">
                         <ShoppingCartIcon />
-                        <Button variant="outlined" color="inherit">Sign In</Button>
+                        <Button variant="outlined" color="inherit" onClick={()=>toggleAuthWindow(true)}>Sign In</Button>
                         <Button variant="contained" color="inherit" className="signup">Sign Up</Button>
                     </div>
                     <Typography className="logo-mobile" variant="h6">
@@ -39,7 +40,7 @@ export const Navbar: React.FC = () => {
                     </IconButton>
                 </Toolbar>
             </StyledNavbar>
-            <SideMenu open={open} setOpen={setOpen}/>
+            <SideMenu open={open} setOpen={setOpen}  authWindow={authWindow} toggleAuthWindow={toggleAuthWindow}/>
       </>
     )
 }

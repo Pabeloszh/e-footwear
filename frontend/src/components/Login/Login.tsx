@@ -1,4 +1,5 @@
 import React from 'react';
+import { LoginProps } from "./Login.interfaces"
 import { StyledLogin } from "./Login.style"
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -9,18 +10,20 @@ import Link from '@material-ui/core/Link';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import CloseIcon from '@material-ui/icons/Close';
 
-export const Login: React.FC = () => {
+export const Login: React.FC<LoginProps> = ({authWindow, toggleAuthWindow}) => {
     return (
-        <Dialog open={true} onClose={()=>console.log('close')} aria-labelledby="form-dialog-title">
-                <StyledLogin>
+        <Dialog open={authWindow} onClose={()=>console.log('close')} aria-labelledby="form-dialog-title">
+            <StyledLogin>
+                <CloseIcon onClick={() => toggleAuthWindow(false)}/>
                 <DialogTitle id="form-dialog-title">Sign in to your account</DialogTitle>
                 <DialogContent>
                 <form noValidate>
                     <TextField
                         variant="outlined"
                         margin="normal"
-                        required
+                        // required
                         fullWidth
                         id="email"
                         label="Email Address"
@@ -31,7 +34,7 @@ export const Login: React.FC = () => {
                     <TextField
                         variant="outlined"
                         margin="normal"
-                        required
+                        // required
                         fullWidth
                         name="password"
                         label="Password"
@@ -40,16 +43,16 @@ export const Login: React.FC = () => {
                         autoComplete="current-password"
                     />
                     <Grid container alignItems="center">
-                        <Grid item>
-                        <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                        />
+                        <Grid item xs={12} sm={6}>
+                            <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                            />
                         </Grid>
                         <Grid item xs>
-                        <Link href="#" variant="body2">
-                            Forgot password?
-                        </Link>
+                            <Link href="#" variant="body2">
+                                Forgot password?
+                            </Link>
                         </Grid>
                     </Grid>
                     
@@ -66,7 +69,7 @@ export const Login: React.FC = () => {
                     </Link>
                 </form>
                 </DialogContent>
-        </StyledLogin>
+            </StyledLogin>
         </Dialog>
     )
 }
