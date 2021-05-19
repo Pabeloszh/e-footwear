@@ -5,7 +5,8 @@ import {
   Route,
 } from "react-router-dom";
 import { Navbar } from './components/Navbar/';
-import { Home } from './components/Home/';
+import { Home } from './routes/Home/';
+import { Shop } from "./routes/Shop"
 import { Login } from './components/Login';
 import { Footer } from './components/Footer/';
 
@@ -20,8 +21,9 @@ const App: React.FC = () => {
               <Route exact path="/">
                 <Home />
               </Route>
-              {/* <Route path="/login">
-              </Route> */}
+              <Route path="/shop">
+                <Shop/>
+              </Route>
           </Switch>
         <Login authWindow={authWindow} toggleAuthWindow={toggleAuthWindow}/>
         <Footer/>
