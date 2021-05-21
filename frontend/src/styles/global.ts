@@ -8,4 +8,7 @@ export default createGlobalStyle`
         outline: 0;
         -webkit-tap-highlight-color: transparent;
     }
+    body{
+        background-color:#f6f6f6;
+    }
 `;
