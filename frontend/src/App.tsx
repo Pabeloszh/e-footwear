@@ -7,6 +7,7 @@ import {
 import { Navbar } from './components/Navbar/';
 import { Home } from './routes/Home/';
 import { Shop } from "./routes/Shop"
+import { Product } from './routes/Product';
 import { Login } from './components/Login';
 import { Footer } from './components/Footer/';
 
@@ -23,6 +24,9 @@ const App: React.FC = () => {
               </Route>
               <Route path="/shop">
                 <Shop/>
+              </Route>
+              <Route path="/man/name">
+                <Product/>
               </Route>
           </Switch>
         <Login authWindow={authWindow} toggleAuthWindow={toggleAuthWindow}/>
