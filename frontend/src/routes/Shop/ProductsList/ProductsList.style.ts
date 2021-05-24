@@ -2,8 +2,10 @@ import styled from "styled-components";
 
 export const StyledList = styled.div`
     width:830px;
+    margin-bottom:50px;
     display:grid;
     grid-template-columns: repeat(4, 200px);
+    grid-template-rows: repeat(auto-fill, 341px);
     row-gap:15px;
     column-gap:10px;
     @media only screen and (max-width:1440px){

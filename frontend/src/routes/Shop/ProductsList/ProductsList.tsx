@@ -10,6 +10,14 @@ export const ProductsList: React.FC = () => {
             <ProductCard/>
             <ProductCard/>
             <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
         </StyledList>
     )
 }

@@ -38,12 +38,12 @@ export const Newsletter: React.FC = () => {
     useEffect(() => {
         function watchScroll() {
             //@ts-ignore
-            window.addEventListener("scroll", () => (newsRef && (newsRef.current.style.backgroundPosition = `center ${-(newsRef.current.getBoundingClientRect().y) * 0.25 + 35}px`)))
+            window.addEventListener("scroll", () => (newsRef.current && (newsRef.current.style.backgroundPosition = `center ${-(newsRef.current.getBoundingClientRect().y) * 0.25 + 35}px`)))
         }
         watchScroll();
         return () => {
             //@ts-ignore
-            window.removeEventListener("scroll", () =>  (newsRef && (newsRef.current.style.backgroundPosition = `center ${-(newsRef.current.getBoundingClientRect().y) * 0.25}px`)))
+            window.removeEventListener("scroll", () =>  (newsRef.current && (newsRef.current.style.backgroundPosition = `center ${-(newsRef.current.getBoundingClientRect().y) * 0.25}px`)))
         };
       }, [newsRef]);
     

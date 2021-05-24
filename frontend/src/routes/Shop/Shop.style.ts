@@ -7,4 +7,13 @@ export const StyledShop = styled.div`
         justify-content:center;
     }
 
+    @media only screen and (max-width: 1024px){
+        position:relative;
+        padding-top:75px;
+
+        >div{
+            display:block;
+        }
+    }
+
 `;
