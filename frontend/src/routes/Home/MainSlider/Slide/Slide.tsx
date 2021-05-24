@@ -9,12 +9,12 @@ export const Slide: React.FC<SlideProps> = ({data}) => {
     useEffect(() => {
         function watchScroll() {
             //@ts-ignore
-            window.addEventListener("scroll", () => (slideRef && (slideRef.current.style.backgroundPosition = `center bottom ${(slideRef.current.getBoundingClientRect().y) * 0.45}px`)))
+            window.addEventListener("scroll", () => (slideRef.current && (slideRef.current.style.backgroundPosition = `center bottom ${(slideRef.current.getBoundingClientRect().y) * 0.45}px`)))
         }
         watchScroll();
         return () => {
             //@ts-ignore
-            window.removeEventListener("scroll", () =>  (slideRef && (slideRef.current.style.backgroundPosition = `center bottom ${(slideRef.current.getBoundingClientRect().y) * 0.45}px`)))
+            window.removeEventListener("scroll", () =>  (slideRef.current && (slideRef.current.style.backgroundPosition = `center bottom ${(slideRef.current.getBoundingClientRect().y) * 0.45}px`)))
         };
       }, [slideRef]);
 

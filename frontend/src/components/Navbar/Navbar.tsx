@@ -27,7 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({authWindow, toggleAuthWindow}) =>
                         <Typography variant="h6">
                             <span>e</span>FootWear
                         </Typography>
-                        <Button style={{color: '#F4511E'}}>Home</Button>
+                        <Button style={{color: '#F4511E'}} onClick={() => redirect('')}>Home</Button>
                         <Button color="inherit" onClick={() => redirect('shop')}>Man</Button>
                         <Button color="inherit">Woman</Button>
                         <Button color="inherit">Kids</Button>

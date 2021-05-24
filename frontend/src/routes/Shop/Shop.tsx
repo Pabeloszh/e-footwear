@@ -1,13 +1,15 @@
 import React from 'react';
 import { ProductsList } from './ProductsList'
-import {Filter} from './Filter/Filter'
+import { DesktopFilter } from './Filter/DesktopFilter'
+import { MobileFilter } from "./Filter/MobileFilter"
 import { StyledShop } from './Shop.style';
 
 export const Shop:React.FC = () => {
     return (
         <StyledShop>
             <div>
-                <Filter/>
+                <MobileFilter />
+                <DesktopFilter/>
                 <ProductsList/>
             </div>
         </StyledShop>
