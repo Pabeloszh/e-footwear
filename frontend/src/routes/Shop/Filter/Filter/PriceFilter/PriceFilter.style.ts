@@ -37,5 +37,18 @@ export const StyledPrice = styled.div`
     }
     .MuiSlider-root{
         color:#F4511E !important;
-    }      
+    }
+    @media only screen and (max-width: 1024px){
+        div{
+            /* width:50%; */
+            justify-content:flex-start;
+            div:first-child{
+                margin-right:15px;
+            }
+
+        }
+        .MuiSlider-root{
+            display:none;
+        }
+    }     
 `;

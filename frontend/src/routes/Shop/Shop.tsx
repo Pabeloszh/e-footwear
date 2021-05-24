@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductsList } from './ProductsList'
-import { Filter } from './Filter'
-import { MobileFilter } from "./MobileFilter"
+import { DesktopFilter } from './Filter/DesktopFilter'
+import { MobileFilter } from "./Filter/MobileFilter"
 import { StyledShop } from './Shop.style';
 
 export const Shop:React.FC = () => {
@@ -9,7 +9,7 @@ export const Shop:React.FC = () => {
         <StyledShop>
             <div>
                 <MobileFilter />
-                <Filter/>
+                <DesktopFilter/>
                 <ProductsList/>
             </div>
         </StyledShop>

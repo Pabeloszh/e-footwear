@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { Drawer } from '@material-ui/core'
-import { StyledFilter } from "./MobileFilter.style"
+import { Filter } from "../Filter"
 import TuneIcon from '@material-ui/icons/Tune';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import CancelIcon from '@material-ui/icons/Cancel';
+import { StyledFilter, StyledDrawer } from "./MobileFilter.style"
 
 export const MobileFilter:React.FC = () => {
     const [drawer, toggleDrawer] = useState<boolean>(false)
@@ -13,7 +15,9 @@ export const MobileFilter:React.FC = () => {
             window.addEventListener("scroll", () => {
                 if(filterNav.current){
                     //@ts-ignore
-                    if (window.pageYOffset + document.querySelector('.MuiAppBar-root')?.clientHeight >= filterNav.current.offsetTop) {
+                    console.log(window.pageYOffset + document.querySelector('.MuiAppBar-root')?.clientHeight, filterNav.current.offsetTop);
+                    //@ts-ignore
+                    if (window.pageYOffset + document.querySelector('.MuiAppBar-root')?.clientHeight >= 75) {
                         //@ts-ignore
                         filterNav.current.classList.add("sticky")
                     } else {
@@ -48,9 +52,10 @@ export const MobileFilter:React.FC = () => {
                     <TuneIcon onClick={()=>toggleDrawer(true)}/>
                 </div>
             </div>
-            <Drawer anchor='bottom' open={drawer} onClose={()=>toggleDrawer(false)}>
-                CHUJ
-            </Drawer>
+            <StyledDrawer variant="persistent" anchor='bottom' open={drawer} onClose={()=>toggleDrawer(false)}>
+                <CancelIcon onClick={()=>toggleDrawer(false)}/>
+                <Filter/>
+            </StyledDrawer>
         </StyledFilter>
     )
 }
