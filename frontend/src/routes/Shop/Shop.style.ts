@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledShop = styled.div`
-    padding-top:125px;
+    padding:125px 0 50px;
     >div{
         display:flex;
         justify-content:center;

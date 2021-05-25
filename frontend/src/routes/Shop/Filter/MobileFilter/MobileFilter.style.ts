@@ -19,6 +19,9 @@ export const StyledFilter = styled.div`
                 display:flex;
                 justify-content: space-between;
                 align-items: center;
+                h2{
+                    font-size: 18px;
+                }
             }
             .sticky {
                 position: fixed;
