@@ -1,4 +1,6 @@
 export interface NavbarProps {
-    authWindow: boolean;
-    toggleAuthWindow: (value: boolean | ((prevVar: boolean) => boolean)) => void,
+    loginWindow: boolean;
+    toggleLoginWindow: (value: boolean | ((prevVar: boolean) => boolean)) => void,
+    registerWindow: boolean;
+    toggleRegisterWindow: (value: boolean | ((prevVar: boolean) => boolean)) => void,
 }

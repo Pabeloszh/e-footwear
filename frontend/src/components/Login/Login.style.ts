@@ -16,7 +16,7 @@ export const StyledLogin = styled.div`
         padding-bottom:0;
         padding-top:35px;
     }
-    button{
+    .MuiButtonBase-root:not(:first-child){
         background-color:#F4511E;
         margin-bottom:15px;
     }
