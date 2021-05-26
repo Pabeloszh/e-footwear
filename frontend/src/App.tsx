@@ -12,6 +12,7 @@ import { Login } from './components/Login';
 import { Footer } from './components/Footer/';
 import { Cart } from './routes/Cart';
 import { Register } from './components/Register';
+import { Profile } from './routes/Profile';
 
 const App: React.FC = () => {
   const [loginWindow, toggleLoginWindow] = useState<boolean>(false);
@@ -33,6 +34,9 @@ const App: React.FC = () => {
               </Route>
               <Route path="/cart">
                 <Cart />
+              </Route>
+              <Route path="/user/name">
+                <Profile />
               </Route>
           </Switch>
         <Login loginWindow={loginWindow} toggleLoginWindow={toggleLoginWindow}/>
