@@ -10,7 +10,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen, authWindow, toggleAuthWindow}) => {
+export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen, loginWindow, toggleLoginWindow, registerWindow, toggleRegisterWindow}) => {
     return (
         <>
             <StyledSideMenu
@@ -33,10 +33,10 @@ export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen, authWindow, to
                 <Divider/>
                 <List>
                     <ListItem button>
-                        <ListItemText primary='Sign In' onClick={()=>toggleAuthWindow(true)}/>
+                        <ListItemText primary='Sign In' onClick={()=>toggleLoginWindow(true)}/>
                     </ListItem>
                     <ListItem button>
-                        <ListItemText primary='Sign Up'/>
+                        <ListItemText primary='Sign Up' onClick={()=>toggleRegisterWindow(true)}/>
                     </ListItem>
                 </List>
                 <List>

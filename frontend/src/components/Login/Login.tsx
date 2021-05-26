@@ -12,29 +12,26 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CloseIcon from '@material-ui/icons/Close';
 
-export const Login: React.FC<LoginProps> = ({authWindow, toggleAuthWindow}) => {
+export const Login: React.FC<LoginProps> = ({loginWindow, toggleLoginWindow}) => {
     return (
-        <Dialog open={authWindow} onClose={()=>console.log('close')} aria-labelledby="form-dialog-title">
+        <Dialog open={loginWindow} onClose={()=>console.log('close')} aria-labelledby="form-dialog-title">
             <StyledLogin>
-                <CloseIcon onClick={() => toggleAuthWindow(false)}/>
+                <CloseIcon onClick={() => toggleLoginWindow(false)}/>
                 <DialogTitle id="form-dialog-title">Sign in to your account</DialogTitle>
                 <DialogContent>
                 <form noValidate>
                     <TextField
                         variant="outlined"
                         margin="normal"
-                        // required
                         fullWidth
                         id="email"
                         label="Email Address"
                         name="email"
                         autoComplete="email"
-                        autoFocus
                     />
                     <TextField
                         variant="outlined"
                         margin="normal"
-                        // required
                         fullWidth
                         name="password"
                         label="Password"
@@ -73,5 +70,3 @@ export const Login: React.FC<LoginProps> = ({authWindow, toggleAuthWindow}) => {
         </Dialog>
     )
 }
-
-export default Login

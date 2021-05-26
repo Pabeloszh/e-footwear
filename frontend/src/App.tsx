@@ -11,14 +11,16 @@ import { Product } from './routes/Product';
 import { Login } from './components/Login';
 import { Footer } from './components/Footer/';
 import { Cart } from './routes/Cart';
+import { Register } from './components/Register';
 
 const App: React.FC = () => {
-  const [authWindow, toggleAuthWindow] = useState<boolean>(false);
+  const [loginWindow, toggleLoginWindow] = useState<boolean>(false);
+  const [registerWindow, toggleRegisterWindow] = useState<boolean>(false);
 
   return (
     <div className="App">
       <Router>
-        <Navbar authWindow={authWindow} toggleAuthWindow={toggleAuthWindow}/>
+        <Navbar loginWindow={loginWindow} toggleLoginWindow={toggleLoginWindow} registerWindow={registerWindow} toggleRegisterWindow={toggleRegisterWindow}/>
           <Switch>
               <Route exact path="/">
                 <Home />
@@ -33,7 +35,8 @@ const App: React.FC = () => {
                 <Cart />
               </Route>
           </Switch>
-        <Login authWindow={authWindow} toggleAuthWindow={toggleAuthWindow}/>
+        <Login loginWindow={loginWindow} toggleLoginWindow={toggleLoginWindow}/>
+        <Register registerWindow={registerWindow} toggleRegisterWindow={toggleRegisterWindow}/>
         <Footer/>
       </Router>
     </div>
