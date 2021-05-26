@@ -21,13 +21,29 @@ export const StyledNavbar = styled(AppBar)`
         .auth{
             display:flex;
             align-items:center;
+            position:relative;
             button{
                 margin: 0 6px;
             }
             .signup{
                 background-color: #F4511E;
             }
+            > span:first-child{
+                position:absolute;
+                background-color: #170312;
+                border-radius:50%;
+                width:15px;
+                height:15px;
+                text-align:center;
+                font-size:12px;
+                font-family: "Roboto","Helvetica","Arial",sans-serif;
+                padding:1px;
+                top:12.5px;
+                left:32.5px;
+                cursor: pointer;
+            }
             svg{
+                cursor: pointer;
                 padding:15px;
                 width:60px;
                 color:#fff;

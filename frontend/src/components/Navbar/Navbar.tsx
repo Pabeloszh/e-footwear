@@ -35,7 +35,8 @@ export const Navbar: React.FC<NavbarProps> = ({authWindow, toggleAuthWindow}) =>
                         <Button color="inherit">Sales</Button>
                     </div>
                     <div className="auth">
-                        <ShoppingCartIcon />
+                        <span>2</span>
+                        <ShoppingCartIcon onClick={() => redirect('cart')}/>
                         <Button variant="outlined" color="inherit" onClick={()=>toggleAuthWindow(true)}>Sign In</Button>
                         <Button variant="contained" color="inherit" className="signup">Sign Up</Button>
                     </div>

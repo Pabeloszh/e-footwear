@@ -10,6 +10,7 @@ import { Shop } from "./routes/Shop"
 import { Product } from './routes/Product';
 import { Login } from './components/Login';
 import { Footer } from './components/Footer/';
+import { Cart } from './routes/Cart';
 
 const App: React.FC = () => {
   const [authWindow, toggleAuthWindow] = useState<boolean>(false);
@@ -27,6 +28,9 @@ const App: React.FC = () => {
               </Route>
               <Route path="/man/name">
                 <Product/>
+              </Route>
+              <Route path="/cart">
+                <Cart />
               </Route>
           </Switch>
         <Login authWindow={authWindow} toggleAuthWindow={toggleAuthWindow}/>
