@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { useHistory } from 'react-router';
 
-export const Navbar: React.FC<NavbarProps> = ({authWindow, toggleAuthWindow}) => {
+export const Navbar: React.FC<NavbarProps> = ({loginWindow, toggleLoginWindow, registerWindow, toggleRegisterWindow}) => {
     const [open, setOpen] = React.useState(false);
 
     const history = useHistory();
@@ -36,8 +36,8 @@ export const Navbar: React.FC<NavbarProps> = ({authWindow, toggleAuthWindow}) =>
                     </div>
                     <div className="auth">
                         <ShoppingCartIcon />
-                        <Button variant="outlined" color="inherit" onClick={()=>toggleAuthWindow(true)}>Sign In</Button>
-                        <Button variant="contained" color="inherit" className="signup">Sign Up</Button>
+                        <Button variant="outlined" color="inherit" onClick={()=>toggleLoginWindow(true)}>Sign In</Button>
+                        <Button variant="contained" color="inherit" className="signup" onClick={()=>toggleRegisterWindow(true)}>Sign Up</Button>
                     </div>
                     <Typography className="logo-mobile" variant="h6">
                             <span>e</span>FootWear
@@ -47,7 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({authWindow, toggleAuthWindow}) =>
                     </IconButton>
                 </Toolbar>
             </StyledNavbar>
-            <SideMenu open={open} setOpen={setOpen}  authWindow={authWindow} toggleAuthWindow={toggleAuthWindow}/>
+            <SideMenu open={open} setOpen={setOpen}  loginWindow={loginWindow} toggleLoginWindow={toggleLoginWindow} registerWindow={registerWindow} toggleRegisterWindow={toggleRegisterWindow}/>
       </>
     )
 }
