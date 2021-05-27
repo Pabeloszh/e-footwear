@@ -8,6 +8,9 @@ export const StyledNavbar = styled(AppBar)`
         justify-content:space-between;
         .navigation{
             display:flex;
+            .active{
+                color: #F4511E;
+            }
             h6{
                 color:#fff;
                 letter-spacing:1px;

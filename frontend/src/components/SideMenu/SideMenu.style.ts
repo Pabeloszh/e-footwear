@@ -21,5 +21,8 @@ export const StyledSideMenu = styled(Drawer)`
             background-color:#F4511E;
             color:#fff;
         }
+        .active{
+            color: #F4511E;
+        }
     }
 `;
