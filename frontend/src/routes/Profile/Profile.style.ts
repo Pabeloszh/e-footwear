@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledProfile = styled.div`
     padding: 100px 0 50px;
     >div{
-        margin:auto;
+        margin:0 auto 25px auto;
         /* width: 1000px; */
     }
     @media only screen and (max-width:1024px){

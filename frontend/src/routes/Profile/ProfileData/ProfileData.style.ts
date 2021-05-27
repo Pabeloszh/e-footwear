@@ -8,9 +8,8 @@ export const StyledData = styled.div`
     justify-content:space-between;
     align-items:center;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
-    margin-bottom:25px !important;
     h2{
-        margin-right:15px;
+        font-family: 'Work Sans',sans-serif;
     
     }
    svg{
@@ -19,5 +18,10 @@ export const StyledData = styled.div`
    @media only screen and (max-width:1024px){
         width:auto;
         max-width:600px;
+        padding: 15px 20px;
+        h2{
+            font-size: 18px;
+            font-family: 'Work Sans',sans-serif;
+        }
    }
 `;

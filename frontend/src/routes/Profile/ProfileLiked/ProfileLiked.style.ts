@@ -23,10 +23,9 @@ export const StyledLiked = styled.div`
     @media only screen and (max-width:1024px){
         width:auto;
         max-width:600px;
+        padding: 15px 20px;
         h2{
             font-size: 18px;
-            font-family: 'Work Sans',sans-serif;
-            margin-bottom: 25px;
         }
     }
 `;

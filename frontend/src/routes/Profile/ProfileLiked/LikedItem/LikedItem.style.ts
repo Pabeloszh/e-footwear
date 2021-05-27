@@ -54,4 +54,38 @@ export const StyledItem = styled.div`
             }
         }
     }
+    @media only screen and (max-width:600px){
+        img{
+            min-width:85px;
+            width:100%;
+            max-width:100px;
+            height:125px;
+            object-fit: cover; 
+        }
+        .info{
+            padding:5px 0 5px 15px;
+            flex-direction:column;
+            min-width:100px;
+            div{
+                flex-direction:column;
+                div{
+                    margin:0 !important;
+                    p{
+                        margin-bottom:4px;
+                    }
+
+                }
+            }
+            > div:nth-child(1){
+                h4{
+                    text-overflow:ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+            h4{
+                margin:0;
+            }
+        }
+    }
 `;

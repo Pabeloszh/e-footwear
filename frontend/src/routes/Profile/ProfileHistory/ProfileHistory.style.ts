@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledHistory = styled.div`
     width:800px;
     background-color:#fff;
-    margin-left:50px;
     padding: 20px 35px;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     h2{
@@ -24,5 +23,9 @@ export const StyledHistory = styled.div`
     @media only screen and (max-width:1024px){
         width:auto;
         max-width:600px;
+        padding: 15px 20px;
+        h2{
+            font-size: 18px;
+        }
     }
 `;
