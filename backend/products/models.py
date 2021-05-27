@@ -32,6 +32,7 @@ GENDER_CHOICES= [
 class ProductVariant(models.Model):
     model = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
     color = models.ForeignKey(ProductColor, on_delete=models.SET_NULL, blank=True, null=True)
+    price = models.IntegerField(default=0)
     size = models.SmallIntegerField(blank=True, null=True)
     for_kids = models.BooleanField(blank=True, null=True)
     gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)
