@@ -9,14 +9,21 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom'
 
 export const Navbar: React.FC<NavbarProps> = ({loginWindow, toggleLoginWindow, registerWindow, toggleRegisterWindow}) => {
     const [open, setOpen] = React.useState(false);
+    const location = useLocation();
 
     const history = useHistory();
 
     const redirect = (path: string) => {
         history.push(`/${path}`);
+    }
+
+    const goTo = (path: string) => {
+        redirect(path);
+        setOpen(false);
     }
     
     return (
@@ -27,12 +34,10 @@ export const Navbar: React.FC<NavbarProps> = ({loginWindow, toggleLoginWindow, r
                         <Typography variant="h6">
                             <span>e</span>FootWear
                         </Typography>
-                        <Button style={{color: '#F4511E'}} onClick={() => redirect('')}>Home</Button>
-                        <Button color="inherit" onClick={() => redirect('shop')}>Man</Button>
-                        <Button color="inherit">Woman</Button>
-                        <Button color="inherit">Kids</Button>
-                        <Button color="inherit">Sport</Button>
-                        <Button color="inherit">Sales</Button>
+                        <Button color="inherit" className={'/' === location.pathname ? "active" : ""} onClick={() => redirect('')}>Home</Button>
+                        {['Man', 'Woman', 'Kids', 'Sport', 'Sales'].map((text) => (
+                            <Button color="inherit" onClick={() => goTo(`shop/${text.toLowerCase()}`)} className={`/shop/${text.toLowerCase()}` === location.pathname ? "active" : ""}>{text}</Button>
+                        ))}
                     </div>
                     <div className="auth">
                         <span>2</span>
