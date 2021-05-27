@@ -12,11 +12,12 @@ export const CartItem:React.FC = () => {
             <div className="info">
                 <div>
                     <h4>All Star Black Sneakers</h4>
+                    <p className="brand-mobile">Nike Sneakers</p>
                     <div>
                         <p>Color: Black</p>
                         <p>Size: 42</p>
                     </div>
-                    <p>Nike Sneakers</p>
+                    <p className="brand">Nike Sneakers</p>
                     <p>Remove</p>
                 </div>
                 <div>
