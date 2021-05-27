@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const StyledCart = styled.div`
     padding: 50px 0;
     padding-top:100px;
-    height:100vh;
     > div{
         width:1020px;
         margin:auto;
@@ -52,6 +51,38 @@ export const StyledCart = styled.div`
             }
             .MuiButtonBase-root{
                 background-color:#F4511E;
+            }
+        }
+    }
+    @media only screen and (max-width:1024px){
+        padding: 100px 25px 35px;
+        > div{
+            width:100%;
+            flex-direction:column;
+            .products, .summary{
+                margin:0 auto 25px auto;
+                padding: 15px 20px;
+                min-width:270px;
+                width:100%;
+                max-width:600px;
+                h2{
+                    font-size:18px;
+                }
+            }
+            .products{
+                > p{
+                    font-size:10px;
+                }
+            }
+            .summary{
+                >div{
+                    p{
+                        font-size:14px;
+                    }
+                    h3{
+                        font-size:16px;
+                    }
+                }
             }
         }
     }
