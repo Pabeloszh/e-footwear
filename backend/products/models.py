@@ -1,14 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models.fields import related
+
+GENDER_CHOICES= [
+    ('male', 'Male'),
+    ('female', 'Female'),
+]
+
 
 class Product(models.Model):
-    brand = models.CharField(max_length=30)
+    brand = models.CharField(max_length=40)
     model = models.CharField(max_length=40)
     price = models.IntegerField(default=0)
     date_added = models.DateTimeField(auto_now_add=True)
     desc = models.TextField(default=None, blank=True, null=True)
+    gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)
     for_kids = models.BooleanField(blank=True, null=True)
+    
     def __str__(self):
         return self.model
 
@@ -25,31 +34,14 @@ class Rating(models.Model):
 
 
 
-
-class ProductColor(models.Model):
-    color = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.color
-
 class ProductPictures(models.Model):
     model = models.ForeignKey(Product, related_name='pictures', on_delete=models.CASCADE, blank=True, null=True)
-    color = models.ForeignKey(ProductColor, on_delete=models.SET_NULL, blank=True, null=True)
+    color = models.CharField(max_length=30, default=None, null=True, blank=True)
     picture = models.ImageField(upload_to="pictures/product_pictures")
-
-
-
-
-GENDER_CHOICES= [
-    ('male', 'Male'),
-    ('female', 'Female'),
-]
-
-class ProductVariant(models.Model):
-    model = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
-    color = models.ForeignKey(ProductColor, on_delete=models.SET_NULL, blank=True, null=True)
-    size = models.SmallIntegerField(blank=True, null=True)
-    gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)
+    primary_placeholder = models.BooleanField(default=False)
+    color_placeholder = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.model)
+        return '%s: %s' % (self.color, self.picture)
+
+
