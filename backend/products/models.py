@@ -3,17 +3,15 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Product(models.Model):
+    brand = models.CharField(max_length=30)
     model = models.CharField(max_length=40)
-
+    price = models.IntegerField(default=0)
+    date_added = models.DateTimeField(auto_now_add=True)
+    desc = models.TextField(default=None, blank=True, null=True)
+    for_kids = models.BooleanField(blank=True, null=True)
     def __str__(self):
         return self.model
 
-class ProductDesc(models.Model):
-    model = models.OneToOneField(Product, on_delete=models.CASCADE, blank=True, null=True)
-    desc = models.TextField()
-
-    def __str__(self):
-        return self.model.model
 
 class Rating(models.Model):
     model = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
@@ -21,8 +19,12 @@ class Rating(models.Model):
     rate = models.SmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     message = models.TextField(max_length=1000)
 
+
     def __str__(self):
         return self.user
+
+
+
 
 class ProductColor(models.Model):
     color = models.CharField(max_length=30)
@@ -31,7 +33,7 @@ class ProductColor(models.Model):
         return self.color
 
 class ProductPictures(models.Model):
-    model = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
+    model = models.ForeignKey(Product, related_name='pictures', on_delete=models.CASCADE, blank=True, null=True)
     color = models.ForeignKey(ProductColor, on_delete=models.SET_NULL, blank=True, null=True)
     picture = models.ImageField(upload_to="pictures/product_pictures")
 
@@ -46,9 +48,7 @@ GENDER_CHOICES= [
 class ProductVariant(models.Model):
     model = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
     color = models.ForeignKey(ProductColor, on_delete=models.SET_NULL, blank=True, null=True)
-    price = models.IntegerField(default=0)
     size = models.SmallIntegerField(blank=True, null=True)
-    for_kids = models.BooleanField(blank=True, null=True)
     gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)
 
     def __str__(self):
