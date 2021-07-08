@@ -21,6 +21,16 @@ class Product(models.Model):
     def __str__(self):
         return self.model
 
+class ProductPictures(models.Model):
+    model = models.ForeignKey(Product, related_name='pictures', on_delete=models.CASCADE, blank=True, null=True)
+    color = models.CharField(max_length=30, default=None, null=True, blank=True)
+    picture = models.ImageField(upload_to="pictures/product_pictures")
+    primary_placeholder = models.BooleanField(default=False)
+    color_placeholder = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '%s: %s' % (self.color, self.picture)
+
 
 class Rating(models.Model):
     model = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
@@ -33,15 +43,5 @@ class Rating(models.Model):
         return self.user
 
 
-
-class ProductPictures(models.Model):
-    model = models.ForeignKey(Product, related_name='pictures', on_delete=models.CASCADE, blank=True, null=True)
-    color = models.CharField(max_length=30, default=None, null=True, blank=True)
-    picture = models.ImageField(upload_to="pictures/product_pictures")
-    primary_placeholder = models.BooleanField(default=False)
-    color_placeholder = models.BooleanField(default=False)
-
-    def __str__(self):
-        return '%s: %s' % (self.color, self.picture)
 
 
