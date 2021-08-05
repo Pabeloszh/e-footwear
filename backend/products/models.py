@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.fields import related
 
+
 GENDER_CHOICES= [
     ('male', 'Male'),
     ('female', 'Female'),
 ]
-
 
 class Product(models.Model):
     brand = models.CharField(max_length=40)
@@ -33,14 +33,15 @@ class ProductPictures(models.Model):
 
 
 class Rating(models.Model):
-    model = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
+    model = models.ForeignKey(Product, related_name='rating', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     rate = models.SmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     message = models.TextField(max_length=1000)
 
 
     def __str__(self):
-        return self.user
+        return self.user.username
+
 
 
 
