@@ -23,9 +23,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://efootwear.xyz"
 ]
 
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,8 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'store',
-    'products',
+    'apps.store',
+    'apps.products',
     'rest_framework',
     'corsheaders',
 ]

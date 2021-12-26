@@ -4,10 +4,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.fields import related
 
 
-GENDER_CHOICES= [
+GENDER_CHOICES = [
     ('male', 'Male'),
     ('female', 'Female'),
 ]
+
 
 class Product(models.Model):
     brand = models.CharField(max_length=40)
@@ -20,6 +21,7 @@ class Product(models.Model):
     
     def __str__(self):
         return self.model
+
 
 class ProductPictures(models.Model):
     model = models.ForeignKey(Product, related_name='pictures', on_delete=models.CASCADE, blank=True, null=True)
@@ -37,7 +39,6 @@ class Rating(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     rate = models.SmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     message = models.TextField(max_length=1000)
-
 
     def __str__(self):
         return self.user.username

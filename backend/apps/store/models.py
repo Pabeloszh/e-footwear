@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from products.models import Product
+from apps.products.models import Product
 import uuid
 
 
@@ -13,6 +13,7 @@ class Customer(models.Model):
     def __str__(self):
         return self.email
 
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
@@ -21,6 +22,7 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.customer)
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
@@ -33,6 +35,7 @@ class OrderItem(models.Model):
     @property
     def get_total(self):
         return self.product_variant.price * self.quantity
+
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
