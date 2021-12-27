@@ -12,9 +12,13 @@ class ProductPicturesSerializer(serializers.ModelSerializer):
 class ProductsSerializer(serializers.ModelSerializer):
 
     pictures = ProductPicturesSerializer(many=True, read_only=True)
-    
+    average_rating = serializers.SerializerMethodField()
+
+    def get_average_rating(self, obj):
+        return obj.average_rating
+
     class Meta:
         model = Product
         fields = ['brand', 'model', 'price',
                   'date_added', 'for_kids', 'gender',
-                  'pictures']
+                  'pictures', 'average_rating']

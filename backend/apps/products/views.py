@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from rest_framework import viewsets, mixins
 from django.db import models
 
@@ -14,6 +15,7 @@ class ProductsViewSet(viewsets.GenericViewSet,
     def get_queryset(self):
         queryset = self.queryset
 
+        # Filtering based on gender and for_kids field
         gender = self.request.query_params.get('gender')
         if gender:
             queryset = queryset.filter(gender=gender)
@@ -30,4 +32,4 @@ class ProductsViewSet(viewsets.GenericViewSet,
             )
         )
 
-        return queryset
+        return queryset.annotate(_average_rating=Avg('rating__rate'))

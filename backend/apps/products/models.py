@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db.models.fields import related
-
+from django.db.models import Avg
 
 GENDER_CHOICES = [
     ('male', 'Male'),
@@ -18,7 +17,13 @@ class Product(models.Model):
     desc = models.TextField(default=None, blank=True, null=True)
     gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)
     for_kids = models.BooleanField(blank=True, null=True)
-    
+
+    @property
+    def average_rating(self):
+        if hasattr(self, '_average_rating'):
+            return self._average_rating
+        return self.reviews.aggregate(Avg('rating'))
+
     def __str__(self):
         return self.model
 
