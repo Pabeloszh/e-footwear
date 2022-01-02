@@ -1,7 +1,8 @@
-from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
 from django.db.models import Avg
+from django.conf import settings
 
 GENDER_CHOICES = [
     ('male', 'Male'),
@@ -12,17 +13,20 @@ GENDER_CHOICES = [
 class Product(models.Model):
     brand = models.CharField(max_length=40)
     model = models.CharField(max_length=40)
+    color = models.CharField(max_length=20)
+    size = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     date_added = models.DateTimeField(auto_now_add=True)
     desc = models.TextField(default=None, blank=True, null=True)
     gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)
     for_kids = models.BooleanField(blank=True, null=True)
 
+
     @property
     def average_rating(self):
         if hasattr(self, '_average_rating'):
             return self._average_rating
-        return self.reviews.aggregate(Avg('rating'))
+        return self.rating.aggregate(Avg('rating'))
 
     def __str__(self):
         return self.model
@@ -41,12 +45,12 @@ class ProductPictures(models.Model):
 
 class Rating(models.Model):
     model = models.ForeignKey(Product, related_name='rating', on_delete=models.CASCADE, blank=True, null=True)
-    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
-    rate = models.SmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
+    rate = models.SmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     message = models.TextField(max_length=1000)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
 
 

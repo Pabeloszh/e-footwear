@@ -1,9 +1,10 @@
+from django.db import models
 from django.db.models import Avg
 from rest_framework import viewsets, mixins
-from django.db import models
 
-from .models import Product, ProductPictures
+
 from apps.products.serializers import ProductsSerializer
+from .models import Product, ProductPictures
 
 
 class ProductsViewSet(viewsets.GenericViewSet,
@@ -32,4 +33,7 @@ class ProductsViewSet(viewsets.GenericViewSet,
             )
         )
 
-        return queryset.annotate(_average_rating=Avg('rating__rate'))
+        # Add average rating field
+        queryset = queryset.annotate(_average_rating=Avg('rating__rate'))
+
+        return queryset
