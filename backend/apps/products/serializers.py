@@ -1,6 +1,13 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
+from .models import Product, ProductPictures, Rating
 
-from .models import Product, ProductPictures
+
+class RatingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Rating
+        fields = ['user', 'rate', 'message']
 
 
 class ProductPicturesSerializer(serializers.ModelSerializer):
@@ -20,6 +27,18 @@ class ProductsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['brand', 'model', 'color', 'size', 'price',
+        fields = ['brand', 'model', 'price',
                   'date_added', 'for_kids', 'gender',
-                  'pictures', 'average_rating']
+                  'average_rating', 'specs', 'pictures']
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+
+    pictures = ProductPicturesSerializer(many=True, read_only=True)
+    rating = RatingSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Product
+        fields = ['brand', 'model', 'desc', 'price',
+                  'date_added', 'for_kids', 'gender',
+                  'average_rating', 'specs', 'pictures', 'rating']

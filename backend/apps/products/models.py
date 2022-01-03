@@ -13,8 +13,7 @@ GENDER_CHOICES = [
 class Product(models.Model):
     brand = models.CharField(max_length=40)
     model = models.CharField(max_length=40)
-    color = models.CharField(max_length=20)
-    size = models.IntegerField(default=0)
+    specs = models.JSONField(default=None, null=True, blank=True)
     price = models.IntegerField(default=0)
     date_added = models.DateTimeField(auto_now_add=True)
     desc = models.TextField(default=None, blank=True, null=True)
@@ -26,10 +25,11 @@ class Product(models.Model):
     def average_rating(self):
         if hasattr(self, '_average_rating'):
             return self._average_rating
-        return self.rating.aggregate(Avg('rating'))
+        # return self.rating.aggregate(Avg('rating__rate'))
+
 
     def __str__(self):
-        return self.model
+        return '%s: %s' % (self.brand, self.model)
 
 
 class ProductPictures(models.Model):
@@ -50,7 +50,7 @@ class Rating(models.Model):
     message = models.TextField(max_length=1000)
 
     def __str__(self):
-        return self.user.email
+        return self.message
 
 
 

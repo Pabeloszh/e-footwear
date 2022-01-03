@@ -1,10 +1,10 @@
 from django.db import models
 from django.db.models import Avg
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, generics
 
 
-from apps.products.serializers import ProductsSerializer
-from .models import Product, ProductPictures
+from apps.products.serializers import ProductsSerializer, ProductDetailSerializer
+from .models import Product, ProductPictures, Rating
 
 
 class ProductsViewSet(viewsets.GenericViewSet,
@@ -37,3 +37,12 @@ class ProductsViewSet(viewsets.GenericViewSet,
         queryset = queryset.annotate(_average_rating=Avg('rating__rate'))
 
         return queryset
+
+
+class ProductDetailApiView(viewsets.GenericViewSet,
+                           mixins.RetrieveModelMixin):
+
+    queryset = Product.objects.all().annotate(_average_rating=Avg('rating__rate'))
+    serializer_class = ProductDetailSerializer
+
+
