@@ -1,13 +1,24 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Product, ProductPictures, Rating
+from apps.user.models import User
 
 
 class RatingSerializer(serializers.ModelSerializer):
 
+    # user = serializers.StringRelatedField()
+    name = serializers.ReadOnlyField(source="user.first_name")
+
     class Meta:
         model = Rating
-        fields = ['user', 'rate', 'message']
+        fields = ['user', 'name', 'rate', 'message']
+
+
+class CreateReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Rating
+        fields = ['user', 'model', 'rate', 'message']
 
 
 class ProductPicturesSerializer(serializers.ModelSerializer):
@@ -27,7 +38,7 @@ class ProductsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['brand', 'model', 'price',
+        fields = ['id', 'brand', 'model', 'price',
                   'date_added', 'for_kids', 'gender',
                   'average_rating', 'specs', 'pictures']
 
@@ -42,3 +53,5 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         fields = ['brand', 'model', 'desc', 'price',
                   'date_added', 'for_kids', 'gender',
                   'average_rating', 'specs', 'pictures', 'rating']
+
+
