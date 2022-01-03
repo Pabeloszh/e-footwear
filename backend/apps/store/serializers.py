@@ -6,10 +6,11 @@ from .models import Order, OrderItem, ShippingAddress
 class OrderItemSerializer(serializers.ModelSerializer):
 
     # order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all())
+    price = serializers.ReadOnlyField(source="product.price")
 
     class Meta:
         model = OrderItem
-        fields = ['id', 'order', 'product', 'size', 'color', 'quantity', 'date_added']
+        fields = ['id', 'order', 'product', 'price', 'size', 'color', 'quantity', 'date_added']
 
 
 class OrderSerializer(serializers.ModelSerializer):

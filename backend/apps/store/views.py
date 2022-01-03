@@ -41,7 +41,19 @@ class CreateOrderViewSet(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        response_data = serializer.data
+
+        total_price = 0
+        for product in response_data:
+            total_price += product["price"] * product["quantity"]
+
+        order.total_value = total_price
+        order.save()
+        additional_data = {"transaction_id": order.transaction_id,
+                           "total_price": total_price}
+
+        response_data.append(additional_data)
+        return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 
