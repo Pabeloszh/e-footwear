@@ -1,8 +1,10 @@
 from django.db import models
 from django.db.models import Avg
 from rest_framework import viewsets, mixins, generics
+from rest_framework import status
 
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from apps.products.serializers import ProductsSerializer, ProductDetailSerializer, CreateReviewSerializer
@@ -56,6 +58,10 @@ class CreateReviewViewSet(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         model = Product.objects.get(id=self.request.data['model'])
-        serializer.save(user=self.request.user, model=model)
+
+        if Rating.objects.filter(user=self.request.user).filter(model=model) is None:
+            serializer.save(user=self.request.user, model=model)
+
+
 
 
