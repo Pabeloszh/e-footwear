@@ -57,5 +57,5 @@ class CreateReviewViewSet(generics.CreateAPIView):
     def perform_create(self, serializer):
         model = Product.objects.get(id=self.request.data['model'])
 
-        if Rating.objects.filter(user=self.request.user).filter(model=model) is None:
+        if len(Rating.objects.filter(user=self.request.user).filter(model=model)) == 0:
             serializer.save(user=self.request.user, model=model)

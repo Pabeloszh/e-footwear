@@ -1,8 +1,9 @@
 from rest_framework import viewsets, mixins, generics, status
 from rest_framework.response import Response
 
+from django.db import models
 from .serializers import OrderSerializer, OrderItemSerializer
-from .models import Order
+from .models import Order, OrderItem
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -19,10 +20,17 @@ class ListOrdersViewSet(viewsets.GenericViewSet,
         queryset = self.queryset
         queryset = queryset.filter(customer=self.request.user)
 
+        queryset = queryset.prefetch_related(
+            models.Prefetch(
+                "orderitem",
+                queryset=OrderItem.objects.all()
+            )
+        )
+
         return queryset
 
 
-class CreateOrderViewSet(generics.ListCreateAPIView):
+class CreateOrderViewSet(generics.CreateAPIView):
 
     serializer_class = OrderItemSerializer
     authentication_classes = (JWTAuthentication,)
@@ -35,7 +43,6 @@ class CreateOrderViewSet(generics.ListCreateAPIView):
 
         for item in data:
             item["order"] = order.id
-            print(data)
 
         serializer = self.get_serializer(data=data, many=True)
         serializer.is_valid(raise_exception=True)

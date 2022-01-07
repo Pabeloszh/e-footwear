@@ -5,19 +5,34 @@ from .models import Order, OrderItem, ShippingAddress
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
-    # order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all())
     price = serializers.ReadOnlyField(source="product.price")
 
     class Meta:
         model = OrderItem
-        fields = ['id', 'order', 'product', 'price', 'size', 'color', 'quantity', 'date_added']
+        fields = ['id', 'order', 'product',
+                  'price', 'size', 'color',
+                  'quantity', 'date_added']
+
+
+class OrderItemShowSerializer(serializers.ModelSerializer):
+
+    price = serializers.ReadOnlyField(source="product.price")
+    brand = serializers.ReadOnlyField(source="product.brand")
+    model = serializers.ReadOnlyField(source="product.model")
+
+    class Meta:
+        model = OrderItem
+        fields = ['id', 'order', 'brand',
+                  'model', 'price', 'size',
+                  'color', 'quantity', 'date_added']
 
 
 class OrderSerializer(serializers.ModelSerializer):
 
-    orderitem = OrderItemSerializer(many=True)
+    orderitem = OrderItemShowSerializer(many=True, read_only=True)
 
     class Meta:
         model = Order
-        fields = ['id', 'customer', 'orderitem', 'date_ordered', 'complete', 'transaction_id']
-
+        fields = ['id', 'customer', 'orderitem',
+                  'date_ordered', 'complete', 'transaction_id',
+                  'total_value']

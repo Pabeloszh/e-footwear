@@ -17,12 +17,15 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
-    size = models.CharField(max_length=2)
+    order = models.ForeignKey(Order, related_name="orderitem", on_delete=models.SET_NULL, blank=True, null=True)
+    product = models.ForeignKey(Product, related_name="orderitem", on_delete=models.SET_NULL, blank=True, null=True)
+    size = models.IntegerField()
     color = models.CharField(max_length=25)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.order, self.product.model, self.quantity, self.product.price
 
 
 class ShippingAddress(models.Model):

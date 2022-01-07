@@ -39,7 +39,7 @@ class ProductPictures(models.Model):
     color_placeholder = models.BooleanField(default=False)
 
     def __str__(self):
-        return '%s: %s' % (self.color, self.picture)
+        return '%s: %s' % (self.color, self.model)
 
 
 class Rating(models.Model):

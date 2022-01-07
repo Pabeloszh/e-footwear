@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'apps.products',
     'rest_framework',
     'corsheaders',
+    'drf_spectacular',
 ]
 
 
@@ -45,7 +46,16 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'E-Footwear API',
+    'DESCRIPTION': 'API for e-footwear',
+    'VERSION': '1.0.0',
+    # OTHER SETTINGS
 }
 
 SIMPLE_JWT = {
