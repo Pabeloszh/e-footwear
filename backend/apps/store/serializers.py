@@ -27,12 +27,22 @@ class OrderItemShowSerializer(serializers.ModelSerializer):
                   'color', 'quantity', 'date_added']
 
 
+
+
+
+class ShippingAddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ShippingAddress
+        fields = ['customer', 'order', 'address', 'city', 'vovoideship', 'zip_code']
+
+
 class OrderSerializer(serializers.ModelSerializer):
 
     orderitem = OrderItemShowSerializer(many=True, read_only=True)
-
+    shipping_address_details = ShippingAddressSerializer(many=True, read_only=True)
     class Meta:
         model = Order
         fields = ['id', 'customer', 'orderitem',
                   'date_ordered', 'complete', 'transaction_id',
-                  'total_value']
+                  'total_value', 'shipping_address_details']

@@ -25,12 +25,12 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.order, self.product.model, self.quantity, self.product.price
+        return self.product.model
 
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(Order, related_name="shipping_address_details", on_delete=models.SET_NULL, blank=True, null=True)
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=200, null=False)
     vovoideship = models.CharField(max_length=200, null=False)

@@ -2,8 +2,8 @@ from rest_framework import viewsets, mixins, generics, status
 from rest_framework.response import Response
 
 from django.db import models
-from .serializers import OrderSerializer, OrderItemSerializer
-from .models import Order, OrderItem
+from .serializers import OrderSerializer, OrderItemSerializer, ShippingAddressSerializer
+from .models import Order, OrderItem, ShippingAddress
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -62,6 +62,17 @@ class CreateOrderViewSet(generics.CreateAPIView):
         response_data.append(additional_data)
         return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
 
-
-
+#
+# class ShippingAddressViewSet(generics.GenericAPIView,
+#                              mixins.CreateModelMixin,
+#                              mixins.ListModelMixin):
+#
+#     serializer_class = ShippingAddressSerializer
+#     authentication_classes = (JWTAuthentication,)
+#     permission_classes = (IsAuthenticated,)
+#     queryset = ShippingAddress.objects.all()
+#
+#     def get_queryset(self):
+#         queryset = self.queryset
+#         queryset = queryset.objects.get()
 
