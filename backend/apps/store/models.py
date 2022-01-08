@@ -22,7 +22,6 @@ class OrderItem(models.Model):
     size = models.IntegerField()
     color = models.CharField(max_length=25)
     quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.product.model
@@ -30,7 +29,10 @@ class OrderItem(models.Model):
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
-    order = models.ForeignKey(Order, related_name="shipping_address_details", on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(Order, related_name="shipping_address_details",
+                              on_delete=models.SET_NULL,
+                              blank=True, null=True)
+
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=200, null=False)
     vovoideship = models.CharField(max_length=200, null=False)

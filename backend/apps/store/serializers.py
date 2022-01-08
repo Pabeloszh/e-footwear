@@ -11,7 +11,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = ['id', 'order', 'product',
                   'price', 'size', 'color',
-                  'quantity', 'date_added']
+                  'quantity']
 
 
 class OrderItemShowSerializer(serializers.ModelSerializer):
@@ -24,10 +24,7 @@ class OrderItemShowSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = ['id', 'order', 'brand',
                   'model', 'price', 'size',
-                  'color', 'quantity', 'date_added']
-
-
-
+                  'color', 'quantity']
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
@@ -41,6 +38,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     orderitem = OrderItemShowSerializer(many=True, read_only=True)
     shipping_address_details = ShippingAddressSerializer(many=True, read_only=True)
+
     class Meta:
         model = Order
         fields = ['id', 'customer', 'orderitem',

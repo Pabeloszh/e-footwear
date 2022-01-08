@@ -57,22 +57,19 @@ class CreateOrderViewSet(generics.CreateAPIView):
         order.total_value = total_price
         order.save()
         additional_data = {"transaction_id": order.transaction_id,
-                           "total_price": total_price}
+                           "total_price": total_price,
+                           "user": self.request.user.id}
 
         response_data.append(additional_data)
+
         return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
 
-#
-# class ShippingAddressViewSet(generics.GenericAPIView,
-#                              mixins.CreateModelMixin,
-#                              mixins.ListModelMixin):
-#
-#     serializer_class = ShippingAddressSerializer
-#     authentication_classes = (JWTAuthentication,)
-#     permission_classes = (IsAuthenticated,)
-#     queryset = ShippingAddress.objects.all()
-#
-#     def get_queryset(self):
-#         queryset = self.queryset
-#         queryset = queryset.objects.get()
+
+class ShippingAddressViewSet(viewsets.GenericViewSet,
+                             mixins.CreateModelMixin):
+
+    serializer_class = ShippingAddressSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
 
