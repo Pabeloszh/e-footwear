@@ -33,12 +33,16 @@ class ListOrdersViewSet(viewsets.GenericViewSet,
 class CreateOrderViewSet(generics.CreateAPIView):
 
     serializer_class = OrderItemSerializer
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,)
 
     def create(self, request, *args, **kwargs):
-        order = Order.objects.create(customer=self.request.user,
-                                     complete=False)
+
+        print(self.request.user)
+        if self.request.user == "AnonymousUser":
+            order = Order.objects.create(customer=self.request.user,
+                                         complete=False)
+        else:
+            order = Order.objects.create(complete=False)
+
         data = request.data
 
         for item in data:
@@ -57,8 +61,10 @@ class CreateOrderViewSet(generics.CreateAPIView):
         order.total_value = total_price
         order.save()
         additional_data = {"transaction_id": order.transaction_id,
-                           "total_price": total_price,
-                           "user": self.request.user.id}
+                           "total_price": total_price}
+
+        if self.request.user != "AnonymousUser":
+            additional_data["user"] = self.request.user.id
 
         response_data.append(additional_data)
 
