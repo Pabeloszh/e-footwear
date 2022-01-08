@@ -20,12 +20,19 @@ class ListOrdersViewSet(viewsets.GenericViewSet,
         queryset = self.queryset
         queryset = queryset.filter(customer=self.request.user)
 
-        queryset = queryset.prefetch_related(
-            models.Prefetch(
-                "orderitem",
-                queryset=OrderItem.objects.all()
-            )
-        )
+        return queryset
+
+
+class ListOrderByNumber(viewsets.GenericViewSet,
+                        mixins.ListModelMixin):
+    serializer_class = OrderSerializer
+    queryset = Order.objects.all()
+
+    def get_queryset(self):
+        queryset = self.queryset
+
+        order_number = self.request.query_params.get("order_number")
+        queryset = queryset.filter(detail_id=order_number)
 
         return queryset
 
@@ -36,12 +43,11 @@ class CreateOrderViewSet(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
 
-        print(self.request.user)
-        if self.request.user == "AnonymousUser":
-            order = Order.objects.create(customer=self.request.user,
-                                         complete=False)
+        if request.user.is_anonymous:
+            order = Order.objects.create()
+
         else:
-            order = Order.objects.create(complete=False)
+            order = Order.objects.create(customer=self.request.user)
 
         data = request.data
 
@@ -60,10 +66,10 @@ class CreateOrderViewSet(generics.CreateAPIView):
 
         order.total_value = total_price
         order.save()
-        additional_data = {"transaction_id": order.transaction_id,
+        additional_data = {"transaction_id": order.detail_id,
                            "total_price": total_price}
 
-        if self.request.user != "AnonymousUser":
+        if request.user.is_anonymous is not True:
             additional_data["user"] = self.request.user.id
 
         response_data.append(additional_data)

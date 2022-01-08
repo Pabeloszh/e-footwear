@@ -9,7 +9,7 @@ class Order(models.Model):
     customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
-    transaction_id = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True, editable=False)
+    detail_id = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True)
     total_value = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
