@@ -1,4 +1,3 @@
-from rest_framework.routers import DefaultRouter
 from django.urls import path
 from apps.products import views
 
@@ -12,7 +11,9 @@ urlpatterns = [
          views.ProductDetailViewSet.as_view({'get': 'retrieve'}),
          name='product_detail'),
 
-    path('rate_product',
+    path('rate_product/',
          views.CreateReviewViewSet.as_view(),
-         name='create_review')
+         name='create_review'),
+
+    path('populate/', views.populate_db, name="populate_db"),
 ]

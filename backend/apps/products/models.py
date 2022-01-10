@@ -20,7 +20,6 @@ class Product(models.Model):
     gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)
     for_kids = models.BooleanField(blank=True, null=True)
 
-
     @property
     def average_rating(self):
         if hasattr(self, '_average_rating'):
@@ -50,8 +49,3 @@ class Rating(models.Model):
 
     def __str__(self):
         return self.message
-
-
-
-
-
