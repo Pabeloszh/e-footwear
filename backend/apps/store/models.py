@@ -43,7 +43,12 @@ class ShippingAddress(models.Model):
 
     order = models.ForeignKey(Order, related_name="shipping_address_details",
                               on_delete=models.SET_NULL,
-                              blank=True, null=True)
+                              blank=True, null=True, unique=True)
+
+    email = models.EmailField(null=True, blank=True, default=None)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=9)
 
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=200, null=False)

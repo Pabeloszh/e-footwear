@@ -32,7 +32,9 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShippingAddress
-        fields = ['customer', 'order', 'address', 'city', 'vovoideship', 'zip_code']
+        fields = ['email', 'first_name', 'last_name',
+                  'phone_number', 'order', 'address',
+                  'city', 'vovoideship', 'zip_code']
 
 
 class OrderSerializer(serializers.ModelSerializer):

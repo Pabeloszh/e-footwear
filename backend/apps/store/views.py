@@ -70,7 +70,8 @@ class CreateOrderViewSet(generics.CreateAPIView):
         order.total_value = total_price
         order.save()
         additional_data = {"detail_id": order.detail_id,
-                           "total_price": total_price}
+                           "total_price": total_price,
+                           "order_id": order.id}
 
         if request.user.is_anonymous is not True:
             additional_data["user"] = self.request.user.id
