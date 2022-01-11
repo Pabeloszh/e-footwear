@@ -15,6 +15,7 @@ class Product(models.Model):
     model = models.CharField(max_length=40)
     specs = models.JSONField(default=None, null=True, blank=True)
     price = models.IntegerField(default=0)
+    discount_price = models.IntegerField(null=True, blank=True, default=None)
     date_added = models.DateTimeField(auto_now_add=True)
     desc = models.TextField(default=None, blank=True, null=True)
     gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)

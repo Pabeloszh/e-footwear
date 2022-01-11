@@ -62,11 +62,14 @@ class CreateOrderViewSet(generics.CreateAPIView):
 
         total_price = 0
         for product in response_data:
-            total_price += product["price"] * product["quantity"]
+            if product["discount_price"] is None:
+                total_price += product["price"] * product["quantity"]
+            else:
+                total_price += product["discount_price"] * product["quantity"]
 
         order.total_value = total_price
         order.save()
-        additional_data = {"transaction_id": order.detail_id,
+        additional_data = {"detail_id": order.detail_id,
                            "total_price": total_price}
 
         if request.user.is_anonymous is not True:
@@ -83,5 +86,3 @@ class ShippingAddressViewSet(viewsets.GenericViewSet,
     serializer_class = ShippingAddressSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
-
-
