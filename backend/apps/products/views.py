@@ -1,19 +1,18 @@
 import random
 
-from .product_filters import ProductsFilter
-
-from django_filters.rest_framework import DjangoFilterBackend
 from django.db import models
-from django.db.models import Avg
+from django.db.models import Avg, FloatField, F
+from django.db.models.functions import Coalesce
 from django.shortcuts import redirect
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, mixins, generics
 from rest_framework.pagination import PageNumberPagination
-
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from apps.products.serializers import ProductsSerializer, ProductDetailSerializer, CreateReviewSerializer
 from .models import Product, ProductPictures, Rating
+from .product_filters import ProductsFilter
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -30,18 +29,8 @@ class ProductsViewSet(viewsets.GenericViewSet,
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductsFilter
 
-
     def get_queryset(self):
         queryset = self.queryset
-
-        # Filtering based on gender and for_kids field
-        # gender = self.request.query_params.get('gender')
-        # if gender:
-        #     queryset = queryset.filter(gender=gender)
-        #
-        # kids = self.request.query_params.get('kids')
-        # if kids and kids == "Y":
-        #     queryset = queryset.filter(for_kids=True)
 
         # Prefetch product pictures only with primary placeholder set True
         queryset = queryset.prefetch_related(
@@ -52,8 +41,8 @@ class ProductsViewSet(viewsets.GenericViewSet,
         )
 
         # Add average rating field
-        queryset = queryset.annotate(_average_rating=Avg('rating__rate'))
-
+        queryset = queryset.annotate(_average_rating=Coalesce(Avg(F('rating__rate'),
+                                                                  output_field=FloatField()), 0.0))
         return queryset
 
 
@@ -61,12 +50,6 @@ class ProductDetailViewSet(viewsets.GenericViewSet,
                            mixins.RetrieveModelMixin):
     queryset = Product.objects.all().annotate(_average_rating=Avg('rating__rate'))
     serializer_class = ProductDetailSerializer
-
-    def get_queryset(self):
-        queryset = self.queryset
-        xd = Product.objects.get(id=37)
-        print(xd.specs['sizes'])
-        return self.queryset
 
 
 class CreateReviewViewSet(generics.CreateAPIView):
