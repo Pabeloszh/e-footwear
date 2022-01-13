@@ -88,9 +88,10 @@ def populate_db(request):
 
     sizes_pool_male = [39, 40, 41, 42, 43, 44, 45, 46]
     sizes_pool_female = [35, 36, 37, 38, 39, 40, 41, 42]
-    brands_pool = ["Nike", "Adidas", 'New Balance', 'Lasocki', 'Lacoste']
+    brands_pool = ["Nike", "Adidas", 'New Balance', 'Puma', 'Reebok']
     models_pool = ['random_1', 'random_2', 'random_3', 'random_4', 'random_5']
     colors_pool = ["red", "black", "blue", "purple", "orange", "white", "magenta"]
+    type_pool = ['hiking', 'running', 'sneakers', 'basketball']
     pic = ProductPictures.objects.get(id=1)
 
     description = "Lorem ipsum dolor sit amet consectetur, adipisicing" \
@@ -134,6 +135,7 @@ def populate_db(request):
                                       sizes=random_sizes_range,
                                       colors=random_colors,
                                       for_kids=kds,
+                                      type=random.choice(type_pool),
                                       desc=description,
                                       discount_price=random_discount
                                       )

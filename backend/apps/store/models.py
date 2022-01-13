@@ -41,9 +41,9 @@ class ShippingAddress(models.Model):
                                  on_delete=models.SET_NULL,
                                  blank=True, null=True)
 
-    order = models.ForeignKey(Order, related_name="shipping_address_details",
-                              on_delete=models.SET_NULL,
-                              blank=True, null=True, unique=True)
+    order = models.OneToOneField(Order, related_name="shipping_address_details",
+                                 on_delete=models.SET_NULL,
+                                 blank=True, null=True)
 
     email = models.EmailField(null=True, blank=True, default=None)
     first_name = models.CharField(max_length=255)

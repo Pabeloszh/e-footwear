@@ -10,10 +10,18 @@ GENDER_CHOICES = [
     ('female', 'Female'),
 ]
 
+TYPE_CHOICES = [
+    ('hiking', 'hiking'),
+    ('running', 'running'),
+    ('sneakers', 'sneakers'),
+    ('basketball', 'basketball')
+]
+
 
 class Product(models.Model):
     brand = models.CharField(max_length=40)
     model = models.CharField(max_length=40)
+    type = models.CharField(choices=TYPE_CHOICES, max_length=30, blank=True, null=True, default=None)
     price = models.FloatField(default=0)
     colors = ArrayField(models.CharField(max_length=20), blank=True, null=True, default=list)
     sizes = ArrayField(models.IntegerField(), blank=True, null=True, default=list)

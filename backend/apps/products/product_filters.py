@@ -15,12 +15,14 @@ class ProductsFilter(filters.FilterSet):
     colors = CharArrayFilter(lookup_expr='overlap')
     sizes = CharArrayFilter(lookup_expr='overlap')
 
-
     class Meta:
         model = Product
         fields = {
             'brand': ['in'],
             'model': ['in'],
+            'type': ['in'],
+            'gender': ['contains'],
+            'for_kids': ['contains']
 
         }
 
