@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Avg
@@ -13,9 +14,10 @@ GENDER_CHOICES = [
 class Product(models.Model):
     brand = models.CharField(max_length=40)
     model = models.CharField(max_length=40)
-    specs = models.JSONField(default=None, null=True, blank=True)
-    price = models.IntegerField(default=0)
-    discount_price = models.IntegerField(null=True, blank=True, default=None)
+    price = models.FloatField(default=0)
+    colors = ArrayField(models.CharField(max_length=20), blank=True, null=True, default=list)
+    sizes = ArrayField(models.IntegerField(), blank=True, null=True, default=list)
+    discount_price = models.FloatField(null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     desc = models.TextField(default=None, blank=True, null=True)
     gender = models.CharField(choices=GENDER_CHOICES, blank=True, null=True, max_length=10)
