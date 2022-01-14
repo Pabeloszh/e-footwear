@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from .models import Product
+from .models import Product, Rating
 
 
 # For postgres ArrayField filtering
@@ -11,12 +11,14 @@ class ProductsFilter(filters.FilterSet):
 
     min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
     max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
-    discount_price = filters.NumberFilter(field_name='discount_price', lookup_expr='isnull', exclude=True)
+    discount_price = filters.NumberFilter(field_name='discount_price',
+                                          lookup_expr='isnull',
+                                          exclude=True)
 
     colors = CharArrayFilter(lookup_expr='overlap')
     sizes = CharArrayFilter(lookup_expr='overlap')
 
-    o = filters.OrderingFilter(
+    ord = filters.OrderingFilter(
         fields=(
             ('price', 'price'),
             ('date_added', 'date_added'),
@@ -37,3 +39,16 @@ class ProductsFilter(filters.FilterSet):
         }
 
 
+class ProductRatingFilter(filters.FilterSet):
+
+    ord = filters.OrderingFilter(
+        fields=(
+            ('rate', 'rate')
+        )
+    )
+
+    class Meta:
+        model = Rating
+        fields = {
+            'model_id': ['in']
+        }

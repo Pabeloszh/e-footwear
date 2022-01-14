@@ -37,10 +37,6 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
-    customer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                 on_delete=models.SET_NULL,
-                                 blank=True, null=True)
-
     order = models.OneToOneField(Order, related_name="shipping_address_details",
                                  on_delete=models.SET_NULL,
                                  blank=True, null=True)

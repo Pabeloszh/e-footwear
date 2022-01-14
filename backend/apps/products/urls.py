@@ -15,5 +15,9 @@ urlpatterns = [
          views.CreateReviewViewSet.as_view(),
          name='create_review'),
 
+    path('product_reviews/',
+         views.RatingViewSet.as_view({'get': 'list'}),
+         name='list_reviews'),
+
     path('populate/', views.populate_db, name="populate_db"),
 ]

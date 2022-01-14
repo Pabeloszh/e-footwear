@@ -10,9 +10,10 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from apps.products.serializers import ProductsSerializer, ProductDetailSerializer, CreateReviewSerializer
+from apps.products.serializers import ProductsSerializer, ProductDetailSerializer,\
+                                      CreateReviewSerializer, RatingSerializer
 from .models import Product, ProductPictures, Rating
-from .product_filters import ProductsFilter
+from .product_filters import ProductsFilter, ProductRatingFilter
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -50,6 +51,15 @@ class ProductDetailViewSet(viewsets.GenericViewSet,
                            mixins.RetrieveModelMixin):
     queryset = Product.objects.all().annotate(_average_rating=Avg('rating__rate'))
     serializer_class = ProductDetailSerializer
+
+
+class RatingViewSet(viewsets.GenericViewSet,
+                    mixins.ListModelMixin):
+
+    serializer_class = RatingSerializer
+    queryset = Rating.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductRatingFilter
 
 
 class CreateReviewViewSet(generics.CreateAPIView):

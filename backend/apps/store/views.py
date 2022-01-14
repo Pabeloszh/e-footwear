@@ -85,5 +85,3 @@ class ShippingAddressViewSet(viewsets.GenericViewSet,
                              mixins.CreateModelMixin):
 
     serializer_class = ShippingAddressSerializer
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,)

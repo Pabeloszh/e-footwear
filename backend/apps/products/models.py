@@ -55,8 +55,9 @@ class ProductPictures(models.Model):
 class Rating(models.Model):
     model = models.ForeignKey(Product, related_name='rating', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=120)
+    message = models.TextField(max_length=350)
     rate = models.SmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    message = models.TextField(max_length=1000)
 
     def __str__(self):
         return self.message

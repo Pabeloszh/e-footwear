@@ -6,12 +6,9 @@ from apps.user.models import User
 
 class RatingSerializer(serializers.ModelSerializer):
 
-    # user = serializers.StringRelatedField()
-    name = serializers.ReadOnlyField(source="user.first_name")
-
     class Meta:
         model = Rating
-        fields = ['user', 'name', 'rate', 'message']
+        fields = ['model', 'title', 'message', 'rate']
 
 
 class CreateReviewSerializer(serializers.ModelSerializer):
@@ -46,10 +43,9 @@ class ProductsSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(serializers.ModelSerializer):
 
     pictures = ProductPicturesSerializer(many=True, read_only=True)
-    rating = RatingSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
         fields = ['brand', 'model', 'desc', 'price', 'discount_price',
                   'date_added', 'for_kids', 'gender',
-                  'average_rating', 'specs', 'pictures', 'rating']
+                  'average_rating', 'colors', 'sizes', 'pictures']
