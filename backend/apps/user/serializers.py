@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-
+from .models import LikedProducts
+from apps.products.serializers import ProductsSerializer
+from apps.products.models import Product
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -28,3 +30,21 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
+
+class ModifiedProductSerializer(ProductsSerializer):
+
+    class Meta:
+        model = Product
+        fields = ['brand', 'model', 'price', 'discount_price', 'pictures']
+
+
+class AddLikedProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LikedProducts
+        fields = ['user', 'product']
+
+
+class LikedProductsSerializer(AddLikedProductSerializer):
+
+    product = ModifiedProductSerializer(read_only=True)

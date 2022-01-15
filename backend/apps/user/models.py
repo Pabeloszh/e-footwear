@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
-
+from django.conf import settings
+from apps.products.models import Product
 
 class UserManager(BaseUserManager):
 
@@ -35,3 +36,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
+
+class LikedProducts(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="liked_by",
+                             on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name="liked_product", on_delete=models.CASCADE)
