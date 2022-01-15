@@ -34,7 +34,7 @@ class ProductsFilter(filters.FilterSet):
             'model': ['in'],
             'type': ['in'],
             'gender': ['contains'],
-            'for_kids': ['contains'],
+            'for_kids': ['exact'],
 
         }
 

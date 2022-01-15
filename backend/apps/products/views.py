@@ -60,6 +60,7 @@ class RatingViewSet(viewsets.GenericViewSet,
     queryset = Rating.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductRatingFilter
+    pagination_class = StandardResultsSetPagination
 
 
 class CreateReviewViewSet(generics.CreateAPIView):
