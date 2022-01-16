@@ -11,10 +11,10 @@ GENDER_CHOICES = [
 ]
 
 TYPE_CHOICES = [
-    ('hiking', 'hiking'),
-    ('running', 'running'),
+    ('sport', 'sport'),
+    ('skateboarding', 'skateboarding'),
     ('sneakers', 'sneakers'),
-    ('basketball', 'basketball')
+    ('lifestyle', 'lifestyle')
 ]
 
 

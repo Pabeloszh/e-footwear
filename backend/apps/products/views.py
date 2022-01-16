@@ -85,7 +85,7 @@ def populate_db(request):
     brands_pool = ["Nike", "Adidas", 'New Balance', 'Puma', 'Reebok']
     models_pool = ['random_1', 'random_2', 'random_3', 'random_4', 'random_5']
     colors_pool = ["red", "black", "blue", "purple", "orange", "white", "magenta"]
-    type_pool = ['hiking', 'running', 'sneakers', 'basketball']
+    type_pool = ['lifestyle', 'skateboarding', 'sport', 'sneakers']
     pic = ProductPictures.objects.get(id=1)
 
     description = "Lorem ipsum dolor sit amet consectetur, adipisicing" \
@@ -115,7 +115,7 @@ def populate_db(request):
         random_discount = random.randint(1, 3)
 
         if random_discount == 3:
-            random_discount = random_price / 2
+            random_discount = random_price / 2 + 9.99
 
         else:
             random_discount = None

@@ -4,6 +4,7 @@ from .models import LikedProducts
 from apps.products.serializers import ProductsSerializer
 from apps.products.models import Product
 
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:

@@ -32,9 +32,10 @@ class ProductsFilter(filters.FilterSet):
         fields = {
             'brand': ['in'],
             'model': ['in'],
-            'type': ['in'],
-            'gender': ['contains'],
+            'gender': ['exact'],
             'for_kids': ['exact'],
+            'type': ['exact'],
+
 
         }
 

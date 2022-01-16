@@ -16,6 +16,8 @@ class Order(models.Model):
     total_value = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
+        if self.customer is None:
+            return str(self.detail_id)
         return str(self.customer)
 
 
