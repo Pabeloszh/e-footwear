@@ -5,8 +5,9 @@ from .models import Order, OrderItem, ShippingAddress
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
-    price = serializers.ReadOnlyField(source="product.price")
+    price = serializers.ReadOnlyField()
     discount_price = serializers.ReadOnlyField(source="product.discount_price")
+    order = serializers.IntegerField(source='order.id', required=False, read_only=True)
 
     class Meta:
         model = OrderItem
@@ -41,7 +42,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     orderitem = OrderItemShowSerializer(many=True, read_only=True)
     shipping_address_details = ShippingAddressSerializer(many=True, read_only=True)
-
+    total_value = serializers.IntegerField(read_only=True)
     class Meta:
         model = Order
         fields = ['id', 'customer', 'orderitem',
