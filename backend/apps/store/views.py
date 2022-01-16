@@ -9,20 +9,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
-# class ListOrdersViewSet(viewsets.GenericViewSet,
-#                         mixins.ListModelMixin):
-
-#     serializer_class = OrderSerializer
-#     queryset = Order.objects.all()
-#     permission_classes = (IsAuthenticated,)
-#     authentication_classes = (JWTAuthentication,)
-
-#     def get_queryset(self):
-#         queryset = self.queryset
-#         queryset = queryset.filter(customer=self.request.user)
-
-#         return queryset
-
 class ListOrdersViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     permissions_classes = (IsAuthenticated, )
