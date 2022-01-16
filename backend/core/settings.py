@@ -1,9 +1,11 @@
 import os
+import sys
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(os.path.join(BASE_DIR, 'backend/apps/'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -129,7 +131,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': "efootweardb",
         'USER': 'admin',
-        'PASSWORD': '',
+        'PASSWORD': 'dev-use-only',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
