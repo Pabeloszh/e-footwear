@@ -1,19 +1,24 @@
 from django.urls import path
 
-from . import views
+from apps.store.views import OrderViewSet, CreateOrderViewSet,\
+                             ShippingAddressViewSet, ListOrderByNumber
 
 
 urlpatterns = [
     path('orders/',
-         views.OrderViewSet.as_view({'get': 'list', 'post': 'create'}),
+         OrderViewSet.as_view({'get': 'list'}),
          name='all_orders'),
 
-    path('add_shipping/',
-         views.ShippingAddressViewSet.as_view({'post': 'create'}),
+    path('orders/create_order/',
+         CreateOrderViewSet.as_view({'post': 'create'}),
+         name='all_orders'),
+
+    path('orders/add_shipping/',
+         ShippingAddressViewSet.as_view({'post': 'create'}),
          name='add_shipping'),
 
-    path('order_detail/',
-         views.ListOrderByNumber.as_view({'get': 'list'}),
+    path('orders/order_detail/',
+         ListOrderByNumber.as_view({'get': 'list'}),
          name='order_track'),
 
 ]

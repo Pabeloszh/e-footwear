@@ -1,11 +1,10 @@
-from rest_framework import viewsets, mixins, generics, status
-from rest_framework.response import Response
-
-from django.db import models
-from .serializers import OrderSerializer, OrderItemSerializer, ShippingAddressSerializer
-from .models import Order, OrderItem, ShippingAddress
+from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from .models import Order
+from .serializers import OrderSerializer, OrderItemSerializer, ShippingAddressSerializer
 
 
 class OrderViewSet(viewsets.GenericViewSet,
@@ -23,8 +22,14 @@ class OrderViewSet(viewsets.GenericViewSet,
 
         return queryset
 
+
+class CreateOrderViewSet(viewsets.GenericViewSet,
+                         mixins.CreateModelMixin):
+    serializer_class = OrderItemSerializer
+
     def create(self, request, *args, **kwargs):
-        serializer = OrderItemSerializer(data=request.data, many=True)
+
+        serializer = self.serializer_class(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
         total_price = 0
         for item in serializer.data:
@@ -38,7 +43,7 @@ class OrderViewSet(viewsets.GenericViewSet,
             order = Order.objects.create(customer=self.request.user,
                                          total_value=total_price)
         serializer.save(order=order)
-        return Response(serializer.data)
+        return Response(serializer.data + [{'order_id': order.id, 'detail_id': order.detail_id}])
 
 
 class ListOrderByNumber(viewsets.GenericViewSet,
@@ -48,7 +53,6 @@ class ListOrderByNumber(viewsets.GenericViewSet,
 
     def get_queryset(self):
         queryset = self.queryset
-
         order_number = self.request.query_params.get("order_number")
         queryset = queryset.filter(detail_id=order_number)
 

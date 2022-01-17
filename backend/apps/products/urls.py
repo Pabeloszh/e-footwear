@@ -1,23 +1,30 @@
 from django.urls import path
-from apps.products import views
+from apps.products.views import ProductsViewSet, ProductDetailViewSet,\
+                                CreateReviewViewSet, RatingViewSet
+
+from .dev_utils import populate_db, populate_with_users, populate_reviews
 
 
 urlpatterns = [
     path('shoes/',
-         views.ProductsViewSet.as_view({'get': 'list'}),
+         ProductsViewSet.as_view({'get': 'list'}),
          name='products_all'),
 
     path('shoe/<pk>',
-         views.ProductDetailViewSet.as_view({'get': 'retrieve'}),
+         ProductDetailViewSet.as_view({'get': 'retrieve'}),
          name='product_detail'),
 
     path('rate_product/',
-         views.CreateReviewViewSet.as_view(),
+         CreateReviewViewSet.as_view(),
          name='create_review'),
 
     path('product_reviews/',
-         views.RatingViewSet.as_view({'get': 'list'}),
+         RatingViewSet.as_view({'get': 'list'}),
          name='list_reviews'),
 
-    path('populate/', views.populate_db, name="populate_db"),
+
+
+    path('populate/', populate_db, name="populate_db"),
+    path('populate_users/', populate_with_users, name="populate_users"),
+    path('populate_reviews/', populate_reviews, name="populate_reviews"),
 ]

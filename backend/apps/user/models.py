@@ -41,3 +41,6 @@ class LikedProducts(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="liked_by",
                              on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name="liked_product", on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['user', 'product']

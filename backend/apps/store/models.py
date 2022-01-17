@@ -22,7 +22,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name="orderitem",
+    order = models.ForeignKey(Order, related_name="_order",
                               on_delete=models.SET_NULL,
                               blank=True, null=True)
 

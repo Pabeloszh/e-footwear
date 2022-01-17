@@ -51,5 +51,5 @@ class ProductRatingFilter(filters.FilterSet):
     class Meta:
         model = Rating
         fields = {
-            'model_id': ['in']
+            'model_id': ['exact']
         }
