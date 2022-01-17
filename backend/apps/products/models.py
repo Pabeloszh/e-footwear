@@ -59,6 +59,8 @@ class Rating(models.Model):
     message = models.TextField(max_length=350)
     rate = models.SmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
 
+    class Meta:
+        unique_together = ['user', 'model']
     def __str__(self):
         return self.message
 
