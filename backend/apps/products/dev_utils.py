@@ -17,7 +17,7 @@ def populate_db(request):
     models_pool = ['random_1', 'random_2', 'random_3', 'random_4', 'random_5']
     colors_pool = ["red", "black", "blue", "purple", "orange", "white", "magenta"]
     type_pool = ['lifestyle', 'skateboarding', 'sport', 'sneakers']
-    pic = ProductPictures.objects.get(id=1)
+    pic = ProductPictures.objects.filter().first()
 
     description = "Lorem ipsum dolor sit amet consectetur, adipisicing" \
                   " elit. Vero velit atque tempora vitae ipsum veritatis" \

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from apps.products.models import Product
+from apps.products.models import Product, ProductPictures
 from django.conf import settings
 import uuid
 
@@ -22,7 +22,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name="_order",
+    order = models.ForeignKey(Order, related_name="order_items",
                               on_delete=models.SET_NULL,
                               blank=True, null=True)
 
@@ -36,6 +36,11 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return self.product.model
+
+    @property
+    def primary_picture(self):
+        pic = ProductPictures.objects.filter(model=self.product).get(primary_placeholder=True)
+        return str(pic.picture.url)
 
 
 class ShippingAddress(models.Model):

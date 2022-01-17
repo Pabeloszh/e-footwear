@@ -9,12 +9,13 @@ class OrderItemSerializer(serializers.ModelSerializer):
     discount_price = serializers.ReadOnlyField(source="product.discount_price")
     brand = serializers.ReadOnlyField(source="product.brand")
     model = serializers.ReadOnlyField(source="product.model")
+    primary_picture = serializers.ReadOnlyField()
 
     class Meta:
         model = OrderItem
         fields = ['id', 'order', 'brand', 'model', 'product', 'discount_price',
                   'price', 'size', 'color',
-                  'quantity']
+                  'quantity', 'primary_picture']
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
@@ -28,11 +29,11 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
 
-    orderitem = OrderItemSerializer(many=True, read_only=True)
+    order_items = OrderItemSerializer(many=True, read_only=True)
     shipping_address_details = ShippingAddressSerializer(read_only=True)
 
     class Meta:
         model = Order
-        fields = ['id', 'customer', 'orderitem',
+        fields = ['id', 'customer', 'order_items',
                   'date_ordered', 'complete', 'detail_id',
                   'total_value', 'shipping_address_details']

@@ -37,9 +37,6 @@ class Product(models.Model):
             return self._average_rating
         # return self.rating.aggregate(Avg('rating__rate'))
 
-    def __str__(self):
-        return '%s: %s' % (self.brand, self.model)
-
 
 class ProductPictures(models.Model):
     model = models.ForeignKey(Product, related_name='pictures', on_delete=models.CASCADE, blank=True, null=True)
