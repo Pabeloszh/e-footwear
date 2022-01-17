@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.user.views import CreateUserView, ManageUserView, LikedProductsView, AddLikedProduct
+from apps.user.views import CreateUserView, ManageUserView, LikedProductsView
 
 urlpatterns = [
     path('users/create_user/',
@@ -10,11 +10,8 @@ urlpatterns = [
          ManageUserView.as_view(),
          name='manage_user'),
 
-    path('users/liked_products_get/',
-         LikedProductsView.as_view(),
+    path('users/liked_products/',
+         LikedProductsView.as_view({'get': 'list', 'post': 'create'}),
          name='liked_products'),
 
-    path('users/liked_products_add/',
-         AddLikedProduct.as_view(),
-         name='liked_products_add')
 ]

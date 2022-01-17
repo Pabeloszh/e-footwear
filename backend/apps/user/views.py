@@ -1,6 +1,9 @@
 from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework import viewsets
+from rest_framework import mixins
 
 from .models import LikedProducts
 from .serializers import UserSerializer, LikedProductsSerializer, AddLikedProductSerializer
@@ -22,7 +25,9 @@ class ManageUserView(RetrieveUpdateAPIView):
         return self.request.user
 
 
-class LikedProductsView(ListAPIView):
+class LikedProductsView(viewsets.GenericViewSet,
+                        mixins.CreateModelMixin,
+                        mixins.ListModelMixin):
 
     serializer_class = LikedProductsSerializer
     queryset = LikedProducts.objects.all()
@@ -37,16 +42,11 @@ class LikedProductsView(ListAPIView):
 
         return queryset
 
-
-class AddLikedProduct(CreateAPIView):
-
-    serializer_class = AddLikedProductSerializer
-
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,)
-
     def create(self, request, *args, **kwargs):
         data = request.data
-        data["user"] = self.request.user.id
-        serializer = self.get_serializer(data=data)
-        return super().create(request, *args, **kwargs)
+        data['user'] = self.request.user.id
+        serializer = AddLikedProductSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data)

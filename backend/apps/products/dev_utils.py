@@ -1,6 +1,5 @@
 import random
 
-import requests
 from django.shortcuts import redirect
 from apps.user.models import User
 from apps.products.models import ProductPictures, Product
@@ -103,15 +102,3 @@ def populate_reviews(request):
                                   title="Lorem ipsum dolor sit amet.",
                                   message=message)
     return redirect("list_reviews")
-
-
-
-
-
-
-
-
-
-
-
-
