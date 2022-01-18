@@ -2,10 +2,11 @@ from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, ListAP
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework import mixins
-
+from django.shortcuts import get_object_or_404
 from .models import LikedProducts
+from apps.products.models import Product
 from .serializers import UserSerializer, LikedProductsSerializer, AddLikedProductSerializer
 
 
@@ -27,7 +28,9 @@ class ManageUserView(RetrieveUpdateAPIView):
 
 class LikedProductsView(viewsets.GenericViewSet,
                         mixins.CreateModelMixin,
-                        mixins.ListModelMixin):
+                        mixins.ListModelMixin,
+                        mixins.DestroyModelMixin,
+                        ):
 
     serializer_class = LikedProductsSerializer
     queryset = LikedProducts.objects.all()
@@ -50,3 +53,12 @@ class LikedProductsView(viewsets.GenericViewSet,
         serializer.save()
 
         return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        data = request.data
+        prod = Product.objects.get(id=data['product'])
+
+        to_deletion = LikedProducts.objects.filter(product=prod, user=self.request.user)
+        to_deletion.delete()
+        return Response("DELETED", status=status.HTTP_202_ACCEPTED)
+

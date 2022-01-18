@@ -36,7 +36,7 @@ class ModifiedProductSerializer(ProductsSerializer):
 
     class Meta:
         model = Product
-        fields = ['brand', 'model', 'price', 'discount_price', 'pictures']
+        fields = ['id', 'brand', 'model', 'price', 'discount_price', 'pictures']
 
 
 class AddLikedProductSerializer(serializers.ModelSerializer):

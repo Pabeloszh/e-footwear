@@ -11,7 +11,7 @@ urlpatterns = [
          name='manage_user'),
 
     path('users/liked_products/',
-         LikedProductsView.as_view({'get': 'list', 'post': 'create'}),
+         LikedProductsView.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'}),
          name='liked_products'),
 
 ]

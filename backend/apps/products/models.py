@@ -55,6 +55,7 @@ class Rating(models.Model):
     title = models.CharField(max_length=120)
     message = models.TextField(max_length=350)
     rate = models.SmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ['user', 'model']
