@@ -43,9 +43,20 @@ class ProductsSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(serializers.ModelSerializer):
 
     pictures = ProductPicturesSerializer(many=True, read_only=True)
+    is_reviewed = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         fields = ['brand', 'model', 'desc', 'price', 'discount_price',
                   'date_added', 'for_kids', 'gender',
-                  'average_rating', 'colors', 'sizes', 'pictures']
+                  'average_rating', 'colors', 'sizes', 'pictures', 'is_reviewed']
+
+    def get_is_reviewed(self, obj):
+        if self.context['request'].user.is_anonymous:
+            return False
+        else:
+            user = self.context['request'].user
+            is_reviewed = Rating.objects.filter(model=obj, user=user)
+            if not is_reviewed:
+                return False
+        return True

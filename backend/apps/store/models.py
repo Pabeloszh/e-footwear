@@ -13,7 +13,7 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     detail_id = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True)
-    total_value = models.IntegerField(null=True, blank=True)
+    total_value = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         if self.customer is None:

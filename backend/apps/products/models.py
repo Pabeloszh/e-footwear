@@ -59,6 +59,7 @@ class Rating(models.Model):
 
     class Meta:
         unique_together = ['user', 'model']
+        
     def __str__(self):
         return self.message
 

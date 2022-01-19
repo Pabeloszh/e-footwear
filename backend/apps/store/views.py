@@ -31,7 +31,7 @@ class CreateOrderViewSet(viewsets.GenericViewSet,
 
         serializer = self.serializer_class(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
-        total_price = 0
+        total_price = 18.99
         for item in serializer.data:
             if item["discount_price"] is None:
                 total_price += item["price"] * item["quantity"]
