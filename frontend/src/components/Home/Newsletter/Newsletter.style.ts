@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import newsletterr from "../../../img/newsletter.webp"
 
 export const StyledNewsletter = styled.div`
-    padding: 80px 10%;
-    width:100%;
-    height:600px;
     position:relative;
     overflow:hidden;
+    width:100%;
+    height:600px;
+    padding: 80px 10%;
     .image{
         position:absolute;
         top:0;
@@ -28,38 +28,38 @@ export const StyledNewsletter = styled.div`
         background-color: #00000073;
     }
     .container{
-        position:absolute;
         z-index:2;
+        position:absolute;
         width:80%;
         text-align:center;
         .title{
+            opacity:0;
             transition: all 800ms ease-in;
             transform: translateY(-15px);
-            opacity:0;
             h2{
-                color:#f4511e;
+                margin-bottom:10px;
                 font-size:48px;
                 font-family: 'Work Sans', sans-serif;
                 letter-spacing:1px;
-                margin-bottom:10px;
+                color:#f4511e;
             }
             h4{
-                color:#fff;
+                margin-bottom:35px;
                 font-family: "Roboto", "Helvetica", "Arial", sans-serif;
                 font-size:24px;
-                margin-bottom:35px;
+                color:#fff;
             }
         }
         form{
+            opacity:0;
             transition: all 1000ms ease-in;
             transform: translateY(-15px);
-            opacity:0;
-            width:60%;
-            height: 250px;
-            margin:auto;
             display:flex;
             flex-direction:column;
             justify-content:space-between;
+            margin:auto;
+            width:60%;
+            height: 250px;
             color:#fff !important;
             input, div{
                 color:#fff !important;
@@ -86,10 +86,9 @@ export const StyledNewsletter = styled.div`
             }
         }
         .animated{
-            transform: translateY(0);
             opacity:1 !important;
+            transform: translateY(0);
         }
-
     }
 
     @media only screen and (max-width: 768px){
@@ -100,8 +99,8 @@ export const StyledNewsletter = styled.div`
                     letter-spacing:1px;
                 }
                 h4{
-                    font-size:16px;
                     margin-bottom:25px;
+                    font-size:16px;
                 }
             }
             form{

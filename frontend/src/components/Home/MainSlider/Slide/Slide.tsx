@@ -1,9 +1,9 @@
-import React, {useEffect, useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import { SlideProps } from "./Slide.interfaces"
 import { Button } from '@material-ui/core'
 import { StyledSlide } from "./Slide.style"
 
-export const Slide: React.FC<SlideProps> = ({data}) => {
+export const Slide = ({data} : SlideProps) => {
     const slideRef = useRef(null);
 
     useEffect(() => {

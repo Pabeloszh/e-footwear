@@ -1,12 +1,11 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 import Carousel from "react-multi-carousel";
-import { ProductCard } from "../../../components/ProductCard/"
-import { StyledProductsCarousel } from "./ProductsCarousel.style";
+import { ProductCard } from "../../ProductCard"
 import "react-multi-carousel/lib/styles.css";
+import { StyledProductsCarousel } from "./ProductsCarousel.style";
 
 const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 14
     },
@@ -80,6 +79,7 @@ export const ProductsCarousel: React.FC = () => {
             </div>      
             {/*@ts-ignore*/} 
             <Carousel responsive={responsive}>
+                {/* <ProductCard />
                 <ProductCard />
                 <ProductCard />
                 <ProductCard />
@@ -90,8 +90,7 @@ export const ProductsCarousel: React.FC = () => {
                 <ProductCard />
                 <ProductCard />
                 <ProductCard />
-                <ProductCard />
-                <ProductCard />
+                <ProductCard /> */}
             </Carousel>
         </StyledProductsCarousel>
 

@@ -3,8 +3,8 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { StyledNewsletter } from "./Newsletter.style"
 import { Button } from '@material-ui/core';
+import { StyledNewsletter } from "./Newsletter.style"
 
 export const Newsletter: React.FC = () => {
     const newsRef = useRef(null);

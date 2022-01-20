@@ -1,45 +1,44 @@
 import styled from 'styled-components';
 
 export const StyledMainSlider = styled.div`
-    min-height: 490px;
-    height: 85vh;
     position:relative;
-    /* padding: 1% 0; */
+    height: 85vh;
+    min-height: 490px;
     .slide{
-        visibility: hidden;
         opacity: 0;
         z-index:0;
+        visibility: hidden;
         .content{
-            visibility: hidden;
             opacity: 0;
+            visibility: hidden;
             transform:translate(-50%, calc(-50% + 30px));
 
         }
     }
     .active{
-        visibility: visible;
         opacity: 1;
         z-index:1;
+        visibility: visible;
         .content{
-            visibility: visible;
             opacity: 1;
+            visibility: visible;
             transform:translate(-50%, -50%);
 
         }
     }
     .dots{
-        cursor:pointer;
-        position:absolute;
-        bottom: 10px;
-        left:50%;
-        transform:translateX(-50%);
         z-index:3;
+        position:absolute;
+        left:50%;
+        bottom: 10px;
         display:flex;
+        transform:translateX(-50%);
+        cursor:pointer;
         p{
+            transition: opacity 1000ms ease-in-out;
             margin: 0 15px;
             font-size:65px;
             color:#fff;
-            transition: opacity 1000ms ease-in-out;
         }
     }
     @media only screen and (max-width: 425px){
