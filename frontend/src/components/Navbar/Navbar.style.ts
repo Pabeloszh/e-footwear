@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
 
 export const StyledNavbar = styled(AppBar)`
-    background-color: #170312 !important;
     z-index: 1001 !important;
+    background-color: #170312 !important;
     .MuiToolbar-root{
         justify-content:space-between;
         .navigation{
@@ -12,47 +12,41 @@ export const StyledNavbar = styled(AppBar)`
                 color: #F4511E;
             }
             h6{
+                margin-right:20px;
                 color:#fff;
                 letter-spacing:1px;
                 font-family: 'Faster One', cursive;
-                margin-right:20px;
                 span{
                     color: #F4511E;
                 }
             }
         }
         .auth{
+            position:relative;
             display:flex;
             align-items:center;
-            position:relative;
             button{
                 margin: 0 6px;
             }
             .signup{
                 background-color: #F4511E;
             }
-            > span:first-child{
-                position:absolute;
-                background-color: #170312;
-                border-radius:50%;
-                width:15px;
-                height:15px;
-                text-align:center;
-                font-size:12px;
-                font-family: "Roboto","Helvetica","Arial",sans-serif;
-                padding:1px;
-                top:12.5px;
-                left:32.5px;
-                cursor: pointer;
-            }
-            svg{
-                cursor: pointer;
-                padding:15px;
+            .cart-icon{
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                margin-right: 6px;
                 width:60px;
-                color:#fff;
-                margin-right: 15px;
                 height:64px;
+                padding:15px;
                 background-color:#F4511E;
+                cursor: pointer;
+                .MuiBadge-colorPrimary{
+                    background-color: #170312;
+                }
+                svg{
+                    color:#fff;
+                }
             }
         }
         .menu-icon, .logo-mobile{
@@ -62,10 +56,10 @@ export const StyledNavbar = styled(AppBar)`
             color:#F4511E;
         }
         .logo-mobile{
-            color:#fff;
+            margin-right:20px;
             letter-spacing:1px;
             font-family: 'Faster One', cursive;
-            margin-right:20px;
+            color:#fff;
             span{
                 color: #F4511E;
             }

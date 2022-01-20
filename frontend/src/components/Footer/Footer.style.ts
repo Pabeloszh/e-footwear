@@ -29,8 +29,8 @@ export const StyledFooter = styled.div`
                 letter-spacing:0.5px;
             }
             .MuiListItem-root{
-                margin-left:-15px;
                 margin-right:80px;
+                margin-left:-15px;
                 padding:0 5px;
             }
         }
@@ -38,17 +38,17 @@ export const StyledFooter = styled.div`
             margin-right:25px;
         }
         .container:last-child{
-            width:40%;
             display:flex;
+            width:40%;
         }
     }
     .MuiDivider-root{
         background-color:#f4511e;
     }
     .footer-end{
-        margin-top:25px;
         display:flex;
         justify-content:space-between;
+        margin-top:25px;
         p{
             font-family: "Roboto", "Helvetica", "Arial", sans-serif;
             font-size:12px; 
@@ -69,8 +69,8 @@ export const StyledFooter = styled.div`
                 margin-bottom:25px;
             }
             .container:last-child{
-                width:100%;
                 justify-content:space-between;
+                width:100%;
             }
         }
         .footer-end{

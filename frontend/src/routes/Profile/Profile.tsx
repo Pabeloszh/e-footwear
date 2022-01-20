@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyledProfile } from "./Profile.style"
-import { ProfileData } from './ProfileData';
-import { ProfileLiked } from './ProfileLiked';
-import { ProfileHistory } from './ProfileHistory';
+import { ProfileData } from '../../components/Profile/ProfileData';
+import { ProfileLiked } from '../../components/Profile/ProfileLiked';
+import { ProfileHistory } from '../../components/Profile/ProfileHistory';
 
 export const Profile:React.FC = () => {
     return (
