@@ -15,7 +15,7 @@ export const MobileFilter:React.FC = () => {
             window.addEventListener("scroll", () => {
                 if(filterNav.current){
                     //@ts-ignore
-                    console.log(window.pageYOffset + document.querySelector('.MuiAppBar-root')?.clientHeight, filterNav.current.offsetTop);
+                    // console.log(window.pageYOffset + document.querySelector('.MuiAppBar-root')?.clientHeight, filterNav.current.offsetTop);
                     //@ts-ignore
                     if (window.pageYOffset + document.querySelector('.MuiAppBar-root')?.clientHeight >= 75) {
                         //@ts-ignore
