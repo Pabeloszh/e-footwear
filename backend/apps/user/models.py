@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
 from django.conf import settings
 from apps.products.models import Product
 
+
 class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None):

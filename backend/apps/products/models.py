@@ -5,11 +5,13 @@ from django.db import models
 from django.db.models import Avg
 from django.conf import settings
 
+"""Choices for product gender"""
 GENDER_CHOICES = [
     ('male', 'Male'),
     ('female', 'Female'),
 ]
 
+"""Choices for shoe type"""
 TYPE_CHOICES = [
     ('sport', 'sport'),
     ('skateboarding', 'skateboarding'),
@@ -19,6 +21,7 @@ TYPE_CHOICES = [
 
 
 class Product(models.Model):
+    """Product model"""
     brand = models.CharField(max_length=40)
     model = models.CharField(max_length=40)
     type = models.CharField(choices=TYPE_CHOICES, max_length=30, blank=True, null=True, default=None)
@@ -33,12 +36,14 @@ class Product(models.Model):
 
     @property
     def average_rating(self):
+        """Calculate average rating of the product based on Rating model"""
         if hasattr(self, '_average_rating'):
             return self._average_rating
         # return self.rating.aggregate(Avg('rating__rate'))
 
 
 class ProductPictures(models.Model):
+    """Pictures for products"""
     model = models.ForeignKey(Product, related_name='pictures', on_delete=models.CASCADE, blank=True, null=True)
     color = models.CharField(max_length=30, default=None, null=True, blank=True)
     picture = models.ImageField(upload_to="pictures/product_pictures")
@@ -50,6 +55,7 @@ class ProductPictures(models.Model):
 
 
 class Rating(models.Model):
+    """Product rating"""
     model = models.ForeignKey(Product, related_name='rating', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=120)

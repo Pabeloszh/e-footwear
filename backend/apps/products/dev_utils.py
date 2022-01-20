@@ -7,15 +7,18 @@ from .models import Rating
 
 
 def populate_db(request):
+    """Function populating database with randomized shoes"""
+
     amount = int(request.GET.get('amount', None))
     gen = request.GET.get('gender')
     kds = bool(request.GET.get('kids', None))
 
     sizes_pool_male = [39, 40, 41, 42, 43, 44, 45, 46]
     sizes_pool_female = [35, 36, 37, 38, 39, 40, 41, 42]
+    sizes_pool_kids = [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
     brands_pool = ["Nike", "Adidas", 'New Balance', 'Puma', 'Reebok']
     models_pool = ['random_1', 'random_2', 'random_3', 'random_4', 'random_5']
-    colors_pool = ["red", "black", "blue", "purple", "orange", "white", "magenta"]
+    colors_pool = ["red", "black", "blue", "purple", "brown", 'green']
     type_pool = ['lifestyle', 'skateboarding', 'sport', 'sneakers']
     pic = ProductPictures.objects.filter().first()
 
@@ -30,14 +33,19 @@ def populate_db(request):
 
     random_sizes_range = []
     for i in range(amount):
-        if gen == "female":
+
+        if kds:
+            random_sizes_range = sizes_pool_kids[random.randint(0, 6):random.randint(7, 14)]
+            continue
+
+        elif gen == "female":
             random_sizes_range = sizes_pool_female[random.randint(0, 4):random.randint(5, 7)]
 
-        if gen == "male":
+        elif gen == "male":
             random_sizes_range = sizes_pool_male[random.randint(0, 4):random.randint(5, 7)]
 
         random_colors = []
-        for x in range(5):
+        for x in range(4):
             random_choice_color = random.choice(colors_pool)
             if random_choice_color not in random_colors:
                 random_colors.append(random_choice_color)
@@ -74,6 +82,7 @@ def populate_db(request):
 
 
 def populate_with_users(request):
+    """Populate database with users to be used in creating reviews"""
     amount = int(request.GET.get('amount', None))
     if amount > 15:
         raise ConnectionRefusedError
@@ -85,6 +94,7 @@ def populate_with_users(request):
 
 
 def populate_reviews(request):
+    """Create reviews with random rating for every shoe in database"""
     users = User.objects.all()
     products = Product.objects.all()
     message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit." \
