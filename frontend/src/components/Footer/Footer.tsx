@@ -1,6 +1,6 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -8,7 +8,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import {StyledFooter} from "./Footer.style";
+import { StyledFooter } from "./Footer.style";
 
 export const Footer: React.FC = () => {
     return (
