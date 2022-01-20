@@ -4,10 +4,10 @@ export const StyledPhotos = styled.div`
     width:50%;
     height:450px;
     img{
+        margin-bottom:15px;
         width:100%;
         height:100%;
         object-fit: cover;
-        margin-bottom:15px;
     }
     div{
         display:grid;
@@ -23,7 +23,5 @@ export const StyledPhotos = styled.div`
         div{
             display:none;
         }
-        
     }
-    
 `;

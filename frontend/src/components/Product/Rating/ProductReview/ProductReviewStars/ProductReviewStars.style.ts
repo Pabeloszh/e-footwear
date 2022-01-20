@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const StyledStars = styled.div`
-    margin-bottom:20px;
     display:flex;
     justify-content:center;
     align-items:center;
+    margin-bottom:20px;
     svg{
-        cursor:pointer;
         font-size:60px;
+        cursor:pointer;
     }
     @media only screen and (max-width: 425px){
         svg{

@@ -6,16 +6,21 @@ export const StyledSize = styled.div`
     gap:4px;
     margin-bottom:30px;
     p{
-        cursor:pointer;
-        text-align:center;
-        border:1px solid #170312;
+        opacity: 0.7;
         margin:0;
-        padding:5px;
+        border:1px solid #170312;
         border-radius:2px;
+        padding:5px;
+        text-align:center;
     }
-    p:hover{
+    .occuring{
+        opacity: 1;
+        border:1px solid #170312;
+        cursor:pointer;
+    }
+    .active, .occuring:hover{
         border:1px solid #F4511E;
-        color:#fff;
         background-color:#F4511E;
+        color:#fff;
     }
 `;

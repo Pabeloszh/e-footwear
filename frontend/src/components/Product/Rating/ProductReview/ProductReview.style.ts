@@ -3,9 +3,9 @@ import Dialog from '@material-ui/core/Dialog';
 
 export const StyledDialog = styled(Dialog)`
     .MuiDialog-container{
+        margin:auto;
         min-width:420px;
         max-width:550px;
-        margin:auto;
     }
     .MuiDialogTitle-root{
         padding-top:35px;
@@ -27,9 +27,9 @@ export const StyledDialog = styled(Dialog)`
         display:flex;
         flex-direction:column;
         .MuiButtonBase-root{
+            margin-bottom:10px;
             width:100%;
             margin:0;
-            margin-bottom:10px;
         }
         .MuiButtonBase-root:first-child{
             background-color:#f4511e;
@@ -40,10 +40,10 @@ export const StyledDialog = styled(Dialog)`
     }
     @media only screen and (max-width: 425px){
         .MuiDialog-container{
-            min-width:300px;
-            width:100%;
-            max-width:420px;
             margin:auto;
+            width:100%;
+            min-width:300px;
+            max-width:420px;
         }
     }
 `;
