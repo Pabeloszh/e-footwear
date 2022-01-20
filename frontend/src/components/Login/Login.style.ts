@@ -13,12 +13,12 @@ export const StyledLogin = styled.div`
         text-align:right;
     }
     .MuiDialogTitle-root{
-        padding-bottom:0;
         padding-top:35px;
+        padding-bottom:0;
     }
     .MuiButtonBase-root:not(:first-child){
-        background-color:#F4511E;
         margin-bottom:15px;
+        background-color:#F4511E;
     }
     .sign-in{
         display:flex;
