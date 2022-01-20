@@ -1,6 +1,5 @@
-import React from 'react'
-import { NavbarProps } from "./Navbar.interfaces";
-import { SideMenu } from "../SideMenu/"
+import React, { useEffect, useState } from 'react'
+import { SideMenu } from "./SideMenu"
 import { StyledNavbar } from "./Navbar.style"
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -10,8 +9,23 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/reducers';
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from 'redux'
+import { actionCreators } from "../../state/index"
+import axios from 'axios';
+import { Badge } from '@material-ui/core';
 
-export const Navbar: React.FC<NavbarProps> = ({loginWindow, toggleLoginWindow, registerWindow, toggleRegisterWindow}) => {
+export const Navbar = () => {
+    const cart = useSelector((state : RootState) => state.cart);
+    const authToken = useSelector((state : RootState) => state.auth);
+    const user = useSelector((state : RootState | null) => state?.user);
+
+    const dispatch = useDispatch();
+
+    const { logout, setUser, setLoginWindow, setRegisterWindow} = bindActionCreators(actionCreators, dispatch);
+
     const [open, setOpen] = React.useState(false);
     const location = useLocation();
 
@@ -25,6 +39,14 @@ export const Navbar: React.FC<NavbarProps> = ({loginWindow, toggleLoginWindow, r
         redirect(path);
         setOpen(false);
     }
+
+    useEffect(() => {
+        authToken && axios.get('https://efootwear.herokuapp.com/api/users/edit/', {
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+            }
+        }).then(({data}) => setUser(data));
+    }, [authToken])
     
     return (
         <>
@@ -34,26 +56,83 @@ export const Navbar: React.FC<NavbarProps> = ({loginWindow, toggleLoginWindow, r
                         <Typography variant="h6">
                             <span>e</span>FootWear
                         </Typography>
-                        <Button color="inherit" className={'/' === location.pathname ? "active" : ""} onClick={() => redirect('')}>Home</Button>
+                        <Button color="inherit" 
+                            className={'/' === location.pathname ? "active" : ""} 
+                            onClick={() => redirect('')}
+                        >
+                            Home
+                        </Button>
                         {['Man', 'Woman', 'Kids', 'Sport', 'Sales'].map((text) => (
-                            <Button color="inherit" onClick={() => goTo(`shop/${text.toLowerCase()}`)} className={`/shop/${text.toLowerCase()}` === location.pathname ? "active" : ""}>{text}</Button>
+                            <Button 
+                                key={text}
+                                color="inherit" 
+                                onClick={() => goTo(`shop/${text.toLowerCase()}`)} 
+                                className={`/shop/${text.toLowerCase()}` === location.pathname ? "active" : ""}>
+                                {text}
+                            </Button>
                         ))}
                     </div>
                     <div className="auth">
-                        <span>2</span>
-                        <ShoppingCartIcon onClick={() => redirect('cart')}/>
-                        <Button variant="outlined" color="inherit" onClick={()=>toggleLoginWindow(true)}>Sign In</Button>
-                        <Button variant="contained" color="inherit" className="signup" onClick={()=>toggleRegisterWindow(true)}>Sign Up</Button>
+                        <div className="cart-icon" onClick={() => redirect('cart')}>
+                            <Badge badgeContent={cart.length} color="primary">
+                                <ShoppingCartIcon color="action" />
+                            </Badge>
+                        </div>
+                        {!authToken ? 
+                            <>
+                                <Button 
+                                    variant="outlined" 
+                                    color="inherit" 
+                                    onClick={setLoginWindow}>
+                                    Sign In
+                                </Button>
+                                <Button 
+                                    variant="contained" 
+                                    color="inherit" 
+                                    className="signup" 
+                                    onClick={setRegisterWindow}>
+                                    Sign Up
+                                </Button>
+                            </> :
+                            <>
+                                <Button 
+                                    color="inherit" 
+                                    onClick={() => goTo(`user`)} 
+                                    className={`/user}` === location.pathname ? "active" : ""}>
+                                    {user?.email}
+                                </Button>
+                                <Button 
+                                    variant="contained" 
+                                    color="inherit" 
+                                    className="signup" 
+                                    onClick={()=>logout()}>
+                                    Log out
+                                </Button>
+                            </>
+                        }
+                        
                     </div>
-                    <Typography className="logo-mobile" variant="h6">
-                            <span>e</span>FootWear
-                        </Typography>
-                    <IconButton className="menu-icon" edge="start" color="inherit" aria-label="menu" onClick={()=>setOpen(true)}>
-                            <MenuIcon />
+                    <Typography 
+                        className="logo-mobile" 
+                        variant="h6"
+                    >
+                        <span>e</span>FootWear
+                    </Typography>
+                    <IconButton 
+                        className="menu-icon" 
+                        edge="start" 
+                        color="inherit" 
+                        aria-label="menu" 
+                        onClick={()=>setOpen(true)}
+                    >
+                        <MenuIcon />
                     </IconButton>
                 </Toolbar>
             </StyledNavbar>
-            <SideMenu open={open} setOpen={setOpen}  loginWindow={loginWindow} toggleLoginWindow={toggleLoginWindow} registerWindow={registerWindow} toggleRegisterWindow={toggleRegisterWindow}/>
+            <SideMenu 
+                open={open} 
+                setOpen={setOpen}
+            />
       </>
     )
 }
