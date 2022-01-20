@@ -6,23 +6,23 @@ export const StyledItem = styled.div`
         height:150px;
     }
     .info{
-        padding: 5px 25px;
         display:flex;
+        padding: 5px 25px;
         > div:nth-child(1){
             h4{
-                width:200px;
-                font-size:18px;
-                margin-bottom:5px;
-                text-overflow:ellipsis;
                 overflow: hidden;
+                margin-bottom:5px;
+                width:200px;
+                text-overflow:ellipsis;
                 white-space: nowrap;
+                font-size:18px;
             }
             .brand-mobile{
                 display:none;
             }
             div{
-                margin-bottom:3px;
                 display:flex;
+                margin-bottom:3px;
                 p:first-child{
                     margin-right:10px;
                 }
@@ -34,19 +34,19 @@ export const StyledItem = styled.div`
             }
         }
         > div:nth-child(2){
-            height:35px;
-            margin: 0 45px;
             display:flex;
             justify-content:center;
             align-items:center;
+            margin: 0 45px;
+            height:35px;
             .MuiInputBase-root{
                 margin: 0 8px;
-                padding:5px;
                 width:35px;
                 height:35px;
+                padding:5px;
                 input{
-                    text-align:center;
                     padding:0;
+                    text-align:center;
                 }
             }
             .Mui-focused{
@@ -69,16 +69,16 @@ export const StyledItem = styled.div`
     }
     @media only screen and (max-width: 1024px){
         img{
-            min-width:85px;
             width:100%;
+            min-width:85px;
             max-width:100px;
             height:100px;
             object-fit: cover; 
         }
         .info{
-            padding:5px 0 5px 15px;
-            width:100%;
             flex-direction:column;
+            width:100%;
+            padding:5px 0 5px 15px;
             > div:nth-child(1){
                 display:flex;
                 flex-direction:column;
@@ -86,15 +86,15 @@ export const StyledItem = styled.div`
                     flex-direction:column;
                 }
                 h4{
-                    min-width:100%;
+                    margin-bottom:5px;
                     width:100%;
+                    min-width:100%;
                     max-width:100px;
                     font-size:14px;
-                    margin-bottom:5px;
                 }
                 p{
-                    font-size:12px;
                     margin-bottom:3px;
+                    font-size:12px;
                 }
                 .brand-mobile{
                     display:block;
@@ -113,13 +113,13 @@ export const StyledItem = styled.div`
             
                 .MuiInputBase-root{
                     margin: 0;
-                    padding:5px;
                     width:35px;
                     height:35px;
+                    padding:5px;
                     input{
+                        padding:0;
                         font-size:14px;
                         text-align:center;
-                        padding:0;
                     }
                     
                 }
@@ -133,7 +133,6 @@ export const StyledItem = styled.div`
             }
             >h4{
                 font-size: 16px;
-
             }
         }
     }
