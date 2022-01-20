@@ -7,19 +7,19 @@ export const StyledRegister = styled.div`
         right:10px;
     }
     .MuiDialogTitle-root{
-        padding-bottom:0;
         padding-top:35px;
+        padding-bottom:0;
     }
     .MuiFormControlLabel-root{
         align-items:flex-start !important;
         padding-top:10px;
     }
     span:last-child{
-        margin-top:10px;
+        overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;  
-        overflow: hidden;
+        margin-top:10px;
     }
     .Mui-focused{
         color:#f4511e !important;
@@ -32,8 +32,8 @@ export const StyledRegister = styled.div`
     }
     .MuiButtonBase-root:not(:first-child){
         margin-top:15px;
-        background-color:#F4511E;
         margin-bottom:15px;
+        background-color:#F4511E;
     }
     .sign-in{
         display:flex;

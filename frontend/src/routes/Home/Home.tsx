@@ -1,16 +1,17 @@
 import React from 'react';
-import { MainSlider }  from './MainSlider/';
-import { ProductsCarousel } from "./ProductsCarousel/"
-import { SalesContainer } from "./SalesContainer/"
-import { Newsletter } from "./Newsletter/"
+import { MainSlider }  from '../../components/Home/MainSlider';
+import { ProductsCarousel } from "../../components/Home/ProductsCarousel"
+import { SalesContainer } from "../../components/Home/SalesContainer"
+import { Newsletter } from "../../components/Home/Newsletter"
+import axios from 'axios'
 
 export const Home: React.FC = () => {
     return (
         <>
             <MainSlider/>
-            <ProductsCarousel/>
+            {/* <ProductsCarousel/> */}
             <SalesContainer/>
-            <ProductsCarousel/>
+            {/* <ProductsCarousel/> */}
             <Newsletter/>
         </>
     )

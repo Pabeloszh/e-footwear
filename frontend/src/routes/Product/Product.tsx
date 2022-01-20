@@ -1,28 +1,87 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyledProduct } from "./Product.style"
-import { Photos } from "./Photos";
-import { Color } from "./Color"
-import { Size } from './Size';
-import { Actions } from './Actions';
-import { Rating } from './Rating';
+import { Photos } from "../../components/Product/Photos";
+import { Color } from "../../components/Product/Color"
+import { Size } from '../../components/Product/Size';
+import { Rating } from '../../components/Product/Rating';
+import axios from 'axios';
+import { useParams } from 'react-router';
+import { ProductProps } from './Product.interfaces';
+import { LoadingSpinner } from '../../components/LoadingSpinner';
+import { Button } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state';
+import { ProductLikeButton } from '../../components/Product/ProductLikeButton';
+import { RootState } from '../../state/reducers';
 
 export const Product:React.FC = () => {
+    let { id } = useParams() as {
+        id: string;
+    }
+
+    const authToken = useSelector((state : RootState) => state.auth);
+
+    const dispatch = useDispatch();
+    const { addToCart } = bindActionCreators(actionCreators, dispatch);
+
+    const [size, setSize] = useState<number | null>(null)
+    const [product, setProduct] = useState<ProductProps | any>()
+
+    useEffect(() => {
+        axios.get(`https://efootwear.herokuapp.com/api/shoe/${id}`, authToken && {
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+            }
+        })
+        .then(({data}) => {
+            setProduct(data)
+            console.log(data);
+        })
+    }, []);
+
+    function addToCartt(){
+        if(!product) return
+        let productData = {
+            brand: product?.brand,
+            model: product?.model,
+            product: Number(id),
+            color: "red",
+            quantity: 1,
+            size: size,
+            price: product?.discount_price || product?.price
+        }
+
+        addToCart(productData)
+    }
+
     return (
         <StyledProduct>
-            <Photos />
-            <div className="desc">
-                <p>Man's Footwear</p>
-                <h2>All Star Black Sneakers</h2>
-                <Color/>
-                <h3>Choose size</h3>
-                <Size/>
-                <Actions/>
-                <div className="info">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero velit atque tempora vitae ipsum veritatis quas dolore quod tempore possimus, molestias voluptate natus distinctio asperiores est adipisci laboriosam suscipit. Eius?
-                    Tempore maxime inventore doloremque cum hic reprehenderit sint molestias nesciunt, animi corrupti id voluptatum, expedita dolorem, aliquid quas unde temporibus! Tempora velit odit harum! Tenetur odit corrupti vitae animi veniam.
-                </div>
-                <Rating/>
-            </div>
+            {product ?
+                <>
+                    <Photos />
+                    <div className="desc">
+                        <p>{product.brand}</p>
+                        <h2>{product.model}</h2>
+                        <Color/>
+                        <h3>Choose size</h3>
+                        <Size sizes={product.sizes} size={size} setSize={setSize}/>
+                        <h3>{product.price}zł</h3>
+                        <div className="actions">
+                            <Button disabled={!size} variant="contained" color="primary" onClick={addToCartt}>
+                                Buy now
+                            </Button>
+                            <ProductLikeButton id={Number(id)}/>
+                        </div>
+                        <div className="info">
+                            {product.desc}
+                        </div>
+                        <Rating avgRate={product.average_rating.toFixed(2)} isReviewed={product.is_reviewed}/>
+                    </div>
+                </> : 
+                <LoadingSpinner/>
+            }
+            
         </StyledProduct>
     )
 }

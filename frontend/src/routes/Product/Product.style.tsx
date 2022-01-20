@@ -19,6 +19,21 @@ export const StyledProduct = styled.div`
             padding:25px 0px;
             line-height:1.4em;
         }
+        .actions{
+            display:flex;
+            flex-direction:column;
+            .MuiButtonBase-root:first-child{
+                background-color: #F4511E;
+                margin-bottom:10px;
+            }
+            .MuiButton-contained.Mui-disabled{
+                color: #FFF;
+                opacity: 0.7;
+            }
+            .MuiButtonBase-root:last-child{
+                background-color: #170312;
+            }
+        }
         
     }
     @media only screen and (max-width: 1024px){

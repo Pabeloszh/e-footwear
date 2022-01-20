@@ -34,6 +34,9 @@ export const StyledCart = styled.div`
                     text-decoration:underline;  
                 }
             }
+            >h4{
+                height:137px;
+            }
         }
         .summary{
             width:250px;
@@ -52,6 +55,11 @@ export const StyledCart = styled.div`
             .MuiButtonBase-root{
                 background-color:#F4511E;
             }
+            .Mui-disabled{
+                color: #FFF;
+                opacity: 0.7;
+            }
+        }
         }
     }
     @media only screen and (max-width:1024px){

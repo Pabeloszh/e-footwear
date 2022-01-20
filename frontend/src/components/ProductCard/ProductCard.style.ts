@@ -15,49 +15,26 @@ export const StyledProductCard = styled.div`
             object-fit: cover;
         }
     }
-    .like{
-        position:absolute;
-        background-color: #fff;
-        top: 15px;
-        right:15px;
-        padding:5px;
-        border-radius:2px;
-        svg{
-            margin-bottom: -5px;
-            transition: all 1000ms ease-in-out;
-        }
-        svg:first-child{
-            color:black;
-        }
-        svg:last-child{
-            display:none;
-        }
-    }
     .like:hover{
-        height:33px;
-        svg:first-child{
-            display:none;
-        }
-        svg:last-child{
+        svg{
             color:#F4511E;
-            display:block;
         }
     }
     .desc{
-        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
         padding:15px;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
         h5{
+            overflow: hidden;
             margin-bottom:2px;
             font-weight:400;
             text-overflow:ellipsis;
-            overflow: hidden;
             white-space: nowrap;
         }
         p{
+            overflow: hidden;
             margin-bottom:10px;
             font-weight:600;
             text-overflow:ellipsis;
-            overflow: hidden;
             white-space: nowrap;
         }
         h6{
@@ -69,13 +46,12 @@ export const StyledProductCard = styled.div`
     .sale{
         position:absolute;
         top:15px;
-        background-color: #9a0036;
         padding:7px;
+        background-color: #9a0036;
         h5{
             color:#fff;
             font-family: "Roboto", "Helvetica", "Arial", sans-serif;
             letter-spacing:1px;
-
         }
     }
     @media only screen and (max-width:425px){

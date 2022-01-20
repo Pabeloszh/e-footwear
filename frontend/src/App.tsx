@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,34 +13,49 @@ import { Footer } from './components/Footer/';
 import { Cart } from './routes/Cart';
 import { Register } from './components/Register';
 import { Profile } from './routes/Profile';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from './state';
+import { RootState } from './state/reducers';
+import axios from 'axios';
+import { Alert } from './components/Alert';
 
 const App: React.FC = () => {
-  const [loginWindow, toggleLoginWindow] = useState<boolean>(false);
   const [registerWindow, toggleRegisterWindow] = useState<boolean>(false);
+
+  const authToken = useSelector((state :RootState) => state.auth);
+
+  const dispatch = useDispatch();
+  const { setFavorites } = bindActionCreators(actionCreators, dispatch);
+
+  useEffect(() => {
+    authToken && setFavorites(authToken)
+  }, [authToken])
 
   return (
     <div className="App">
       <Router>
-        <Navbar loginWindow={loginWindow} toggleLoginWindow={toggleLoginWindow} registerWindow={registerWindow} toggleRegisterWindow={toggleRegisterWindow}/>
+        <Navbar/>
           <Switch>
               <Route exact path="/">
                 <Home />
               </Route>
-              <Route path="/shop">
+              <Route path="/shop/:type">
                 <Shop/>
               </Route>
-              <Route path="/man/name">
+              <Route path="/product/:id">
                 <Product/>
               </Route>
               <Route path="/cart">
                 <Cart />
               </Route>
-              <Route path="/user/name">
+              <Route path="/user">
                 <Profile />
               </Route>
           </Switch>
-        <Login loginWindow={loginWindow} toggleLoginWindow={toggleLoginWindow}/>
-        <Register registerWindow={registerWindow} toggleRegisterWindow={toggleRegisterWindow}/>
+        <Login/>
+        <Register/>
+        <Alert/>
         <Footer/>
       </Router>
     </div>
