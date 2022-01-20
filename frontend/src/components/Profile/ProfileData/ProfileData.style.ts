@@ -1,16 +1,15 @@
 import styled from "styled-components";
 
 export const StyledData = styled.div`
-    width:800px;
-    padding: 20px 35px;
-    background-color:#fff;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    width:800px;
+    padding: 20px 35px;
+    background-color:#fff;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     h2{
         font-family: 'Work Sans',sans-serif;
-    
     }
    svg{
        color:#f4511e;

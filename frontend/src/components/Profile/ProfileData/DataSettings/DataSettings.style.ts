@@ -10,12 +10,11 @@ export const StyledSettings = styled.div`
         right:10px;
     }
     .MuiDialogTitle-root{
-        /* padding-bottom:0; */
         padding-top:35px;
     }
     .MuiButtonBase-root:not(:first-child){
-        background-color:#F4511E;
         margin-bottom:15px;
+        background-color:#F4511E;
     }
     .Mui-focused{
         color:#f4511e !important;

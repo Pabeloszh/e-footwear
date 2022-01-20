@@ -6,62 +6,33 @@ export const StyledItem = styled.div`
         height:150px;
     }
     .info{
+        display:flex;
+        justify-content:space-between;
         width:100%;
         padding: 5px 25px;
-        display:flex;
-        justify-content: space-between;
         > div:nth-child(1){
             h4{
+                margin-bottom:5px;
                 font-size:18px;
-                margin-bottom:3px;
             }
             div{
-                margin-bottom:3px;
                 display:flex;
+                margin-bottom:3px;
                 p:first-child{
                     margin-right:10px;
                 }
             }
-            div:nth-child(2){
-                font-weight:600;
-                margin-bottom:5px;
-            }
-           > p{
-               margin-bottom:3px;
-           }
-        }
-        > div:nth-child(2){
-            height:35px;
-            margin: 0 45px;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            .MuiInputBase-root{
-                margin: 0 8px;
-                padding:5px;
-                width:35px;
-                height:35px;
-                input{
-                    text-align:center;
-                    padding:0;
-                }
-            }
-            .Mui-focused{
-                color:#f4511e !important;
-            }
-            .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
-                border-color:#f4511e;
-            }
-            button{
-                padding:0;
-                color:#F4511E;
+            > p:last-child{
+                margin-top:30px;
+                text-decoration:underline;
+                cursor:pointer;
             }
         }
         > h4{
-            padding-top: 4.5px;
+            margin-left:45px;
             font-size:20px;
-            letter-spacing:0.3px;
             font-weight:600;
+            letter-spacing:0.3px;
         }
     }
     @media only screen and (max-width:1024px){
@@ -71,8 +42,8 @@ export const StyledItem = styled.div`
         .info{
             > div:nth-child(1){
                 h4{
-                    font-size:14px;
                     margin-bottom:5px;
+                    font-size:14px;
                 }
                 p{
                     font-size:12px;
@@ -85,17 +56,16 @@ export const StyledItem = styled.div`
     }
     @media only screen and (max-width:600px){
         img{
-            min-width:85px;
             width:100%;
+            min-width:85px;
             max-width:100px;
             height:125px;
-            object-fit: cover;
-            
+            object-fit: cover; 
         }
         .info{
-            padding:5px 0 5px 15px;
             flex-direction:column;
             min-width:100px;
+            padding:5px 0 5px 15px;
             div{
                 flex-direction:column;
                 div{
@@ -103,15 +73,17 @@ export const StyledItem = styled.div`
                     p{
                         margin-bottom:4px;
                     }
-
                 }
             }
             > div:nth-child(1){
                 h4{
-                    text-overflow:ellipsis;
                     overflow: hidden;
+                    text-overflow:ellipsis;
                     white-space: nowrap;
                 }
+            }
+            h4{
+                margin:0;
             }
         }
     }

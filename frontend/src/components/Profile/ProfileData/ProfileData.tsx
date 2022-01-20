@@ -5,13 +5,16 @@ import IconButton from '@material-ui/core/IconButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { StyledData } from "./ProfileData.style"
 import { DataSettings } from './DataSettings';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../state/reducers';
 
 export const ProfileData:React.FC = () => {
     const [settings, toggleSettings] = useState<boolean>(false)
+    const user = useSelector((state : RootState | null) => state?.user);
     return (
         <>
             <StyledData>
-                <h2>Mateo Fique</h2>
+                <h2>{user?.email}</h2>
                 <IconButton onClick={() => toggleSettings(true)}>
                     <SettingsIcon/>
                 </IconButton>

@@ -2,23 +2,38 @@ import styled from "styled-components";
 
 export const StyledHistory = styled.div`
     width:800px;
-    background-color:#fff;
     padding: 20px 35px;
+    background-color:#fff;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     h2{
+        margin-bottom: 25px;
         font-size: 24px;
         font-family: 'Work Sans',sans-serif;
-        margin-bottom: 25px;
     }
     hr{
-        height:1px;
-        background-color:#1703120f;
+        margin: 20px 0;
         border:none;
         border-bottom: 1px solid #1703120f;
-        margin: 20px 0;
+        width:100%;
+        height:1px;
+        background-color:#1703120f;
     }
     hr:last-child{
         display:none;
+    }
+    .MuiAccordionSummary-content{
+        align-items:center;
+        p:first-child{
+            margin-right:30px;
+            font-weight:600;
+        }
+        p:last-child{
+            opacity:0.7;
+            font-size:12px;
+        }
+    }
+    .MuiAccordionDetails-root{
+        flex-direction: column;
     }
     @media only screen and (max-width:1024px){
         width:auto;
