@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Carousel from "react-multi-carousel";
 import { ProductCard } from "../../ProductCard"
 import "react-multi-carousel/lib/styles.css";
 import { StyledProductsCarousel } from "./ProductsCarousel.style";
+import axios from 'axios';
+import { ProductCarouselInterfaces } from './ProductsCarouse.interfaces';
 
 const responsive = {
     superLargeDesktop: {
@@ -47,7 +49,8 @@ const responsive = {
     }
   };
 
-export const ProductsCarousel: React.FC = () => {
+export const ProductsCarousel = ({title, params} : ProductCarouselInterfaces) => {
+    const [products, setProducts] = useState<any>(null);
     const titleRef = useRef(null);
 
     const options = {
@@ -55,6 +58,13 @@ export const ProductsCarousel: React.FC = () => {
         threshold: 0.25,
         rootMargin: '0px'
     };
+
+    useEffect(() => {
+      axios.get(`https://efootwear.herokuapp.com/api/shoes/?${params}&page_size=16&page=1`)
+      .then(({data})=>{
+        setProducts(data)
+      })
+    }, [])
     
     useEffect(() => {
         //@ts-ignore
@@ -75,22 +85,16 @@ export const ProductsCarousel: React.FC = () => {
     return (
         <StyledProductsCarousel>
             <div className="title" ref={titleRef}>
-              <h2>You may like on of those...</h2>  
+              <h2>{title}</h2>  
             </div>      
-            {/*@ts-ignore*/} 
             <Carousel responsive={responsive}>
-                {/* <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard /> */}
+              {products 
+                ? products?.results.map((product : any, index : number) => (
+                  <ProductCard productData={product} key={`product-${product.id}`}/>
+                )) 
+                : <div>Loading...</div>
+              }
+              <div></div>
             </Carousel>
         </StyledProductsCarousel>
 
