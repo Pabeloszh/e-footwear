@@ -87,15 +87,17 @@ export const ProductsCarousel = ({title, params} : ProductCarouselInterfaces) =>
             <div className="title" ref={titleRef}>
               <h2>{title}</h2>  
             </div>      
-            <Carousel responsive={responsive}>
-              {products 
-                ? products?.results.map((product : any, index : number) => (
-                  <ProductCard productData={product} key={`product-${product.id}`}/>
-                )) 
-                : <div>Loading...</div>
-              }
-              <div></div>
-            </Carousel>
+            {products 
+              && <Carousel responsive={responsive}>
+                {products 
+                  ? products?.results.map((product : any, index : number) => (
+                    <ProductCard productData={product} key={`product-${product.id}`}/>
+                  )) 
+                  : <div>Loading...</div>
+                }
+                <div></div>
+              </Carousel>
+            }
         </StyledProductsCarousel>
 
     )
