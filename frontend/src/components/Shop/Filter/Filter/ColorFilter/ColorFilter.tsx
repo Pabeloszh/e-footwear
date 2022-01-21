@@ -1,19 +1,24 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {StyledColor} from "./ColorFilter.style";
 import CheckIcon from '@material-ui/icons/Check';
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../../../state';
-import { capitalizeFirstLetter } from '../../../../../utils';
-
+import { useHistory } from 'react-router-dom';
+import { capitalizeFirstLetter, useQuery } from '../../../../../utils';
 export const ColorFilter:React.FC = () => {
-    const dispatch = useDispatch();
+    const query = useQuery()
+    const history = useHistory()
 
-    const { setColors } = bindActionCreators(actionCreators, dispatch);
 
     function setColorsValue(e:any, color : string){
-        e.currentTarget.classList.toggle('active')
-        setColors({value: color, checked:  e.currentTarget.classList.contains('active')});
+        e.currentTarget.classList.toggle('active');
+
+        let arr = query.get('colors')?.split(',') || []
+
+        e.currentTarget.classList.contains('active') ? arr?.push(color) : arr.splice(arr.indexOf(color), 1)
+
+        arr?.length ? query.set('colors', arr?.join(',')) : query.delete('colors')
+        history.push({
+            search: query.toString(),
+        })
     }
     return (
         <StyledColor>
@@ -22,7 +27,7 @@ export const ColorFilter:React.FC = () => {
                     {["red", "black", "blue", "purple", "orange", "white", "magenta"].map(el => (
                         <div key={el}>
                             <div 
-                                className="color" 
+                                className={query.get('colors')?.split(',').find(e => e === el.toString()) ? 'active color' : 'color'} 
                                 style={{backgroundColor: el}} 
                                 onClick={(e) => setColorsValue(e, el)}
                             >
