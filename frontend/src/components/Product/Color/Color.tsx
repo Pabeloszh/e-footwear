@@ -1,11 +1,29 @@
-import React from 'react'
+import { useQuery } from '../../../utils';
+import { ColorInterfaces } from './Color.interfaces'
 import { StyledColor } from "./Color.style"
+import { useHistory } from 'react-router-dom';
 
-export const Color:React.FC = () => {
+export const Color = ({ colors } : ColorInterfaces) => {
+    const query = useQuery()
+    const history = useHistory()
+
+    function setColor(el : string){
+        query.set('color', el)
+        history.replace({
+            search: query.toString(),
+        })
+    }
+
     return (
         <StyledColor>
-            <img className="active" loading="lazy" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="product-image"/>
-            <img loading="lazy" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="product-image"/>
+            {colors.map(el => (
+                <img 
+                    className={query.get('color') == el ? 'active' : undefined} loading="lazy" 
+                    src={require(`../../../img/product-photos/${el}/1.jpg`).default} 
+                    alt="product-image" 
+                    onClick={() => setColor(el)}
+                />
+            ))}
         </StyledColor>
     )
 }

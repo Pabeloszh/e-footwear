@@ -14,13 +14,15 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state';
 import { ProductLikeButton } from '../../components/Product/ProductLikeButton';
 import { RootState } from '../../state/reducers';
+import { useQuery } from '../../utils';
 
 export const Product:React.FC = () => {
     let { id } = useParams() as {
         id: string;
     }
-
     const authToken = useSelector((state : RootState) => state.auth);
+
+    const query = useQuery()
 
     const dispatch = useDispatch();
     const { addToCart } = bindActionCreators(actionCreators, dispatch);
@@ -46,7 +48,7 @@ export const Product:React.FC = () => {
             brand: product?.brand,
             model: product?.model,
             product: Number(id),
-            color: "red",
+            color: query.get('color'),
             quantity: 1,
             size: size,
             price: product?.discount_price || product?.price
@@ -63,7 +65,7 @@ export const Product:React.FC = () => {
                     <div className="desc">
                         <p>{product.brand}</p>
                         <h2>{product.model}</h2>
-                        <Color/>
+                        <Color colors={product.colors}/>
                         <h3>Choose size</h3>
                         <Size sizes={product.sizes} size={size} setSize={setSize}/>
                         <h3>{product.price}zł</h3>

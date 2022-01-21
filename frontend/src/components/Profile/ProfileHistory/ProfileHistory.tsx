@@ -25,30 +25,20 @@ export const ProfileHistory:React.FC = () => {
         <StyledHistory>
             <h2>Purchase History</h2>
             {orders && orders.map((el : any) => (
-                <Accordion>
-                    <AccordionSummary
-                    expandIcon={<p>^</p>}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    >
-                    {/* <Typography></Typography>
-                    <Typography>{el.date_ordered.split('T')[0]}</Typography> */}
-                    {/* @ts-ignore */}
-                    <Typography>
-                        {el.date_ordered.split('T')[0]}
-                    </Typography>
-                    {/* @ts-ignore */}
-                    <Typography>{el.completed ? 'completed' : 'in progress'}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        {el.order_items.map((item : any) => (
-                            <>
-                                <HistoryItem item={item}/>
-                                <hr/>
-                            </>
-                        ))}
-                    </AccordionDetails>
-                </Accordion>
+                <div>
+                    <div className='header'>
+                        <h4>{el.date_ordered.split('T')[0]}</h4>
+                        <p>{el.completed ? 'completed' : 'in progress'}</p>
+                        <h4>{el.total_value}zł</h4>
+                    </div>
+                    {el.order_items.map((item : any, i : number) => (
+                        <>
+                            <HistoryItem item={item}/>
+                            {i + 1 < el.order_items.length && <hr className="item-hr"/>}
+                        </>
+                    ))}
+                    <hr />
+                </div>
             ))}
         </StyledHistory>
     )
