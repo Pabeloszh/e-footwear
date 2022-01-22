@@ -144,17 +144,20 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = config("MINIO_ACCESS_KEY", default='access-key')
+AWS_SECRET_ACCESS_KEY = config("MINIO_SECRET_KEY", default='secret-key')
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default='local-bucket')
+
+MINIO_STORAGE_USE_HTTPS = False
+
+if DEBUG:
+    AWS_S3_ENDPOINT_URL = config("AWS_S3_ENDPOINT_URL", default='http://localhost:9000')
+
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
-
-MEDIA_ROOT = 'static/images'
-MEDIA_URL = '/images/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

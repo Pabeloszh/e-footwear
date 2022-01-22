@@ -30,3 +30,7 @@ simplejson==3.17.6
 sqlparse==0.4.1
 uritemplate==4.1.1
 urllib3==1.26.7
+django-storages==1.11.1
+boto3==1.18.40
+botocore==1.21.40
+boto==2.49.0
