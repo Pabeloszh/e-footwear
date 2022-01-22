@@ -34,9 +34,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ModifiedProductSerializer(ProductsSerializer):
 
+    first_color = serializers.StringRelatedField()
     class Meta:
         model = Product
-        fields = ['id', 'brand', 'model', 'price', 'discount_price', 'pictures']
+        fields = ['id', 'brand', 'model', 'price', 'discount_price', 'pictures', 'first_color']
 
 
 class AddLikedProductSerializer(serializers.ModelSerializer):

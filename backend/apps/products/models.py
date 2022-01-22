@@ -41,6 +41,10 @@ class Product(models.Model):
             return self._average_rating
         # return self.rating.aggregate(Avg('rating__rate'))
 
+    @property
+    def first_color(self):
+        return self.colors[0]
+
 
 class ProductPictures(models.Model):
     """Pictures for products"""

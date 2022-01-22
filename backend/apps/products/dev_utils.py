@@ -11,7 +11,7 @@ def populate_db(request):
 
     amount = int(request.GET.get('amount', None))
     gen = request.GET.get('gender')
-    kds = bool(request.GET.get('kids', None))
+    kds = bool(request.GET.get('kids', False))
 
     sizes_pool_male = [39, 40, 41, 42, 43, 44, 45, 46]
     sizes_pool_female = [35, 36, 37, 38, 39, 40, 41, 42]
@@ -32,11 +32,11 @@ def populate_db(request):
                   " Tenetur odit corrupti vitae animi veniam."
 
     random_sizes_range = []
+    print(kds)
     for i in range(amount):
 
         if kds:
             random_sizes_range = sizes_pool_kids[random.randint(0, 6):random.randint(7, 14)]
-            continue
 
         elif gen == "female":
             random_sizes_range = sizes_pool_female[random.randint(0, 4):random.randint(5, 7)]
