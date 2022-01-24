@@ -24,7 +24,7 @@ export const ColorFilter:React.FC = () => {
         <StyledColor>
             <h2>Color</h2>
                 <div className="color-container">
-                    {["red", "black", "blue", "purple", "orange", "white", "magenta"].map(el => (
+                    {["red", "black", "blue", "purple", "brown", 'green'].map(el => (
                         <div key={el}>
                             <div 
                                 className={query.get('colors')?.split(',').find(e => e === el.toString()) ? 'active color' : 'color'} 
