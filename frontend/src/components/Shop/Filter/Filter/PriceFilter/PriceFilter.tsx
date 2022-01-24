@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyledPrice} from './PriceFilter.style'
 import { Slider, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,41 +9,59 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 export const PriceFilter:React.FC = () => {
     const [value, setValue] = React.useState<number[]>([0, 1000]);
-
-    const url = useSelector((state : any) => state.url);
+    const [slider, setSlider] = React.useState<number[]>([0, 1000]);
     const query = useQuery()
     const history = useHistory()
-    // const dispatch = useDispatch();
 
-    // const { setPriceGte, setPriceLte } = bindActionCreators(actionCreators, dispatch);
-    useEffect(()=>{
-        // console.log(value);
-        // setPriceGte(value[0].toString())
-        console.log(value[0]);
-    }, [value[0]])
-
-    useEffect(()=>{
-        // console.log(value);
-        // setPriceGte(value[0].toString())
-        // query.set('max_price', value[1].toString())
-        // history.push({
-        //     search: query.toString(),
-        // })
-        console.log(value[1]);
-    }, [value[1]])
-
-    const handleChange = (event: Event, newValue: number | number[]) => {
-        setValue(newValue as number[]);
-    };
-
-    const handleInputChange = (e : any) => {
-        if(e.target.name === "from"){
-            //@ts-ignore
-            Number(e.target.value) < value[1] ? setValue([Number(e.target.value), value[1]]) : setValue([Number(e.target.value), value[0]])
+    useEffect(() => {
+        if(query.get('min_price') && query.get('max_price')){
+            setValue([Number(query.get('min_price')), Number(query.get('max_price'))])
+            setSlider([Number(query.get('min_price')), Number(query.get('max_price'))])
         } else {
-            // setValue([value[0], Number(e.target.value)])
-            Number(e.target.value) > value[1] ? setValue([value[0], Number(e.target.value)]) : setValue([Number(e.target.value), value[1]])
+            if(query.get('min_price')){
+                setValue([Number(query.get('min_price')), value[1]])
+                setSlider([Number(query.get('min_price')), slider[1]])
+            }
+            if(query.get('max_price')){
+                setValue([value[0], Number(query.get('max_price'))])
+                setSlider([slider[0], Number(query.get('max_price'))])
+            }
         }
+    }, [])
+
+    useEffect(() => {
+        if(value[0] > value[1]){
+            setValue([value[1], value[0]])
+            return
+        }
+
+        query.get('min_price') !== value[0].toString() && query.set('min_price', value[0].toString())
+        query.get('max_price') !== value[1].toString() && query.set('max_price', value[1].toString())
+
+        !value[0] && query.delete('min_price')
+        value[1] == 1000 && query.delete('max_price')
+
+        history.push({
+            search: query.toString(),
+        })
+    }, [value])
+
+    function handleInputChange(e : any){
+        if(e.target.name == "from"){
+            setValue([e.target.value, value[1]])
+            setSlider([e.target.value, value[1]])
+        } else {
+            setValue([value[0], e.target.value])
+            setSlider([value[0], e.target.value])
+        }
+    }
+
+    function handleSliderChange(e : any, newValue : any){
+        setSlider(newValue)
+    }
+
+    function handleChangeCommitted(e : any, newValue : any){
+        setValue(newValue);
     }
 
     return (
@@ -56,8 +74,9 @@ export const PriceFilter:React.FC = () => {
                         fullWidth
                         label="From"
                         name="from"
-                        onChange={(e : any) => handleInputChange(e)}
                         value={value[0]}
+                        type="number"
+                        onChange={handleInputChange}
                     />
                     <TextField
                         variant="outlined"
@@ -65,17 +84,20 @@ export const PriceFilter:React.FC = () => {
                         fullWidth
                         label="To"
                         name="to"
-                        onChange={(e : any) => handleInputChange(e)}
                         value={value[1]}
+                        type="number"
+                        onChange={handleInputChange}
                         // onChange={(e)=>setValue([value, e.target.value])}
                     />
                 </div>
                     <Slider
                         max={1000}
-                        value={value}
                         //@ts-ignore
-                        onChange={handleChange}
-                        // onChangeCommitted={handleChange}
+                        value={slider}
+                        //@ts-ignore
+                        onChange={handleSliderChange}
+                        onChangeCommitted={handleChangeCommitted}
+                        // onChangeCommitted={handleChangeCommitted}
                         valueLabelDisplay="auto"
                         aria-labelledby="range-slider"
                     />
