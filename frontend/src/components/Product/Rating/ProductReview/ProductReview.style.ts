@@ -8,11 +8,11 @@ export const StyledDialog = styled(Dialog)`
         max-width:550px;
     }
     .MuiDialogTitle-root{
-        padding-top:35px;
+        padding-top:15px;
         padding-bottom:0;
     }
-    .MuiDialogContentText-root{
-        margin-bottom:20px;
+    .MuiDialogContent-root{
+        padding-top:10px !important;
     }
     .Mui-focused{
         color:#f4511e !important;
@@ -27,7 +27,7 @@ export const StyledDialog = styled(Dialog)`
         display:flex;
         flex-direction:column;
         .MuiButtonBase-root{
-            margin-bottom:10px;
+            margin-bottom:10px !important;
             width:100%;
             margin:0;
         }

@@ -27,10 +27,21 @@ export const Rating= ({avgRate, isReviewed} : RaingInterfaces) => {
     const { setLoginWindow } = bindActionCreators(actionCreators, dispatch);
 
     useEffect(() => {
-        axios.get(`https://efootwear.herokuapp.com/api/product_reviews/?model_id=${id}&page=${page}&page_size=4`)
+        if(!rates){
+            setPage(1)
+            axios.get(`https://efootwear.herokuapp.com/api/product_reviews/?model_id=${id}&page=${page}&page_size=4`)
+            .then(({data}) => {
+                setHasMore(Math.ceil(data.count / 4) > page)
+                setRates(data);
+            })
+        }
+    }, [rates])
+
+    useEffect(() => {
+        rates && axios.get(`https://efootwear.herokuapp.com/api/product_reviews/?model_id=${id}&page=${page}&page_size=4`)
         .then(({data}) => {
             setHasMore(Math.ceil(data.count / 4) > page)
-            rates?.results ? setRates({...data, results: [...rates?.results, ...data.results]}) : setRates(data);
+            setRates({...data, results: [...rates?.results, ...data.results]})
         })
     }, [page])
 
@@ -38,7 +49,7 @@ export const Rating= ({avgRate, isReviewed} : RaingInterfaces) => {
         setPage(prevPage => prevPage + 1)
     }
 
-    function writeReview(){
+    function setReviewWindow(){
         if(!authToken) {
             setLoginWindow()
             return
@@ -52,7 +63,7 @@ export const Rating= ({avgRate, isReviewed} : RaingInterfaces) => {
                 <div className="title">
                     <div>
                         <h3>Rating({rates?.count})</h3>
-                        {!isReviewed && <p onClick={writeReview}>Write a review</p>}
+                        {!isReviewed && <p onClick={setReviewWindow}>Write a review</p>}
                     </div>
                     <div>
                         <h3>{avgRate}</h3>
@@ -61,11 +72,11 @@ export const Rating= ({avgRate, isReviewed} : RaingInterfaces) => {
                     </div>
                 </div>
                 <div className="comments">
-                    {rates?.results.length && rates?.results.map((el : any) => <Comment comments={comments} rate={el}/>)}
-                    {hasMore && <p onClick={loadMoreRates}>See more({rates?.count - page * 4})</p>}
+                    {rates?.results.length && rates?.results.map((el : any, index : number) => <Comment comments={comments} rate={el} key={index}/>)}
+                    {hasMore && <p onClick={() => loadMoreRates()}>See more({rates?.count - page * 4})</p>}
                 </div>
             </StyledRating>
-            {open && <ProductReview open={open} setOpen={setOpen}/>}
+            {open && <ProductReview open={open} setOpen={setOpen} setRates={setRates} setPage={setPage}/>}
         </>
     )
 }
