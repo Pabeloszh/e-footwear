@@ -39,6 +39,8 @@ export function setUrlParams(type : any, query : any){
     let sizesParams = query.get('sizes') ? `&sizes=${query.get('sizes')}` : ''
     let brandsParams = query.get('brands') ? `&brand__in=${query.get('brands')}` : ''
     let colorsParams = query.get('colors') ? `&colors=${query.get('colors')}` : ''
+    let maxPrice = query.get('max_price') ? `&max_price=${query.get('max_price')}` : ''
+    let minPrice = query.get('min_price') ? `&min_price=${query.get('min_price')}` : ''
 
-    return `?${initialParams}${orderParams}${sizesParams}${brandsParams}${colorsParams}`
+    return `?${initialParams}${orderParams}${sizesParams}${brandsParams}${colorsParams}${minPrice}${maxPrice}`
 }
