@@ -39,5 +39,8 @@ export const StyledRegister = styled.div`
         display:flex;
         justify-content:center;
         margin-bottom:25px;
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-size:16px;
+        color: #1976d2;
     }
 `;

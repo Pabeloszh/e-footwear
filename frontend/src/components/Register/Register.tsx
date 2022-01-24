@@ -29,8 +29,9 @@ const validationSchema = yup.object({
         .string()
         .oneOf([yup.ref('password'), null], 'Passwords must match'),
     agreement: yup
-        .bool()
+        .boolean()
         .oneOf([true], 'Field must be checked')
+        .required('Field must be checked')
 });
 
 export const Register = () => {
@@ -43,7 +44,7 @@ export const Register = () => {
             email: 'admin@gmail.com',
             password: '12345678',
             passwordConfirmation: '12345678',
-            agreement: true
+            agreement: false
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -84,7 +85,6 @@ export const Register = () => {
                             id="email"
                             label="Email Address"
                             name="email"
-                            autoComplete="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             error={formik.touched.email && Boolean(formik.errors.email)}
@@ -123,9 +123,8 @@ export const Register = () => {
                             id="agreement"
                             value={formik.values.agreement}
                             onChange={formik.handleChange}
-                            // error={formik.touched.agreement}
-                            // helperText={formik.touched.agreement && formik.errors.agreement}
                         />
+                        {formik.touched.agreement && Boolean(formik.errors.agreement) && setAlert({message: 'You need to accept the agreement', type: 'error'})}
                         <Button
                             type="submit"
                             fullWidth
