@@ -20,10 +20,18 @@ export const StyledLogin = styled.div`
         margin-bottom:15px;
         background-color:#F4511E;
     }
+    p{
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-size:14px;
+        color: #1976d2;
+        cursor:pointer;
+        width:auto;
+    }
     .sign-in{
         display:flex;
         justify-content:center;
         margin-bottom:20px;
+        font-size:16px;
     }
     .Mui-focused{
         color:#f4511e !important;
