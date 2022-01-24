@@ -5,6 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 import { StyledProductsCarousel } from "./ProductsCarousel.style";
 import axios from 'axios';
 import { ProductCarouselInterfaces } from './ProductsCarouse.interfaces';
+import { Skeleton } from '@mui/material';
 
 const responsive = {
     superLargeDesktop: {
@@ -76,7 +77,6 @@ export const ProductsCarousel = ({title, params} : ProductCarouselInterfaces) =>
             if(!entry.isIntersecting){
                 return;
             }
-            console.log(entry.target);
             entry.target.classList.contains('title') && entry.target.classList.add('animated');
             observer.unobserve(entry.target);
         })
@@ -87,17 +87,17 @@ export const ProductsCarousel = ({title, params} : ProductCarouselInterfaces) =>
             <div className="title" ref={titleRef}>
               <h2>{title}</h2>  
             </div>      
-            {products 
-              && <Carousel responsive={responsive}>
+              <Carousel responsive={responsive}>
                 {products 
                   ? products?.results.map((product : any, index : number) => (
-                    <ProductCard productData={product} key={`product-${product.id}`}/>
+                    <ProductCard productData={product} key={`product-${title.split(" ")[2]}-${product.id}`}/>
                   )) 
-                  : <div>Loading...</div>
+                  : Array.apply(null, Array(16)).map(() => (
+                    <Skeleton variant="rectangular" width={'95%'} height={360} />
+                  ))
                 }
                 <div></div>
               </Carousel>
-            }
         </StyledProductsCarousel>
 
     )

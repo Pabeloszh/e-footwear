@@ -29,7 +29,7 @@ export const Rating= ({avgRate, isReviewed} : RaingInterfaces) => {
     useEffect(() => {
         if(!rates){
             setPage(1)
-            axios.get(`https://efootwear.herokuapp.com/api/product_reviews/?model_id=${id}&page=${page}&page_size=4`)
+            axios.get(`https://efootwear.herokuapp.com/api/product_reviews/?ord=-date_added&model_id=${id}&page=${page}&page_size=4`)
             .then(({data}) => {
                 setHasMore(Math.ceil(data.count / 4) > page)
                 setRates(data);
@@ -38,7 +38,7 @@ export const Rating= ({avgRate, isReviewed} : RaingInterfaces) => {
     }, [rates])
 
     useEffect(() => {
-        rates && axios.get(`https://efootwear.herokuapp.com/api/product_reviews/?model_id=${id}&page=${page}&page_size=4`)
+        rates && axios.get(`https://efootwear.herokuapp.com/api/product_reviews/?ord=-date_added&model_id=${id}&page=${page}&page_size=4`)
         .then(({data}) => {
             setHasMore(Math.ceil(data.count / 4) > page)
             setRates({...data, results: [...rates?.results, ...data.results]})

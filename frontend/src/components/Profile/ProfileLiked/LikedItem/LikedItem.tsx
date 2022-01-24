@@ -10,7 +10,7 @@ export const LikedItem = ({ liked } : LikedItemInterfaces) => {
     const authToken = useSelector((state : RootState) => state.auth);
     const dispatch = useDispatch();
     const { deleteFromFavorites } = bindActionCreators(actionCreators, dispatch);
-    console.log(liked);
+
     return (
         <StyledItem>
             <img src={require(`../../../../img/product-photos/${liked.first_color}/1.jpg`).default}  alt="" />

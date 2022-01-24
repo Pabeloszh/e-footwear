@@ -72,13 +72,15 @@ export const MainSlider: React.FC = () => {
     return (
         <>
             <StyledMainSlider ref={mainRef}>
-                {slideData.map((slide, i) => {
+                {slideData.map((slide, i : number) => {
                     return (
-                        <Slide data={slide}/>
+                        <Slide data={slide} key={i}/>
                     )
                 })}
                 <span className="dots" onClick={()=>isCooldown(true)}>
-                    {slideData.map((slide, index) => (<p style={{opacity: num === index ? '1' : '0.5'}} onClick={()=>{setNum(index);}}>&bull;</p>))}
+                    {slideData.map((slide, i) => (
+                        <p style={{opacity: num === i ? '1' : '0.5'}} onClick={()=>{setNum(i);}} key={`dot-${i}`}>&bull;</p>
+                    ))}
                 </span>
             </StyledMainSlider>
         </>

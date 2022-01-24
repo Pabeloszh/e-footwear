@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledPhotos = styled.div`
     width:50%;
     height:450px;
-    img{
+    img, .MuiSkeleton-root{
         margin-bottom:15px;
         width:100%;
         height:100%;
