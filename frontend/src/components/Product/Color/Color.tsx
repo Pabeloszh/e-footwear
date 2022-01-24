@@ -22,6 +22,7 @@ export const Color = ({ colors } : ColorInterfaces) => {
                     src={require(`../../../img/product-photos/${el}/1.jpg`).default} 
                     alt="product-image" 
                     onClick={() => setColor(el)}
+                    key={el}
                 />
             ))}
         </StyledColor>
