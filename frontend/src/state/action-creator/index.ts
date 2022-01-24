@@ -14,6 +14,7 @@ export const logout = () => {
         dispatch({
             type: "logout",
         });
+        dispatch(clearFavorites())
     }
 }
 
@@ -34,11 +35,18 @@ export const setFavorites = (payload : any) =>{
                 'Authorization': `Bearer ${payload}` 
             }
         }).then(({data}) => {
-            console.log(data)
             dispatch({
                 type: 'setFavorites',
                 payload: data
             })
+        })
+    }
+}
+
+export const clearFavorites = () => {
+    return (dispatch : any) => {
+        dispatch({
+            type: 'clearFavorites'
         })
     }
 }
