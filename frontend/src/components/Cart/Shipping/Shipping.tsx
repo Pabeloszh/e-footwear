@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 import { StyledShipping } from './Shipping.style';
+import { useHistory } from 'react-router-dom';
 
 const validationSchema = yup.object({
     email: yup
@@ -43,11 +44,14 @@ const validationSchema = yup.object({
         .required(),
 });
 
-export const Shipping = ({shippingWindow, setShippingWindow, orderId} : ShippingInterfaces) => {
+export const Shipping = ({shippingWindow, setShippingWindow} : ShippingInterfaces) => {
     const authToken = useSelector((state : RootState) => state.auth);
+    const cart = useSelector((state : RootState) => state.cart);
+
     const dispatch = useDispatch();
     const { clearCart, setAlert } = bindActionCreators(actionCreators, dispatch);
     const [loading, setLoading] = useState<boolean>(false)
+    const history = useHistory()
 
     const formik = useFormik({
         initialValues: {
@@ -69,24 +73,44 @@ export const Shipping = ({shippingWindow, setShippingWindow, orderId} : Shipping
                 first_name: values.firstName,
                 last_name: values.lastName,
                 phone_number: values.phone,
-                order : orderId,
+                order: '',
                 address: values.address,
                 city: values.city,
                 vovoideship: values.vovoideship,
                 zip_code: values.zipCode
             }
-            axios.post('https://efootwear.herokuapp.com/api/orders/add_shipping/', shippingData,
-            {
-                headers: {
-                    'Authorization': `Bearer ${authToken}` 
+
+            axios.post('https://efootwear.herokuapp.com/api/orders/create_order/', cart, 
+            authToken 
+                && {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}` 
+                    }
                 }
-            }).then(() => {
-                setLoading(false)
-                clearCart()
-                setShippingWindow(false)
-                setAlert({message: 'The order has been submitted for processing', type: 'success'})
-            }).catch((err)=> {
-                setAlert({message: 'Something went wrong', type: 'success'})
+            ).then(({data}) => {
+                shippingData = { ...shippingData, order: data[data.length - 1].order_id}
+                
+                axios.post('https://efootwear.herokuapp.com/api/orders/add_shipping/', shippingData,
+                authToken 
+                    && {
+                        headers: {
+                            'Authorization': `Bearer ${authToken}` 
+                        }
+                    }
+                ).then(() => {
+                    if(authToken){
+                        setLoading(false)
+                        setShippingWindow(false)
+                    }
+                    clearCart()
+                    setAlert({message: 'The order has been submitted for processing', type: 'success'})
+                }).catch(()=> {
+                    setAlert({message: 'Something went wrong', type: 'error'})
+                })
+                
+                !authToken && history.push(`/order-detail/${data[data.length - 1].detail_id}`);
+            }).catch(() => {
+                setAlert({message: 'Something went wrong', type: 'error'})
             })
         },
     });

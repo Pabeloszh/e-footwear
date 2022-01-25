@@ -19,6 +19,7 @@ import { actionCreators } from './state';
 import { RootState } from './state/reducers';
 import { Alert } from './components/Alert';
 import { PrivateRoute } from './routes/PrivateRoute/PrivateRoute';
+import { OrderDetail } from './routes/OrderDetail';
 
 const App: React.FC = () => {
   const authToken = useSelector((state :RootState) => state.auth);
@@ -46,6 +47,9 @@ const App: React.FC = () => {
               </Route>
               <Route path="/cart">
                 <Cart />
+              </Route>
+              <Route path="/order-detail/:id?">
+                <OrderDetail/>
               </Route>
               <PrivateRoute to='/user' component={Profile} />
           </Switch>
