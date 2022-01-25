@@ -11,19 +11,21 @@ export const ProfileLiked:React.FC = () => {
     return (
         <StyledLiked>
             <h2>Liked Products</h2>
-            {favorites 
-                ? favorites?.map((el : any, i : number) => (
-                    <React.Fragment key={`${el.id}-${i}`}>
-                        <LikedItem liked={el.product}/>
-                        <hr />
-                    </React.Fragment>
-
-                ))
-                : <>
+            {!favorites 
+                ? <>
                     <LikedItemSkeleton/>
                     <hr />
                     <LikedItemSkeleton/>
                 </>
+                : !favorites.length 
+                    ? <p>You didn't add anything to favorites</p> 
+                    : favorites?.map((el : any, i : number) => (
+                        <React.Fragment key={`${el.id}-${i}`}>
+                            <LikedItem liked={el.product}/>
+                            <hr />
+                        </React.Fragment>
+
+                    )) 
             }
         </StyledLiked>
     )

@@ -46,23 +46,23 @@ export const ProfileHistory:React.FC = () => {
             {!id && <h2>Purchase History</h2>}
             {!orders
                 ? <div>
-                <div className='header'>
-                    <h4><Skeleton width={80}/></h4>
-                    <p><Skeleton width={60}/></p>
-                    <h4><Skeleton width={65}/></h4>
-                </div>
-                <HistoryItemSkeleton/>
-                <hr />
-                <HistoryItemSkeleton/>
+                    <div className='header'>
+                        <h4><Skeleton width={80}/></h4>
+                        <p><Skeleton width={60}/></p>
+                        <h4><Skeleton width={65}/></h4>
+                    </div>
+                    <HistoryItemSkeleton/>
+                    <hr />
+                    <HistoryItemSkeleton/>
                 </div>
                 : !orders.length 
-                    ? <h2>Sorry, we do not have matching order </h2>
+                    ? (id ? <p>Sorry, we do not have matching order </p> : <p>You didn't purchase anything</p>)
                     : orders.map((el : any) => (
                         <div key={el.id}>
                             <div className='header'>
                                 <h4>{el.date_ordered.split('T')[0]}</h4>
                                 <p>{el.completed ? 'completed' : 'in progress'}</p>
-                                <h4>{el.total_value}zł</h4>
+                                <h4>{el.total_value.toFixed(2)}zł</h4>
                             </div>
                             {el.order_items.map((item : any, i : number) => (
                                 <React.Fragment key={`${el.id}-${item.id}`}>
