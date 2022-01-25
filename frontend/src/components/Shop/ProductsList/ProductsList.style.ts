@@ -6,7 +6,7 @@ export const StyledList = styled.div`
         margin-bottom:50px;
         display:grid;
         grid-template-columns: repeat(4, 200px);
-        grid-template-rows: repeat(auto-fill, 360px);
+        grid-auto-rows: 360px;
         row-gap:15px;
         column-gap:10px;
     }
@@ -34,7 +34,8 @@ export const StyledList = styled.div`
         width:300px;
         .products{
             grid-template-columns: repeat(2, 150px);
-            grid-template-rows: repeat(auto-fill, 270px);
+            // grid-template-rows: repeat(auto-fill, 270px);
+            grid-auto-rows: 270px;
         }
 
     }

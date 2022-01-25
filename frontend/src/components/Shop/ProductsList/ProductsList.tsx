@@ -35,14 +35,16 @@ export const ProductsList: React.FC = () => {
     }, [type])
     
     useEffect(() => {
-        setLoading(true);
-        setProducts(null)
-        axios.get(`https://efootwear.herokuapp.com/api/shoes/${setUrlParams(type, query)}&page_size=12&page=1`)
-        .then(({data}) => {
-            setProducts(data)
-            setHasMore(Math.ceil(data.count / 12) > page)
-            setLoading(false);
-        })
+        if(!loading){
+            setLoading(true);
+            setProducts(null)
+            axios.get(`https://efootwear.herokuapp.com/api/shoes/${setUrlParams(type, query)}&page_size=12&page=1`)
+            .then(({data}) => {
+                setProducts(data)
+                setHasMore(Math.ceil(data.count / 12) > page)
+                setLoading(false);
+            })
+        }
     }, [location.search, type]);
 
     useEffect(() => {
@@ -82,7 +84,7 @@ export const ProductsList: React.FC = () => {
             {!products 
                 ? <div className="products">
                     {Array.apply(null, Array(12)).map((_, i : any) => (
-                        <Skeleton variant="rectangular" width={'100%'} height={360} key={`skeleton-${i}`}/>
+                        <Skeleton variant="rectangular" width={'100%'} height={'100%'} key={`skeleton-${i}`}/>
                     ))}
                 </div>
                 : !products?.count 

@@ -13,7 +13,7 @@ export const ProductSkeleton = ({product} : any) => {
             <h2><Skeleton/></h2>
             <h3><Skeleton/></h3>
             <Color colors={product?.colors}/>
-            <Size sizes={product?.sizes}/>
+            <Size aviableSizes={product?.sizes}/>
             <h3></h3>
             <div className="actions">
                 <Skeleton variant="rectangular" width={'100%'} height={36.5}/>
