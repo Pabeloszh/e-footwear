@@ -11,7 +11,7 @@ export const ProductReviewStars = ({rate, setRate} : ProductReviewStarsProps) =>
     return (
         <StyledStars>
             {rates.map((r) => (
-                r <= rate ? <StarIcon onClick={()=>setRate(r)} style={{color: '#f4511e'}}/> : <StarBorderIcon onClick={()=>setRate(r)}/>
+                r <= rate ? <StarIcon onClick={()=>setRate(r)} style={{color: '#f4511e'}} key={r}/> : <StarBorderIcon onClick={()=>setRate(r)} key={r}/>
             ))}
         </StyledStars>
     )

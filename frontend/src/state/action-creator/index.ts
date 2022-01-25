@@ -1,113 +1,5 @@
 import axios from "axios";
 
-export const setMan = () => {
-    return (dispatch : any) => {
-        dispatch({
-            type: "setMan",
-            payload: 'gender=male&for_kids=false'
-        });
-    }
-}
-
-export const setWoman = () => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setWoman",
-            payload: 'gender=female&for_kids=false'
-        });
-    }
-}
-
-export const setKids = () => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setKids",
-            payload: 'for_kids=true'
-        });
-    }
-}
-
-export const setSport = () => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setSport",
-            payload: 'type=sport'
-        });
-    }
-}
-
-export const setSales = () => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setSales",
-            payload: 'discount_price=1'
-        });
-    }
-}
-
-export const setType = (payload : string | null) => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setType",
-            payload: payload
-        });
-    }
-}
-
-export const setOrder = (payload: string) => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setOrder",
-            payload: payload
-        });
-    }
-}
-
-export const setSizes = (payload: any) => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setSizes",
-            payload: payload
-        });
-    }
-}
-
-export const setBrands = (payload: any) => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setBrands",
-            payload: payload
-        });
-    }
-}
-
-export const setPriceGte = (payload: string) => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setPriceGte",
-            payload: payload
-        });
-    }
-}
-
-export const setPriceLte = (payload: string) => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setPriceLte",
-            payload: payload
-        });
-    }
-}
-
-export const setColors = (payload: any) => {
-    return (dispatch: any) => {
-        dispatch({
-            type: "setColors",
-            payload: payload
-        });
-    }
-}
-
 export const userAuth = (payload : string) => {
     return (dispatch: any) => {
         dispatch({
@@ -122,6 +14,7 @@ export const logout = () => {
         dispatch({
             type: "logout",
         });
+        dispatch(clearFavorites())
     }
 }
 
@@ -142,11 +35,18 @@ export const setFavorites = (payload : any) =>{
                 'Authorization': `Bearer ${payload}` 
             }
         }).then(({data}) => {
-            console.log(data)
             dispatch({
                 type: 'setFavorites',
                 payload: data
             })
+        })
+    }
+}
+
+export const clearFavorites = () => {
+    return (dispatch : any) => {
+        dispatch({
+            type: 'clearFavorites'
         })
     }
 }

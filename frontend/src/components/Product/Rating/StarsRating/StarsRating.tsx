@@ -10,7 +10,7 @@ export const StarsRating = ({rate} : StarsRatingInterfaces) => {
     return (
         <div>
             {rates.map((r) => (
-                r <= rate ? <StarIcon /> : (rate % 1 !== 0 && r === Math.ceil(rate)) ? <StarHalfIcon/> : <StarBorderIcon />
+                r <= rate ? <StarIcon key={r}/> : (rate % 1 !== 0 && r === Math.ceil(rate)) ? <StarHalfIcon key={r}/> : <StarBorderIcon key={r}/>
             ))}
         </div>
     )

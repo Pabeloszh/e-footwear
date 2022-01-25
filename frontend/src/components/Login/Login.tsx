@@ -101,9 +101,7 @@ export const Login = () =>{
                                 />
                             </Grid>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
+                                <p onClick={() => setAlert({message: `Too bad. We didn't add this feature`, type: 'warning'})}>Forgot password?</p>
                             </Grid>
                         </Grid>
                         <Button
@@ -114,7 +112,7 @@ export const Login = () =>{
                         >
                             Sign In
                         </Button>
-                        <p className="sign-in" onClick={openRegister}>
+                        <p className="sign-in" onClick={() => openRegister()}>
                             Don't have an account? Sign Up
                         </p>
                     </form>

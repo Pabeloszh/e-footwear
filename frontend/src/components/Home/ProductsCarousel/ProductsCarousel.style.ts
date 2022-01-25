@@ -25,6 +25,10 @@ padding: 50px 0;
         margin-left:75px;
     }
 
+    li > div {
+        width:95% !important;
+    }
+
     @media only screen and (max-width: 660px){
         padding: 50px 0;
         background-color:#f6f6f6;

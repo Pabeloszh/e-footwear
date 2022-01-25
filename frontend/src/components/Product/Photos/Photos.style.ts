@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledPhotos = styled.div`
     width:50%;
     height:450px;
-    img{
+    img, .MuiSkeleton-root{
         margin-bottom:15px;
         width:100%;
         height:100%;
@@ -11,7 +11,7 @@ export const StyledPhotos = styled.div`
     }
     div{
         display:grid;
-        grid-template-columns: repeat(3, calc(33.3% - 10px));
+        grid-template-columns: repeat(2, calc(50% - 10px));
         gap:15px;
         img{
             width:100%;

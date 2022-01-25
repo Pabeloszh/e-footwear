@@ -7,6 +7,9 @@ const reducer = (
         case "setFavorites":
             state = action.payload
             return state
+        case "clearFavorites":
+            state = null
+            return state
         default:
             return state
     }

@@ -15,7 +15,7 @@ export const CartItem = ({item} : CartItemInterfaces) => {
     console.log(item);
     return (
         <StyledItem>
-            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="" />
+            <img src={require(`../../../img/product-photos/${item.color}/1.jpg`).default}  alt="" />
             <div className="info">
                 <div>
                     <h4>{item?.model}</h4>
@@ -28,10 +28,10 @@ export const CartItem = ({item} : CartItemInterfaces) => {
                     <p onClick={() => deleteFromCart(item.product)}>Remove</p>
                 </div>
                 <div>
-                    <IconButton onClick={() => changeQuantity({product: item.product, value: -1})}>
+                    <IconButton onClick={() => changeQuantity({product: item.product, value: item.quantity > 1 && -1})}>
                         <RemoveIcon/>
                     </IconButton>
-                    <TextField variant="outlined" type="number" value={item?.quantity}/>
+                    <p>{item?.quantity}</p>
                     <IconButton onClick={() => changeQuantity({product: item.product, value: 1})}>
                         <AddIcon/>
                     </IconButton>
