@@ -28,10 +28,10 @@ export const CartItem = ({item} : CartItemInterfaces) => {
                     <p onClick={() => deleteFromCart(item.product)}>Remove</p>
                 </div>
                 <div>
-                    <IconButton onClick={() => changeQuantity({product: item.product, value: -1})}>
+                    <IconButton onClick={() => changeQuantity({product: item.product, value: item.quantity > 1 && -1})}>
                         <RemoveIcon/>
                     </IconButton>
-                    <TextField variant="outlined" type="number" value={item?.quantity}/>
+                    <p>{item?.quantity}</p>
                     <IconButton onClick={() => changeQuantity({product: item.product, value: 1})}>
                         <AddIcon/>
                     </IconButton>
