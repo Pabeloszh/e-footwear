@@ -56,7 +56,6 @@ export const Product:React.FC = () => {
 
         addToCart(productData)
     }
-
     return (
         <StyledProduct>
             {product ?
@@ -68,10 +67,10 @@ export const Product:React.FC = () => {
                         <h3>{product.price}zł</h3>
                         <Color colors={product.colors}/>
                         <h3>Choose size</h3>
-                        <Size sizes={product.sizes} size={size} setSize={setSize}/>
+                        <Size aviableSizes={product.sizes} forKids={product.for_kids} size={size} setSize={setSize}/>
                         <div className="actions">
                             <Button disabled={!size} variant="contained" color="primary" onClick={addToCartt}>
-                                Buy now
+                                Add to cart
                             </Button>
                             <ProductLikeButton id={Number(id)}/>
                         </div>
