@@ -6,7 +6,6 @@ import { StyledStars } from "./ProductReviewStars.style"
 
 export const ProductReviewStars = ({rate, setRate} : ProductReviewStarsProps) => {
     const rates = [1,2,3,4,5]
-    // const [rate, setRate] = useState<number>(0);
 
     return (
         <StyledStars>

@@ -3,8 +3,9 @@ import { Color } from "../Color"
 import { Photos } from "../Photos"
 import { Size } from "../Size"
 import { Skeleton } from '@mui/material';
+import { ProductSkeletonInterfaces } from './ProductSkeleton.interfaces';
 
-export const ProductSkeleton = ({product} : any) => {
+export const ProductSkeleton = ({ product } : ProductSkeletonInterfaces) => {
   return (
       <>
         <Photos product={product}/>

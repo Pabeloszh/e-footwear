@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { StyledDialog } from "./ProductReview.style"
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -20,7 +20,7 @@ import { actionCreators } from '../../../../state';
 const validationSchema = yup.object({
   message: yup
       .string()
-      .required('Email is required'),
+      .required('Message is required'),
 });
 
 
@@ -29,13 +29,13 @@ export const ProductReview:React.FC<ProductReviewProps> = ({open, setOpen, setRa
     id: string;
   };
 
+  const [rate, setRate] = useState<number>(0);
+  const authToken = useSelector((state : RootState) => state.auth);
+
   const dispatch = useDispatch();
   const { setAlert } = bindActionCreators(actionCreators, dispatch);
 
-  const authToken = useSelector((state : RootState) => state.auth);
-  const user = useSelector((state : RootState | null) => state?.user);
 
-  const [rate, setRate] = useState<number>(0);
 
   const formik = useFormik({
     initialValues: {
@@ -72,19 +72,18 @@ export const ProductReview:React.FC<ProductReviewProps> = ({open, setOpen, setRa
               By reviewing the product you will help other users to buy it and we would be delighted to hear your opinion.
             </DialogContentText>
               <TextField
-                label="Your Opinion"
-                multiline
-                rows={4}
-                variant="outlined"
-                id="message"
-                name="message"
-                value={formik.values.message}
-                onChange={formik.handleChange}
-                error={formik.touched.message && Boolean(formik.errors.message)}
-                helperText={formik.touched.message && formik.errors.message}
-                fullWidth
+                  label="Your Opinion"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  id="message"
+                  name="message"
+                  value={formik.values.message}
+                  onChange={formik.handleChange}
+                  error={formik.touched.message && Boolean(formik.errors.message)}
+                  helperText={formik.touched.message && formik.errors.message}
+                  fullWidth
                 />
-
             <ProductReviewStars rate={rate} setRate={setRate}/>
           </DialogContent>
           <DialogActions>

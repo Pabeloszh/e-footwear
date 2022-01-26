@@ -15,20 +15,24 @@ export const Color = ({ colors } : ColorInterfaces) => {
         })
     }
 
+    function setClassActive(payload : string | null, inspected : string){
+        return payload === inspected ? 'active' : undefined
+    }
+
     return (
         <StyledColor>
             {colors 
                 ? colors.map(el => (
                     <img 
-                        className={query.get('color') == el ? 'active' : undefined} loading="lazy" 
+                        className={setClassActive(query.get('color'), el)} loading="lazy" 
                         src={require(`../../../img/product-photos/${el}/1.jpg`).default} 
                         alt="product-image" 
                         onClick={() => setColor(el)}
                         key={el}
                     />
                 ))
-                : Array.apply(null, Array(3)).map(() => (
-                    <Skeleton variant="rectangular" width={70} height={70} />
+                : Array.apply(null, Array(3)).map((_, i : number) => (
+                    <Skeleton variant="rectangular" width={70} height={70} key={i}/>
                 ))
             }
         </StyledColor>
