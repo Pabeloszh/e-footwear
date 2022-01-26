@@ -1,15 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import axios from 'axios'
-import {ProductCard} from "../../ProductCard"
-import {StyledList} from './ProductsList.style'
-import { useDispatch, useSelector } from 'react-redux'
-import { ProductsInterfaces } from './ProductList.interfaces'
-import { bindActionCreators } from 'redux'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { useHistory, useLocation } from 'react-router-dom'
-import { actionCreators } from '../../../state'
-import { setUrlParams, useQuery } from '../../../utils'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios'
 import { Skeleton } from '@mui/material'
+import { ProductCard } from "../../ProductCard"
+import { ProductsInterfaces } from './ProductList.interfaces'
+import { StyledList } from './ProductsList.style'
+import { setUrlParams, useQuery } from '../../../utils'
 
 const options = {
     root: null,
@@ -43,6 +40,7 @@ export const ProductsList: React.FC = () => {
                 setProducts(data)
                 setHasMore(Math.ceil(data.count / 12) > page)
                 setLoading(false);
+                console.log(data)
             })
         }
     }, [location.search, type]);
@@ -52,7 +50,8 @@ export const ProductsList: React.FC = () => {
             setLoading(true)
             axios.get(`https://efootwear.herokuapp.com/api/shoes/${setUrlParams(type, query)}&page_size=12&page=${page}`)
             .then(({data}) => {
-                setProducts({...data, results: [...products?.results, ...data.results]})
+                //@ts-ignore
+                setProducts({...data, results: [...products.results, ...data.results]})
                 setHasMore(Math.ceil(data.count / 12) > page)
                 setLoading(false)
             })
@@ -61,7 +60,6 @@ export const ProductsList: React.FC = () => {
 
     const callbackRef = useCallback(node => {
         if (!node) return
-
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if(!entry.isIntersecting){
@@ -71,12 +69,10 @@ export const ProductsList: React.FC = () => {
                 hasMore && setPage(prevPage => prevPage + 1)
 
                 observer.disconnect()
-                
             })
         }, options);
 
         observer.observe(node)
-
     }, [hasMore]);
 
     return (
