@@ -34,12 +34,12 @@ export const Login:React.FC = () => {
 
     const formik = useFormik({
         initialValues: {
-          email: 'pawe@pawe.com',
-          password: '1',
+          email: '',
+          password: '',
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            axios.post('https://efootwear.herokuapp.com/api/users/login', {
+            axios.post(`${process.env.REACT_APP_API_KEY}/users/login`, {
                 email: values.email,
                 password: values.password
             }).then(({data}) => {

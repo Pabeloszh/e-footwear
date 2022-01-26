@@ -60,7 +60,7 @@ export const DataSettings:React.FC<SettingsProps> = ({settings, toggleSettings})
             }
 
             if(Object.keys(payload).length !== 0){
-                axios.patch('https://efootwear.herokuapp.com/api/users/edit/', payload, 
+                axios.patch(`${process.env.REACT_APP_API_KEY}/users/edit/`, payload, 
                 {
                     headers: {
                         'Authorization': `Bearer ${authToken}` 

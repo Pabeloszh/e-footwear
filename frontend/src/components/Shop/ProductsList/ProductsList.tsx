@@ -35,12 +35,11 @@ export const ProductsList: React.FC = () => {
         if(!loading){
             setLoading(true);
             setProducts(null)
-            axios.get(`https://efootwear.herokuapp.com/api/shoes/${setUrlParams(type, query)}&page_size=12&page=1`)
+            axios.get(`${process.env.REACT_APP_API_KEY}/shoes/${setUrlParams(type, query)}&page_size=12&page=1`)
             .then(({data}) => {
                 setProducts(data)
                 setHasMore(Math.ceil(data.count / 12) > page)
                 setLoading(false);
-                console.log(data)
             })
         }
     }, [location.search, type]);
@@ -48,7 +47,7 @@ export const ProductsList: React.FC = () => {
     useEffect(() => {
         if(page !== 1 && hasMore && !loading){
             setLoading(true)
-            axios.get(`https://efootwear.herokuapp.com/api/shoes/${setUrlParams(type, query)}&page_size=12&page=${page}`)
+            axios.get(`${process.env.REACT_APP_API_KEY}/shoes/${setUrlParams(type, query)}&page_size=12&page=${page}`)
             .then(({data}) => {
                 //@ts-ignore
                 setProducts({...data, results: [...products.results, ...data.results]})

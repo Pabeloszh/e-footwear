@@ -86,11 +86,11 @@ export const Shipping = ({ shippingWindow, setShippingWindow } : ShippingInterfa
                 'Authorization': `Bearer ${authToken}` 
             }
 
-            axios.post('https://efootwear.herokuapp.com/api/orders/create_order/', cart, authToken && { headers: headers })
+            axios.post(`${process.env.REACT_APP_API_KEY}/orders/create_order/`, cart, authToken && { headers: headers })
             .then(({data}) => {
                 shippingData = { ...shippingData, order: data[data.length - 1].order_id}
                 
-                axios.post('https://efootwear.herokuapp.com/api/orders/add_shipping/', shippingData, authToken && { headers: headers })
+                axios.post(`${process.env.REACT_APP_API_KEY}/orders/add_shipping/`, shippingData, authToken && { headers: headers })
                 .then(() => {
                     if(authToken){
                         setLoading(false)

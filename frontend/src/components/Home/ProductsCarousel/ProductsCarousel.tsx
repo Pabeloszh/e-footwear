@@ -61,7 +61,7 @@ export const ProductsCarousel = ({ title, params } : ProductCarouselInterfaces) 
         rootMargin: '0px'
     };
     function getProducts(){
-      axios.get(`https://efootwear.herokuapp.com/api/shoes/?${params}&page_size=16&page=1`)
+      axios.get(`${process.env.REACT_APP_API_KEY}/shoes/?${params}&page_size=16&page=1`)
       .then(({data})=>{
         setProducts(data)
       })

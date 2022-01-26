@@ -21,7 +21,7 @@ export const ProfileHistory:React.FC = () => {
 
     useEffect(() => {
         if(pathname === '/user'){
-            axios.get('https://efootwear.herokuapp.com/api/orders/', {
+            axios.get(`${process.env.REACT_APP_API_KEY}/orders/`, {
                 headers: {
                     "Authorization": `Bearer ${authToken}`
                 }
@@ -33,7 +33,7 @@ export const ProfileHistory:React.FC = () => {
 
     useEffect(() => {
         if(id){
-            axios.get(`https://efootwear.herokuapp.com/api/orders/order_detail/?order_number=${id}`)
+            axios.get(`${process.env.REACT_APP_API_KEY}/orders/order_detail/?order_number=${id}`)
             .then(({data}) => {
                 setOrders(data);
             })

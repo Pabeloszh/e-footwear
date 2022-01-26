@@ -46,7 +46,7 @@ export const Register = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            axios.post('https://efootwear.herokuapp.com/api/users/create_user/', {
+            axios.post(`${process.env.REACT_APP_API_KEY}/users/create_user/`, {
                 email: values.email,
                 password: values.password,
                 first_name: "wypierdol te gowna",

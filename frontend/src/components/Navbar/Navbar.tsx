@@ -36,7 +36,7 @@ export const Navbar:React.FC = () => {
     }
 
     useEffect(() => {
-        authToken && axios.get('https://efootwear.herokuapp.com/api/users/edit/', {
+        authToken && axios.get(`${process.env.REACT_APP_API_KEY}/users/edit/`, {
             headers: {
                 "Authorization": `Bearer ${authToken}`
             }
