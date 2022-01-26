@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -27,8 +26,7 @@ const validationSchema = yup.object({
         .required('Password is required'),
 });
 
-export const Login = () =>{
-
+export const Login:React.FC = () => {
     const loginWindow = useSelector((state :RootState) => state.loginWindow);
 
     const dispatch = useDispatch();
@@ -62,7 +60,7 @@ export const Login = () =>{
     return (
         <Dialog open={loginWindow} aria-labelledby="form-dialog-title">
             <StyledLogin>
-                <CloseIcon onClick={ () => setLoginWindow()}/>
+                <CloseIcon onClick={() => setLoginWindow()}/>
                 <DialogTitle id="form-dialog-title">Sign in to your account</DialogTitle>
                 <DialogContent>
                     <form onSubmit={formik.handleSubmit}>
