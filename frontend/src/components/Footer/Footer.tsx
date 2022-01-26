@@ -9,8 +9,21 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { StyledFooter } from "./Footer.style";
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state';
 
 export const Footer: React.FC = () => {
+    const history = useHistory();
+
+    const dispatch = useDispatch();
+    const { setLoginWindow, setRegisterWindow} = bindActionCreators(actionCreators, dispatch);
+
+    function redirect(path: string) {
+        history.push(`/${path}`);
+    }
+
     return (
         <StyledFooter>
             <div className="footer-desc">
@@ -24,22 +37,22 @@ export const Footer: React.FC = () => {
                         <h3>Links</h3>
                         <List component="nav" aria-label="main mailbox folders">
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Home" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Home" onClick={() => redirect('')}/>
                             </ListItem>
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Man" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Man" onClick={() => redirect('shop/man?order=date_added')}/>
                             </ListItem>
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Woman" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Woman" onClick={() => redirect('shop/woman?order=date_added')}/>
                             </ListItem>
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Kids" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Kids" onClick={() => redirect('shop/kids?order=date_added')}/>
                             </ListItem>
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Sport" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Sport" onClick={() => redirect('shop/sport?order=date_added')}/>
                             </ListItem>
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Sales" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Sales" onClick={() => redirect('shop/sales?order=date_added')}/>
                             </ListItem>
                         </List>
                     </div>
@@ -47,13 +60,13 @@ export const Footer: React.FC = () => {
                         <h3>User</h3>
                         <List component="nav" aria-label="main mailbox folders">
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Login" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Login" onClick={() => setLoginWindow()}/>
                             </ListItem>
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Sign Up" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Sign Up" onClick={() => setRegisterWindow()}/>
                             </ListItem>
                             <ListItem button>
-                                <KeyboardArrowRightIcon /><ListItemText primary="Cart" />
+                                <KeyboardArrowRightIcon /><ListItemText primary="Cart" onClick={() => redirect('cart')}/>
                             </ListItem>
                         </List>
                     </div>
@@ -66,7 +79,8 @@ export const Footer: React.FC = () => {
                     <FacebookIcon/>
                     <InstagramIcon/>
                     <TwitterIcon/>
-                    <GitHubIcon/>
+                    {/* Yeah, I definitely didn't want to change even such a small thing as this icon to <a href=""></a>, because the backend guy has to present it tomorrow at the university */}
+                    <GitHubIcon onClick={() => {window.location.href = 'https://github.com/Pabeloszh/e-footwear'}}/>
                 </div>
             </div>
         </StyledFooter>
