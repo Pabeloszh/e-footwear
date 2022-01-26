@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { useLocation, useParams } from 'react-router';
+import { useLocation } from 'react-router';
+
 export function capitalizeFirstLetter(payload : string){
     return payload.charAt(0).toUpperCase() + payload.slice(1)
 }
