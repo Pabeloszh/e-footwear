@@ -4,10 +4,15 @@ import TuneIcon from '@material-ui/icons/Tune';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { StyledFilter, StyledDrawer } from "./MobileFilter.style"
+import { useParams } from 'react-router';
+import { capitalizeFirstLetter } from '../../../../utils';
 
 export const MobileFilter:React.FC = () => {
     const [drawer, toggleDrawer] = useState<boolean>(false)
     const filterNav = useRef(null);
+    let { type } = useParams() as {
+        type: string;
+    };
 
     useEffect(() => {
         function watchScroll() {
@@ -48,7 +53,7 @@ export const MobileFilter:React.FC = () => {
         <StyledFilter>
             <div className="filter-nav">
                 <div className="sticky-nav" ref={filterNav}>
-                    <h2>For Man:</h2>
+                    <h2>{capitalizeFirstLetter(type)}</h2>
                     <TuneIcon onClick={()=>toggleDrawer(true)}/>
                 </div>
             </div>

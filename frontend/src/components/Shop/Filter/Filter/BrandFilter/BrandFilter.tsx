@@ -1,19 +1,22 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StyledBrand } from './BrandFilter.style';
 import { Checkbox, FormControlLabel} from '@material-ui/core'
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../../../state';
 import { useQuery } from '../../../../../utils';
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 export const BrandFilter:React.FC = () => {
-    const dispatch = useDispatch();
-
-    const { setBrands } = bindActionCreators(actionCreators, dispatch);
+    const query = useQuery();
+    const history = useHistory();
 
     function setBrandValue(e:any){
-        setBrands({value: e.target.value, checked: e.target.checked})
+        let arr = query.get('brands')?.split(',') || []
+
+        e.target.checked ? arr?.push(e.target.value) : arr.splice(arr.indexOf(e.target.value), 1)
+
+        arr?.length ? query.set('brands', arr?.join(',')) : query.delete('brands')
+        history.push({
+            search: query.toString(),
+        })
     }
 
     return (
@@ -23,7 +26,7 @@ export const BrandFilter:React.FC = () => {
                     {['Nike', 'Adidas', "Puma", 'Reebook'].map(el => (
                         <FormControlLabel
                             key={el}
-                            control={<Checkbox value={el} onChange={setBrandValue} color="primary" /*checked={query.get('brand__in')?.split(',').find(e => e === el) ? true : false}*//>}
+                            control={<Checkbox value={el} onChange={setBrandValue} color="primary" checked={query.get('brands')?.split(',').find(e => e === el) ? true : false}/>}
                             label={el}
                         />
                     ))}

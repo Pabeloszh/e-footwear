@@ -1,37 +1,69 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyledPrice} from './PriceFilter.style'
 import { Slider, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../../../state';
+import { useQuery } from '../../../../../utils';
+import { useHistory, useLocation } from 'react-router-dom'
 
 export const PriceFilter:React.FC = () => {
-    const [value, setValue] = React.useState<any>([0, 1000]);
+    const [value, setValue] = React.useState<number[]>([0, 1000]);
+    const [slider, setSlider] = React.useState<number[]>([0, 1000]);
+    const query = useQuery()
+    const history = useHistory()
 
-    const url = useSelector((state : any) => state.url);
+    useEffect(() => {
+        if(query.get('min_price') && query.get('max_price')){
+            setValue([Number(query.get('min_price')), Number(query.get('max_price'))])
+            setSlider([Number(query.get('min_price')), Number(query.get('max_price'))])
+        } else {
+            if(query.get('min_price')){
+                setValue([Number(query.get('min_price')), value[1]])
+                setSlider([Number(query.get('min_price')), slider[1]])
+            }
+            if(query.get('max_price')){
+                setValue([value[0], Number(query.get('max_price'))])
+                setSlider([slider[0], Number(query.get('max_price'))])
+            }
+        }
+    }, [])
 
-    const dispatch = useDispatch();
+    useEffect(() => {
+        if(value[0] > value[1]){
+            setValue([value[1], value[0]])
+            return
+        }
 
-    const { setPriceGte, setPriceLte } = bindActionCreators(actionCreators, dispatch);
-    useEffect(()=>{
-        // console.log(value);
-        setPriceGte(value[0].toString())
-    }, [value[0]])
-    const handleChange = (event: any, newValue: any) => {
-        // console.log(event);
-        // value[0] !== newValue[0] ? setPriceGte(newValue[0].toString()) : setPriceLte(newValue[1].toString())
-        // value[1] !== newValue[1] ? setPriceLte(newValue[1].toString()) : setPriceGte(newValue[0].toString())
-        // console.log(url.priceLte, newValue[0]);
-        // setValue(newValue as number[]);
-    };
+        query.get('min_price') !== value[0].toString() && query.set('min_price', value[0].toString())
+        query.get('max_price') !== value[1].toString() && query.set('max_price', value[1].toString())
 
-    const setPriceValues = (event : any, newValue : any) => {
-        // console.log(123);
-        // value[0] !== newValue[0] ? setPriceGte(newValue[0].toString()) : setPriceLte(newValue[1].toString())
-        // value[1] !== newValue[1] ? setPriceLte(newValue[1].toString()) : setPriceGte(newValue[0].toString())
+        !value[0] && query.delete('min_price')
+        value[1] == 1000 && query.delete('max_price')
 
-        // setValue(newValue as number[]);
+        history.push({
+            search: query.toString(),
+        })
+    }, [value])
+
+    function handleInputChange(e : any){
+        if(e.target.name == "from"){
+            setValue([e.target.value, value[1]])
+            setSlider([e.target.value, value[1]])
+        } else {
+            setValue([value[0], e.target.value])
+            setSlider([value[0], e.target.value])
+        }
     }
+
+    function handleSliderChange(e : any, newValue : any){
+        setSlider(newValue)
+    }
+
+    function handleChangeCommitted(e : any, newValue : any){
+        setValue(newValue);
+    }
+
     return (
         <StyledPrice>
             <h2>Price</h2>
@@ -42,7 +74,9 @@ export const PriceFilter:React.FC = () => {
                         fullWidth
                         label="From"
                         name="from"
-                        value={url.priceGte}
+                        value={value[0]}
+                        type="number"
+                        onChange={handleInputChange}
                     />
                     <TextField
                         variant="outlined"
@@ -50,15 +84,20 @@ export const PriceFilter:React.FC = () => {
                         fullWidth
                         label="To"
                         name="to"
-                        value={url.priceLte}
+                        value={value[1]}
+                        type="number"
+                        onChange={handleInputChange}
                         // onChange={(e)=>setValue([value, e.target.value])}
                     />
                 </div>
                     <Slider
                         max={1000}
-                        value={[url.priceGte, url.priceLte]}
-                        onChange={handleChange}
-                        onChangeCommitted={setPriceValues}
+                        //@ts-ignore
+                        value={slider}
+                        //@ts-ignore
+                        onChange={handleSliderChange}
+                        onChangeCommitted={handleChangeCommitted}
+                        // onChangeCommitted={handleChangeCommitted}
                         valueLabelDisplay="auto"
                         aria-labelledby="range-slider"
                     />

@@ -9,9 +9,9 @@ export const Home: React.FC = () => {
     return (
         <>
             <MainSlider/>
-            {/* <ProductsCarousel/> */}
+            <ProductsCarousel title="Our discounted products" params="discount_price=1"/>
             <SalesContainer/>
-            {/* <ProductsCarousel/> */}
+            <ProductsCarousel title="Our newest products" params="order=date_added"/>
             <Newsletter/>
         </>
     )

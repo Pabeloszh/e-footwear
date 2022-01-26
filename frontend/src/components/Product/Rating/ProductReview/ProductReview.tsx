@@ -8,12 +8,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ProductReviewProps } from "./ProductReview.interfaces"
 import { ProductReviewStars } from './ProductReviewStars';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../state/reducers';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { useParams } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../../../state';
 
 const validationSchema = yup.object({
   message: yup
@@ -22,18 +24,18 @@ const validationSchema = yup.object({
 });
 
 
-export const ProductReview:React.FC<ProductReviewProps> = ({open, setOpen}) => {
+export const ProductReview:React.FC<ProductReviewProps> = ({open, setOpen, setRates, setPage}) => {
   let { id } = useParams() as {
     id: string;
-};
+  };
+
+  const dispatch = useDispatch();
+  const { setAlert } = bindActionCreators(actionCreators, dispatch);
+
   const authToken = useSelector((state : RootState) => state.auth);
   const user = useSelector((state : RootState | null) => state?.user);
 
   const [rate, setRate] = useState<number>(0);
-
-  useEffect(() => {
-    // console.log(user);
-  }, [rate])
 
   const formik = useFormik({
     initialValues: {
@@ -44,17 +46,19 @@ export const ProductReview:React.FC<ProductReviewProps> = ({open, setOpen}) => {
         authToken && axios.post('https://efootwear.herokuapp.com/api/rate_product/', 
         {
             model: id,
-            rate: 3,
-            message: 'chujowe 3/5'
+            rate: rate,
+            message: values.message
         }, 
         {
-            headers: {
-                'Authorization': `Bearer ${authToken}` 
-            }
-        }).then(({data}) => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
+          headers: {
+              'Authorization': `Bearer ${authToken}` 
+          }
+        }).then(() => {
+          setOpen(false)
+          setRates(null)
+          setPage(prevPage => prevPage = 1)
+        }).catch((err) => {
+            setAlert({message: err.response.data?.rates?.length ? err.response.data?.rates[0] : 'You have already reviewed this product', type: 'error'})
         })
     },
 });

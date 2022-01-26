@@ -49,11 +49,8 @@ export const StyledItem = styled.div`
                     text-align:center;
                 }
             }
-            .Mui-focused{
-                color:#f4511e !important;
-            }
-            .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
-                border-color:#f4511e;
+            p{
+                margin: 0 5px;
             }
             button{
                 padding:0;

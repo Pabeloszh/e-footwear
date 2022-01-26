@@ -66,7 +66,7 @@ export const Navbar = () => {
                             <Button 
                                 key={text}
                                 color="inherit" 
-                                onClick={() => goTo(`shop/${text.toLowerCase()}`)} 
+                                onClick={() => goTo(`shop/${text.toLowerCase()}?order=date_added`)} 
                                 className={`/shop/${text.toLowerCase()}` === location.pathname ? "active" : ""}>
                                 {text}
                             </Button>

@@ -22,9 +22,9 @@ export const ProductCard = ({productData, callbackRef} : ProductCardProps) => {
 
     
     return (
-        <StyledProductCard onClick={(e) => redirect(e, `product/${productData.id}`)}>
+        <StyledProductCard onClick={(e) => redirect(e, `product/${productData.id}?color=${productData.colors[0]}`)}>
             <div className="photo" ref={callbackRef}>
-                <img loading="lazy" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="product-image"/>
+                <img loading="lazy" src={require(`../../img/product-photos/${productData.colors[0]}/1.jpg`).default} alt="product-image"/>
             </div>
             <LikeButton id={productData.id}/>
             {productData.discount_price && 

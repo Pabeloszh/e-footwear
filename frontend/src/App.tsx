@@ -17,12 +17,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from './state';
 import { RootState } from './state/reducers';
-import axios from 'axios';
 import { Alert } from './components/Alert';
+import { PrivateRoute } from './routes/PrivateRoute/PrivateRoute';
+import { OrderDetail } from './routes/OrderDetail';
 
 const App: React.FC = () => {
-  const [registerWindow, toggleRegisterWindow] = useState<boolean>(false);
-
   const authToken = useSelector((state :RootState) => state.auth);
 
   const dispatch = useDispatch();
@@ -49,9 +48,10 @@ const App: React.FC = () => {
               <Route path="/cart">
                 <Cart />
               </Route>
-              <Route path="/user">
-                <Profile />
+              <Route path="/order-detail/:id?">
+                <OrderDetail/>
               </Route>
+              <PrivateRoute to='/user' component={Profile} />
           </Switch>
         <Login/>
         <Register/>
