@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { ShippingInterfaces } from './Shipping.interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../../state';
@@ -7,14 +6,15 @@ import { RootState } from '../../../state/reducers';
 import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
+import { ShippingInterfaces } from './Shipping.interfaces';
 import { StyledShipping } from './Shipping.style';
-import { useHistory } from 'react-router-dom';
 
 const validationSchema = yup.object({
     email: yup
@@ -23,28 +23,28 @@ const validationSchema = yup.object({
         .required('Email is required'),
     firstName: yup
         .string()
-        .required(),
+        .required('First name is required'),
     lastName: yup
         .string()
-        .required(),
+        .required('Last name is required'),
     phone: yup
         .string()
-        .required(),
+        .required('Phone is required'),
     address: yup
         .string()
-        .required(),
+        .required('Address is required'),
     city: yup
         .string()
-        .required(),
+        .required('City is required'),
     vovoideship: yup
         .string()
-        .required(),
+        .required('Vovoideship is required'),
     zipCode: yup
         .string()
-        .required(),
+        .required('Zip code is required'),
 });
 
-export const Shipping = ({shippingWindow, setShippingWindow} : ShippingInterfaces) => {
+export const Shipping = ({ shippingWindow, setShippingWindow } : ShippingInterfaces) => {
     const authToken = useSelector((state : RootState) => state.auth);
     const cart = useSelector((state : RootState) => state.cart);
 
@@ -55,19 +55,21 @@ export const Shipping = ({shippingWindow, setShippingWindow} : ShippingInterface
 
     const formik = useFormik({
         initialValues: {
-            email: 'email@gmail.com',
-            firstName: 'John',
-            lastName: 'Doe',
-            phone: '213742069',
-            address: '5723 Morgan Ave',
-            city: 'Los Angeles',
-            vovoideship: 'California',
-            zipCode: '90011',
+            email: '',
+            firstName: '',
+            lastName: '',
+            phone: '',
+            address: '',
+            city: '',
+            vovoideship: '',
+            zipCode: '',
 
         },
+
         validationSchema: validationSchema,
         onSubmit: (values) => {
             setLoading(true)
+
             let shippingData = {
                 email: values.email,
                 first_name: values.firstName,
@@ -80,36 +82,31 @@ export const Shipping = ({shippingWindow, setShippingWindow} : ShippingInterface
                 zip_code: values.zipCode
             }
 
-            axios.post('https://efootwear.herokuapp.com/api/orders/create_order/', cart, 
-            authToken 
-                && {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}` 
-                    }
-                }
-            ).then(({data}) => {
+            const headers = {
+                'Authorization': `Bearer ${authToken}` 
+            }
+
+            axios.post('https://efootwear.herokuapp.com/api/orders/create_order/', cart, authToken && { headers: headers })
+            .then(({data}) => {
                 shippingData = { ...shippingData, order: data[data.length - 1].order_id}
                 
-                axios.post('https://efootwear.herokuapp.com/api/orders/add_shipping/', shippingData,
-                authToken 
-                    && {
-                        headers: {
-                            'Authorization': `Bearer ${authToken}` 
-                        }
-                    }
-                ).then(() => {
+                axios.post('https://efootwear.herokuapp.com/api/orders/add_shipping/', shippingData, authToken && { headers: headers })
+                .then(() => {
                     if(authToken){
                         setLoading(false)
                         setShippingWindow(false)
                     }
+
                     clearCart()
                     setAlert({message: 'The order has been submitted for processing', type: 'success'})
-                }).catch(()=> {
+                })
+                .catch(()=> {
                     setAlert({message: 'Something went wrong', type: 'error'})
                 })
                 
                 !authToken && history.push(`/order-detail/${data[data.length - 1].detail_id}`);
-            }).catch(() => {
+            })
+            .catch(() => {
                 setAlert({message: 'Something went wrong', type: 'error'})
             })
         },
@@ -219,7 +216,13 @@ export const Shipping = ({shippingWindow, setShippingWindow} : ShippingInterface
                             error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
                             helperText={formik.touched.zipCode && formik.errors.zipCode}
                         />
-                        <Button variant="contained" color="primary" type="submit" fullWidth disabled={loading}>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            type="submit" 
+                            fullWidth 
+                            disabled={loading}
+                        >
                             Confirm
                         </Button>
                     </form>

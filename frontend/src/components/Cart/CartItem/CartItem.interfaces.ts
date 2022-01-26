@@ -1,3 +1,13 @@
 export interface CartItemInterfaces {
-    item: any,
+    item: CartItemProps,
+}
+
+interface CartItemProps{
+    brand: string
+    model: string
+    product: number
+    color: string
+    quantity: number
+    size: number
+    price: number
 }
