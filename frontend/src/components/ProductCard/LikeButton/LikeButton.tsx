@@ -10,10 +10,11 @@ import { RootState } from '../../../state/reducers';
 
 export const LikeButton = ({id} : LikeButtonInterfaces) => {
     const [loading, setLoading] = useState<boolean>(false)
-    const dispatch = useDispatch();
-    const { deleteFromFavorites, addToFavorites, setLoginWindow } = bindActionCreators(actionCreators, dispatch);
     const favorites = useSelector((state :RootState) => state.favorites);
     const authToken = useSelector((state : RootState) => state.auth);
+
+    const dispatch = useDispatch();
+    const { deleteFromFavorites, addToFavorites, setLoginWindow } = bindActionCreators(actionCreators, dispatch);
 
     function isFavorite(){
         return favorites?.some((fav : any)=> fav.product.id === id)
@@ -23,6 +24,7 @@ export const LikeButton = ({id} : LikeButtonInterfaces) => {
             setLoginWindow()
             return
         }
+
         if(loading) return
 
         setLoading(true)
@@ -39,9 +41,9 @@ export const LikeButton = ({id} : LikeButtonInterfaces) => {
     }
     return (
         <StyledLikeButton onClick={setFavorite}>
-            {isFavorite() ?
-                <FavoriteIcon/> : 
-                <FavoriteBorderIcon/> 
+            {isFavorite() 
+                ? <FavoriteIcon/> 
+                : <FavoriteBorderIcon/> 
             }
         </StyledLikeButton>
     )
