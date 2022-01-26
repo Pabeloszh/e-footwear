@@ -1,7 +1,7 @@
-import { PrivateRouteInterfaces } from './PrivateRoute.interfaces';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/reducers';
+import { PrivateRouteInterfaces } from './PrivateRoute.interfaces';
 
 export const PrivateRoute = (props: PrivateRouteInterfaces) => {
     const { component: Component, ...rest } = props;
