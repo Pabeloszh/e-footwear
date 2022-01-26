@@ -13,5 +13,4 @@ urlpatterns = [
     path('users/liked_products/',
          LikedProductsView.as_view({'get': 'list', 'post': 'create', 'delete': 'destroy'}),
          name='liked_products'),
-
 ]

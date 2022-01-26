@@ -40,7 +40,7 @@ class OrderItem(models.Model):
     @property
     def primary_picture(self):
         pic = ProductPictures.objects.filter(model=self.product).get(primary_placeholder=True)
-        return str(pic.picture.url)
+        return pic.picture.url
 
 
 class ShippingAddress(models.Model):

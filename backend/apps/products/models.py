@@ -39,7 +39,6 @@ class Product(models.Model):
         """Calculate average rating of the product based on Rating model"""
         if hasattr(self, '_average_rating'):
             return self._average_rating
-        # return self.rating.aggregate(Avg('rating__rate'))
 
     @property
     def first_color(self):
@@ -55,7 +54,7 @@ class ProductPictures(models.Model):
     color_placeholder = models.BooleanField(default=False)
 
     def __str__(self):
-        return '%s: %s' % (self.color, self.model)
+        return self.model.brand
 
 
 class Rating(models.Model):

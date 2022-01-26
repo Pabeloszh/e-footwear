@@ -74,3 +74,4 @@ class CreateReviewViewSet(generics.CreateAPIView):
         serializer.save()
 
         return Response(serializer.data)
+

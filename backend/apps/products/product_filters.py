@@ -44,7 +44,8 @@ class ProductRatingFilter(filters.FilterSet):
 
     ord = filters.OrderingFilter(
         fields=(
-            ('rate', 'rate')
+            ('rate', 'rate'),
+            ('date_added', 'date_added')
         )
     )
 
