@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
-import Carousel from "react-multi-carousel";
-import { ProductCard } from "../../ProductCard"
-import "react-multi-carousel/lib/styles.css";
-import { StyledProductsCarousel } from "./ProductsCarousel.style";
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
-import { ProductCarouselInterfaces } from './ProductsCarouse.interfaces';
+import Carousel from "react-multi-carousel";
 import { Skeleton } from '@mui/material';
+import { ProductCard } from "../../ProductCard"
+import { StyledProductsCarousel } from "./ProductsCarousel.style";
+import { ProductCarouselInterfaces } from './ProductsCarouse.interfaces';
+import { ProductsInterfaces } from '../../Shop/ProductsList/ProductList.interfaces';
+import "react-multi-carousel/lib/styles.css";
 
 const responsive = {
     superLargeDesktop: {
@@ -48,28 +49,29 @@ const responsive = {
       breakpoint: { max: 375, min: 0 },
       items: 1.3
     }
-  };
+};
 
-export const ProductsCarousel = ({title, params} : ProductCarouselInterfaces) => {
-    const [products, setProducts] = useState<any>(null);
-    const titleRef = useRef(null);
+export const ProductsCarousel = ({ title, params } : ProductCarouselInterfaces) => {
+    const [products, setProducts] = useState<ProductsInterfaces | null>(null);
+    const titleRef = useRef<HTMLDivElement | null>(null);
 
     const options = {
         root: null,
         threshold: 0.25,
         rootMargin: '0px'
     };
-
-    useEffect(() => {
+    function getProducts(){
       axios.get(`https://efootwear.herokuapp.com/api/shoes/?${params}&page_size=16&page=1`)
       .then(({data})=>{
         setProducts(data)
       })
+    }
+    useEffect(() => {
+      getProducts()
     }, [])
     
     useEffect(() => {
-        //@ts-ignore
-        titleRef && observer.observe(titleRef.current);
+        titleRef.current && observer.observe(titleRef.current);
     }, [titleRef]);
 
     const observer = new IntersectionObserver((entries, observer) => {
@@ -77,6 +79,7 @@ export const ProductsCarousel = ({title, params} : ProductCarouselInterfaces) =>
             if(!entry.isIntersecting){
                 return;
             }
+            
             entry.target.classList.contains('title') && entry.target.classList.add('animated');
             observer.unobserve(entry.target);
         })
@@ -89,11 +92,11 @@ export const ProductsCarousel = ({title, params} : ProductCarouselInterfaces) =>
             </div>      
               <Carousel responsive={responsive}>
                 {products 
-                  ? products?.results.map((product : any, index : number) => (
-                    <ProductCard productData={product} key={`product-${title.split(" ")[2]}-${product.id}`}/>
+                  ? products?.results.map((product : any, i : number) => (
+                    <ProductCard productData={product} key={`product-${title.split(" ")[2]}-${product.id}-${i}`}/>
                   )) 
-                  : Array.apply(null, Array(16)).map(() => (
-                    <Skeleton variant="rectangular" width={'95%'} height={360} />
+                  : Array.apply(null, Array(16)).map((_, i : number) => (
+                    <Skeleton variant="rectangular" width={'95%'} height={360} key={`skeleton-${title.split(" ")[2]}-${i}`}/>
                   ))
                 }
                 <div></div>

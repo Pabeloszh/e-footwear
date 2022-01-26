@@ -11,61 +11,63 @@ const slideData = [
         h1: `CHECK OUT OUR PRODUCTS`,
         p: "Our brand new footwear just arrived to our magazine, check it out before its too late",
         button: 'BROWSE NOW',
-        background: `url(${slide1})`
+        background: `url(${slide1})`,
+        link: '/shop/man?order=date_added'
     },
     {
         h3: "Latest Discounts",
         h1: `NEWEST SALES ARE HERE`,
         p: "You need to check out our newest discounts and special prices for footwear",
         button: 'SEE NOW',
-        background: `url(${slide2})`
+        background: `url(${slide2})`,
+        link: '/shop/sales?order=date_added'
     },
     {
         h3: "Overcoming Challenges",
         h1: `PROFESSIONAL SPORT SHOES`,
         p: "If u need to get new PR on gym or end up first at marathon, we got your back",
         button: 'SPORTSWEAR',
-        background: `url(${slide3})`
+        background: `url(${slide3})`,
+        link: '/shop/sport?order=date_added'
     }
 ];
 
 export const MainSlider: React.FC = () => {
-    const mainRef = useRef(null);
-    const [cooldown, isCooldown] = useState(false); 
-    const [num, setNum] = useState(0);
+    const mainRef = useRef<HTMLDivElement | null>(null);
+    const [cooldown, isCooldown] = useState<boolean>(false); 
+    const [num, setNum] = useState<number>(0);
     
     useEffect(() => {
-        if(mainRef){
-            // @ts-ignore
-            mainRef.current.children[num].classList.add('active');
-        }
+            mainRef && mainRef.current?.children[num].classList.add('active');
     }, [mainRef])
 
     useEffect(() => {
         const interval = setInterval(() => {
             if(mainRef){
-                //@ts-ignore
                 setNum(prevNum => prevNum + 1);
             }
-        }, 7500);
+        }, 7500)
+
         if(cooldown) {
             clearInterval(interval)
             setTimeout(()=> isCooldown(false), 5000);
-        };
+        }
+
         return () => clearInterval(interval);
 
     }, [cooldown])
 
     useEffect(() => {
         if(mainRef){
+            let children = mainRef?.current?.children
+
             num === 3 && setNum(0)
-            //@ts-ignore
-            Array.from(mainRef.current.children).filter((slide) => (slide.nodeName === 'DIV')).forEach((slide)=>{
-                //@ts-ignore
+
+            children && Array.from(children).filter((slide) => (slide.nodeName === 'DIV')).forEach((slide)=>{
                 slide.classList.remove('active');
             });
-            //@ts-ignore
-            mainRef.current.children[num].classList.add('active');
+
+            children && children[num].classList.add('active');
         }
     }, [num])
 
@@ -78,8 +80,14 @@ export const MainSlider: React.FC = () => {
                     )
                 })}
                 <span className="dots" onClick={()=>isCooldown(true)}>
-                    {slideData.map((slide, i) => (
-                        <p style={{opacity: num === i ? '1' : '0.5'}} onClick={()=>{setNum(i);}} key={`dot-${i}`}>&bull;</p>
+                    {slideData.map((_, i) => (
+                        <p 
+                            style={{opacity: num === i ? '1' : '0.5'}} 
+                            onClick={()=>{setNum(i);}} 
+                            key={`dot-${i}`}
+                        >
+                            &bull;
+                        </p>
                     ))}
                 </span>
             </StyledMainSlider>
