@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { StyledSales } from "./SalesContainer.style";
 
 export const SalesContainer:React.FC = () => {
-    const photoRef = useRef(null);
-    const descRef = useRef(null);
+    const photoRef = useRef<HTMLDivElement | null>(null);
+    const descRef = useRef<HTMLDivElement | null>(null);
 
     const options = {
         root: null,
@@ -12,10 +13,8 @@ export const SalesContainer:React.FC = () => {
     };
     
     useEffect(() => {
-        //@ts-ignore
-        photoRef && observer.observe(photoRef.current);
-        //@ts-ignore
-        descRef && observer.observe(descRef.current);
+        photoRef.current && observer.observe(photoRef.current);
+        descRef.current && observer.observe(descRef.current);
     }, [photoRef]);
 
     const observer = new IntersectionObserver((entries, observer) => {
@@ -39,7 +38,7 @@ export const SalesContainer:React.FC = () => {
                 </div>
                 <div className="desc" ref={descRef}>
                     <h6><span>Our products are now</span> cheaper than ever</h6>
-                    <p><a href=''>Click to check out our latest <span>promotional offers</span></a>. You can find promotions up to <span>70% off</span>. Check out what shoes fit you best. If you can't find anything you like, you can always check our non-promotional offers. If a product is still too expensive, you can add it to <span>your favourites</span> to see if it's on sale that week. Promotional offers are valid until <span></span>Monday 12:00pm. <span>After this period, you cannot buy the product for the promotional price</span></p>
+                    <p><Link to={{ pathname: "/shop/sales", search: "?order=date_added" }}>Click to check out our latest <span>promotional offers</span></Link>. You can find promotions up to <span>70% off</span>. Check out what shoes fit you best. If you can't find anything you like, you can always check our non-promotional offers. If a product is still too expensive, you can add it to <span>your favourites</span> to see if it's on sale that week. Promotional offers are valid until <span></span>Monday 12:00pm. <span>After this period, you cannot buy the product for the promotional price</span></p>
                 </div>
             </div>
         </StyledSales>

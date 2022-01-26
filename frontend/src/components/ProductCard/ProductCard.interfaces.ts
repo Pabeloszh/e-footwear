@@ -1,13 +1,13 @@
-export interface ProductCardProps {
-    // average_rating: any;
-    // name: any;
-    // date_added: any;
-    // gender: any;
-    // id: number;
-    // model: any;
-    // pictures: any;
-    // price: any;
-    // specs:any;
+export interface ProductCardInterfaces {
     callbackRef?: any
-    productData:any;
+    productData: ProductProps
+}
+
+export interface ProductProps{
+    id: number
+    colors: string[]
+    discount_price: null
+    brand: string
+    price: number
+    model: string
 }

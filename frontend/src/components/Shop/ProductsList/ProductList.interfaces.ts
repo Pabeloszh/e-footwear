@@ -1,10 +1,9 @@
-// export interface ProductListInterfaces {
-//     products: any
-// }
+import { ProductProps } from "../../ProductCard/ProductCard.interfaces";
 
 export interface ProductsInterfaces {
     count: number
     next: string | null
     previous: string | null
-    results: any
-} 
+    results: ProductProps[]
+}
+

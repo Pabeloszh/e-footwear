@@ -8,16 +8,16 @@ export const HistoryItemSkeleton:React.FC = () => {
             <Skeleton variant="rectangular" width={195} height={150}/>
             <div className="info">
                 <div>
-                    <h4><Skeleton width={125}/></h4>
+                    <Skeleton width={125}/>
                     <div>
-                        <p><Skeleton width={90}/></p>
+                        <Skeleton width={90}/>
                     </div>
                     <div>
-                        <p><Skeleton width={90}/></p>
-                        <p><Skeleton width={90}/></p>
+                        <Skeleton width={90}/>
+                        <Skeleton width={90}/>
                     </div>
                 </div>
-                <h4><Skeleton width={80}/></h4>
+                <Skeleton width={80}/>
             </div>
         </StyledItem>
     )

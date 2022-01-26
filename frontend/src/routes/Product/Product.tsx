@@ -28,7 +28,7 @@ export const Product:React.FC = () => {
     const { addToCart } = bindActionCreators(actionCreators, dispatch);
 
     const [size, setSize] = useState<number | null>(null)
-    const [product, setProduct] = useState<ProductProps | any>()
+    const [product, setProduct] = useState<ProductProps | null>(null)
 
     useEffect(() => {
         axios.get(`https://efootwear.herokuapp.com/api/shoe/${id}`, authToken && {
@@ -38,11 +38,10 @@ export const Product:React.FC = () => {
         })
         .then(({data}) => {
             setProduct(data)
-            console.log(data);
         })
     }, []);
-
-    function addToCartt(){
+    
+    function addItem(){
         if(!product) return
         let productData = {
             brand: product?.brand,
@@ -69,7 +68,7 @@ export const Product:React.FC = () => {
                         <h3>Choose size</h3>
                         <Size aviableSizes={product.sizes} forKids={product.for_kids} size={size} setSize={setSize}/>
                         <div className="actions">
-                            <Button disabled={!size} variant="contained" color="primary" onClick={addToCartt}>
+                            <Button disabled={!size} variant="contained" color="primary" onClick={() => addItem()}>
                                 Add to cart
                             </Button>
                             <ProductLikeButton id={Number(id)}/>
@@ -77,7 +76,7 @@ export const Product:React.FC = () => {
                         <div className="info">
                             {product.desc}
                         </div>
-                        <Rating avgRate={product.average_rating.toFixed(2)} isReviewed={product.is_reviewed}/>
+                        <Rating avgRate={Number(product.average_rating.toFixed(2))} isReviewed={product.is_reviewed}/>
                     </div>
                 </> 
                 : <ProductSkeleton product={product}/>

@@ -1,31 +1,40 @@
-import {useEffect, useRef} from 'react'
-import { SlideProps } from "./Slide.interfaces"
+import { useEffect, useRef } from 'react'
 import { Button } from '@material-ui/core'
+import { SlideInterfaces } from "./Slide.interfaces"
 import { StyledSlide } from "./Slide.style"
+import { useHistory } from 'react-router-dom'
 
-export const Slide = ({data} : SlideProps) => {
-    const slideRef = useRef(null);
+export const Slide = ({ data } : SlideInterfaces) => {
+    const { background, h3, h1, p, button, link } = data
+    
+    const slideRef = useRef<HTMLDivElement | null>(null);
+    const history = useHistory();
 
+    
     useEffect(() => {
         function watchScroll() {
-            //@ts-ignore
-            window.addEventListener("scroll", () => (slideRef.current && (slideRef.current.style.backgroundPosition = `center bottom ${(slideRef.current.getBoundingClientRect().y) * 0.45}px`)))
+            window.addEventListener("scroll", () => (
+                //@ts-ignore
+                slideRef.current && (slideRef.current.style.backgroundPosition = `center bottom ${(slideRef.current.getBoundingClientRect().y) * 0.45}px`)
+            ))
         }
         watchScroll();
         return () => {
-            //@ts-ignore
-            window.removeEventListener("scroll", () =>  (slideRef.current && (slideRef.current.style.backgroundPosition = `center bottom ${(slideRef.current.getBoundingClientRect().y) * 0.45}px`)))
+            window.removeEventListener("scroll", () =>  (
+                //@ts-ignore
+                slideRef.current && (slideRef.current.style.backgroundPosition = `center bottom ${(slideRef.current.getBoundingClientRect().y) * 0.45}px`)
+            ))
         };
       }, [slideRef]);
 
     return (
-        <StyledSlide className="slide" style={{backgroundImage: data.background}} ref={slideRef}>
+        <StyledSlide className="slide" style={{backgroundImage: background}} ref={slideRef}>
             <div id="overlay"></div>
             <div className="content">
-                <h3>{data.h3}</h3>
-                <h1>{data.h1}</h1>
-                <p>{data.p}</p>
-                <Button variant="contained" color="inherit">{data.button}</Button>
+                <h3>{h3}</h3>
+                <h1>{h1}</h1>
+                <p>{p}</p>
+                <Button variant="contained" color="inherit" onClick={() => history.push(`${link}`)}>{button}</Button>
             </div>
         </StyledSlide>
     )

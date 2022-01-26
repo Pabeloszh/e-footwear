@@ -5,7 +5,6 @@ interface Props{
 }
 
 export const StyledComment = styled.div<Props>`
-    // display: ${props => props.comments ? 'block' : 'none'};
     margin: 15px 0;
     border:1px solid #170312;
     border-radius:5px;

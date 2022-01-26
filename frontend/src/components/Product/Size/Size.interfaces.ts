@@ -1,6 +1,6 @@
 export interface SizeInterfaces {
-    aviableSizes: [number]
+    aviableSizes: number[] | undefined
     forKids?: boolean | null
     size?: number | null
-    setSize?: (value: number | null | ((prevVar: number | null) => number | null)) => void,
+    setSize?: (value: number | null) => void,
 }

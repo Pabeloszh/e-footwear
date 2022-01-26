@@ -1,5 +1,5 @@
 import { ProductProps } from "../../../routes/Product/Product.interfaces";
 
-export interface PhotosInterfaces {
+export interface ProductSkeletonInterfaces {
     product: ProductProps | null
 }

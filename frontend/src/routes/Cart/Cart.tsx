@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import { CartItem } from '../../components/Cart/CartItem'
 import Button from '@material-ui/core/Button';
 import { StyledCart } from "./Cart.style"
-import { CartInterfaces } from './Cart.interfaces';
 import { RootState } from '../../state/reducers';
 import { useSelector } from 'react-redux';
 import { Shipping } from '../../components/Cart/Shipping/Shipping';
 
 export const Cart:React.FC = () => {
+    const [shippingWindow, setShippingWindow] = useState<boolean>(false)
     const cart = useSelector((state : RootState) => state.cart);
-    const [shippingWindow, setShippingWindow] = useState(false)
     
     function subtotalPrice(payload : any){
         if(payload?.length){
@@ -18,6 +17,7 @@ export const Cart:React.FC = () => {
             return 0
         }
     }
+    
     function totalPrice(payload : any){
         let total = Number(subtotalPrice(payload)) + 18.99
         return total.toFixed(2)
@@ -29,7 +29,7 @@ export const Cart:React.FC = () => {
                 <div>
                     <div className="products">
                         <h2>Shopping Cart</h2>
-                        {cart.length 
+                        {cart?.length 
                             ? cart.map((el : any, i : number) => (
                                     <React.Fragment key={`${el.product}-${i}`}>
                                         <CartItem item={el}/>
@@ -59,7 +59,7 @@ export const Cart:React.FC = () => {
                             <h3>{totalPrice(cart)}zł</h3>
                         </div>
                         <hr />
-                        <Button variant="contained" color="primary" disabled={!cart.length} fullWidth onClick={() => setShippingWindow(true)}>
+                        <Button variant="contained" color="primary" disabled={!cart?.length} fullWidth onClick={() => setShippingWindow(true)}>
                             Checkout
                         </Button>
                     </div>

@@ -9,11 +9,11 @@ export const LikedItemSkeleton:React.FC = () => {
             <Skeleton variant="rectangular" width={195} height={150}/>
             <div className="info">
                 <div>
-                    <h4><Skeleton width={125}/></h4>
-                    <p><Skeleton width={90}/></p>
-                    <p><Skeleton width={50}/></p>
+                    <Skeleton width={125}/>
+                    <Skeleton width={90}/>
+                    <Skeleton width={50}/>
                 </div>
-                <h4><Skeleton width={80}/></h4>
+                <Skeleton width={80} height={35}/>
             </div>
         </StyledItem>
     )

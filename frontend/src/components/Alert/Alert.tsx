@@ -1,10 +1,10 @@
-import { Snackbar } from '@material-ui/core';
 import React from 'react';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../state/reducers';
 import { actionCreators } from '../../state';
 import { bindActionCreators } from 'redux';
+import { RootState } from '../../state/reducers';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 const AlertComponent = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,

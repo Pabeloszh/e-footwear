@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { StarsRating } from "./StarsRating"
 import { StyledRating } from "./Rating.style"
@@ -6,17 +6,18 @@ import { Comment } from './Comment';
 import { ProductReview } from './ProductReview';
 import axios from 'axios';
 import { useParams } from 'react-router';
-import { RaingInterfaces } from './Rating.interfaces';
+import { RatingInterfaces, RatesProps } from './Rating.interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators } from '../../../state';
 import { bindActionCreators } from 'redux';
 import { RootState } from '../../../state/reducers';
 
-export const Rating= ({avgRate, isReviewed} : RaingInterfaces) => {
+export const Rating= ({ avgRate, isReviewed } : RatingInterfaces) => {
     let { id } = useParams() as {
         id: string;
     };
-    const [rates, setRates] = useState<any>(null)
+
+    const [rates, setRates] = useState<RatesProps | null>(null)
     const [open, setOpen] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [comments, toggleComments] = useState<boolean>(false);
@@ -73,7 +74,7 @@ export const Rating= ({avgRate, isReviewed} : RaingInterfaces) => {
                 </div>
                 <div className="comments">
                     {rates?.results.length && rates?.results.map((el : any, index : number) => <Comment comments={comments} rate={el} key={index}/>)}
-                    {hasMore && <p onClick={() => loadMoreRates()}>See more({rates?.count - page * 4})</p>}
+                    {hasMore && <p onClick={() => loadMoreRates()}>See more({rates?.count && (rates.count - page * 4)})</p>}
                 </div>
             </StyledRating>
             {open && <ProductReview open={open} setOpen={setOpen} setRates={setRates} setPage={setPage}/>}

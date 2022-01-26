@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { SideMenu } from "./SideMenu"
 import { StyledNavbar } from "./Navbar.style"
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,13 +17,12 @@ import { actionCreators } from "../../state/index"
 import axios from 'axios';
 import { Badge } from '@material-ui/core';
 
-export const Navbar = () => {
+export const Navbar:React.FC = () => {
     const cart = useSelector((state : RootState) => state.cart);
     const authToken = useSelector((state : RootState) => state.auth);
     const user = useSelector((state : RootState | null) => state?.user);
 
     const dispatch = useDispatch();
-
     const { logout, setUser, setLoginWindow, setRegisterWindow} = bindActionCreators(actionCreators, dispatch);
 
     const [open, setOpen] = React.useState(false);
@@ -31,17 +30,13 @@ export const Navbar = () => {
 
     const history = useHistory();
 
-    const redirect = (path: string) => {
+    function redirect(path: string) {
         history.push(`/${path}`);
-    }
-
-    const goTo = (path: string) => {
-        redirect(path);
         setOpen(false);
     }
 
     useEffect(() => {
-        authToken && axios.get('https://efootwear.herokuapp.com/api/users/edit/', {
+        authToken && axios.get(`${process.env.REACT_APP_API_KEY}/users/edit/`, {
             headers: {
                 "Authorization": `Bearer ${authToken}`
             }
@@ -58,7 +53,7 @@ export const Navbar = () => {
                         </Typography>
                         <Button color="inherit" 
                             className={'/' === location.pathname ? "active" : ""} 
-                            onClick={() => redirect('')}
+                            onClick={() => history.push('')}
                         >
                             Home
                         </Button>
@@ -66,20 +61,20 @@ export const Navbar = () => {
                             <Button 
                                 key={text}
                                 color="inherit" 
-                                onClick={() => goTo(`shop/${text.toLowerCase()}?order=date_added`)} 
+                                onClick={() => redirect(`shop/${text.toLowerCase()}?order=date_added`)} 
                                 className={`/shop/${text.toLowerCase()}` === location.pathname ? "active" : ""}>
                                 {text}
                             </Button>
                         ))}
                     </div>
                     <div className="auth">
-                        <div className="cart-icon" onClick={() => redirect('cart')}>
-                            <Badge badgeContent={cart.length} color="primary">
+                        <div className="cart-icon" onClick={() => history.push('/cart')}>
+                            <Badge badgeContent={cart?.length} color="primary">
                                 <ShoppingCartIcon color="action" />
                             </Badge>
                         </div>
-                        {!authToken ? 
-                            <>
+                        {!authToken 
+                            ? <>
                                 <Button 
                                     variant="outlined" 
                                     color="inherit" 
@@ -93,11 +88,11 @@ export const Navbar = () => {
                                     onClick={setRegisterWindow}>
                                     Sign Up
                                 </Button>
-                            </> :
-                            <>
+                            </> 
+                            : <>
                                 <Button 
                                     color="inherit" 
-                                    onClick={() => goTo(`user`)} 
+                                    onClick={() => redirect(`user`)} 
                                     className={`/user}` === location.pathname ? "active" : ""}>
                                     {user?.email}
                                 </Button>

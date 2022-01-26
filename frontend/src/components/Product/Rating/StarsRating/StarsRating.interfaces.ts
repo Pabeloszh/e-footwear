@@ -1,3 +1,3 @@
 export interface StarsRatingInterfaces {
-    rate: any
+    rate: number
 }

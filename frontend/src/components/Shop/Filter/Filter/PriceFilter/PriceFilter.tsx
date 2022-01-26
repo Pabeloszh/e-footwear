@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import {StyledPrice} from './PriceFilter.style'
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
 import { Slider, TextField } from '@material-ui/core'
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../../../state';
+import {StyledPrice} from './PriceFilter.style'
 import { useQuery } from '../../../../../utils';
-import { useHistory, useLocation } from 'react-router-dom'
 
 export const PriceFilter:React.FC = () => {
     const [value, setValue] = React.useState<number[]>([0, 1000]);
     const [slider, setSlider] = React.useState<number[]>([0, 1000]);
+
     const query = useQuery()
     const history = useHistory()
 
@@ -87,7 +85,6 @@ export const PriceFilter:React.FC = () => {
                         value={value[1]}
                         type="number"
                         onChange={handleInputChange}
-                        // onChange={(e)=>setValue([value, e.target.value])}
                     />
                 </div>
                     <Slider
@@ -97,7 +94,6 @@ export const PriceFilter:React.FC = () => {
                         //@ts-ignore
                         onChange={handleSliderChange}
                         onChangeCommitted={handleChangeCommitted}
-                        // onChangeCommitted={handleChangeCommitted}
                         valueLabelDisplay="auto"
                         aria-labelledby="range-slider"
                     />

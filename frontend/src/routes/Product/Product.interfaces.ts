@@ -1,16 +1,14 @@
 export interface ProductProps {
-    // average_rating: any;
-    model: string;
-    brand: string;
-    specs:object;
-    price: number;
-    desc: string | null;
-    sizes: [number]
-    id: number
-    // date_added: any;
-    // gender: any;
-    // id: number;
-    // model: any;
-    // pictures: any;
-    // specs:any;
+    average_rating: number
+    brand: string
+    colors: string[]
+    date_added: string
+    desc: string
+    discount_price: number
+    for_kids: boolean
+    gender: string
+    is_reviewed: boolean
+    model: string
+    price: number
+    sizes: number[]
 }

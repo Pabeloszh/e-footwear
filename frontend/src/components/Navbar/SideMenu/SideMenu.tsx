@@ -1,6 +1,10 @@
 import React from 'react';  
-import { SideMenuProps } from "./SideMenu.interfaces";
-import { StyledSideMenu } from "./SideMenu.style";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../state/reducers';
+import { actionCreators } from '../../../state';
+import { bindActionCreators } from 'redux';
+import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom'
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
@@ -9,12 +13,8 @@ import List from '@material-ui/core/List';
 import Backdrop from '@material-ui/core/Backdrop';
 import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { useHistory } from 'react-router';
-import { useLocation } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../state/reducers';
-import { actionCreators } from '../../../state';
-import { bindActionCreators } from 'redux';
+import { SideMenuProps } from "./SideMenu.interfaces";
+import { StyledSideMenu } from "./SideMenu.style";
 
 export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen}) => {
     const authToken = useSelector((state : RootState) => state.auth);
@@ -28,14 +28,9 @@ export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen}) => {
     const history = useHistory();
     const location = useLocation();
 
-
-    const redirect = (path: string) => {
+    function redirect(path: string){
         history.push(`/${path}`);
-    }
-
-    const goTo = (path: string) => {
-        redirect(path);
-        setOpen(false);
+        setOpen(false)
     }
 
     return (
@@ -51,14 +46,18 @@ export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen}) => {
                 </div>
                 <Divider/>
                 <List>
-                    <ListItem button onClick={() => goTo(``)} className={'/' === location.pathname ? "active" : ""}>
+                    <ListItem 
+                        button 
+                        onClick={() => redirect('')}
+                        className={'/' === location.pathname ? "active" : ""}
+                    >
                         <ListItemText primary={'Home'} />
                     </ListItem>
                     {['Man', 'Woman', 'Kids', 'Sport', 'Sales'].map((text) => (
                         <ListItem 
                             button 
                             key={text} 
-                            onClick={() => goTo(`shop/${text.toLowerCase()}`)} 
+                            onClick={() => redirect(`shop/${text.toLowerCase()}?order=date_added`)} 
                             className={`/shop/${text.toLowerCase()}` === location.pathname ? "active" : ""}
                         >
                             <ListItemText primary={text} />
@@ -86,7 +85,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen}) => {
                         <>
                             <ListItem 
                                 button 
-                                onClick={() => goTo(`user`)} 
+                                onClick={() => redirect('user')}
                                 className={`/user` === location.pathname ? "active" : ""}
                             >
                                 <ListItemText primary={user?.email} />
@@ -102,7 +101,9 @@ export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen}) => {
                 </List>
                 <List>
                     <ListItem button className="cart">
-                        <ListItemText onClick={() => goTo('cart')}><ShoppingCartIcon/> Shopping Cart</ListItemText>
+                        <ListItemText onClick={() => redirect('cart')}>
+                            <ShoppingCartIcon/> Shopping Cart
+                        </ListItemText>
                     </ListItem>
                 </List>
             </StyledSideMenu>

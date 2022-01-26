@@ -1,11 +1,12 @@
-interface Data {
+export interface SlideInterfaces {
+    data: DataProps;
+}
+
+interface DataProps {
     h3: string,
     h1: string,
     p: string,
     button: string,
     background: string
-}
-
-export interface SlideProps {
-    data: Data;
+    link: string
 }

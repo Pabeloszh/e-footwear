@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -7,9 +7,9 @@ import { Button } from '@material-ui/core';
 import { StyledNewsletter } from "./Newsletter.style"
 
 export const Newsletter: React.FC = () => {
-    const newsRef = useRef(null);
-    const formRef = useRef(null);
-    const titleRef = useRef(null);
+    const newsRef = useRef<HTMLDivElement | null>(null);
+    const titleRef = useRef<HTMLDivElement | null>(null);
+    const formRef = useRef<HTMLFormElement | null>(null);
 
     const options = {
         root: null,
@@ -18,10 +18,8 @@ export const Newsletter: React.FC = () => {
     };
     
     useEffect(() => {
-        //@ts-ignore
-        formRef && observer.observe(formRef.current);
-        //@ts-ignore
-        titleRef && observer.observe(titleRef.current);
+        formRef.current && observer.observe(formRef.current);
+        titleRef.current && observer.observe(titleRef.current);
     }, [formRef]);
 
     const observer = new IntersectionObserver((entries, observer) => {
@@ -29,21 +27,25 @@ export const Newsletter: React.FC = () => {
             if(!entry.isIntersecting){
                 return;
             }
+
             entry.target.tagName === 'DIV' && entry.target.classList.add('animated');
             entry.target.tagName === 'FORM' && entry.target.classList.add('animated');
+
             observer.unobserve(entry.target);
         })
     }, options);
 
     useEffect(() => {
         function watchScroll() {
-            //@ts-ignore
-            window.addEventListener("scroll", () => (newsRef.current && (newsRef.current.style.backgroundPosition = `center ${-(newsRef.current.getBoundingClientRect().y) * 0.25 + 35}px`)))
+            window.addEventListener("scroll", () => (
+                newsRef.current && (newsRef.current.style.backgroundPosition = `center ${-(newsRef.current.getBoundingClientRect().y) * 0.25 + 35}px`)
+            ))
         }
         watchScroll();
         return () => {
-            //@ts-ignore
-            window.removeEventListener("scroll", () =>  (newsRef.current && (newsRef.current.style.backgroundPosition = `center ${-(newsRef.current.getBoundingClientRect().y) * 0.25}px`)))
+            window.removeEventListener("scroll", () =>  (
+                newsRef.current && (newsRef.current.style.backgroundPosition = `center ${-(newsRef.current.getBoundingClientRect().y) * 0.25}px`)
+            ))
         };
       }, [newsRef]);
     

@@ -1,21 +1,19 @@
-import React from 'react';
-import { StyledRegister } from "./Register.style"
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import Link from '@material-ui/core/Link';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import CloseIcon from '@material-ui/icons/Close';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state';
 import { RootState } from '../../state/reducers';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import CloseIcon from '@material-ui/icons/Close';
+import { StyledRegister } from "./Register.style"
 
 const validationSchema = yup.object({
     email: yup
@@ -41,15 +39,14 @@ export const Register = () => {
     const { setRegisterWindow, setLoginWindow, setAlert} = bindActionCreators(actionCreators, dispatch);
     const formik = useFormik({
         initialValues: {
-            email: 'admin@gmail.com',
-            password: '12345678',
-            passwordConfirmation: '12345678',
+            email: '',
+            password: '',
+            passwordConfirmation: '',
             agreement: false
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            console.log(values);
-            axios.post('https://efootwear.herokuapp.com/api/users/create_user/', {
+            axios.post(`${process.env.REACT_APP_API_KEY}/users/create_user/`, {
                 email: values.email,
                 password: values.password,
                 first_name: "wypierdol te gowna",

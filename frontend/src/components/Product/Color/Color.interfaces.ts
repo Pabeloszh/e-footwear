@@ -1,3 +1,3 @@
 export interface ColorInterfaces {
-    colors: string[]
+    colors: string[] | undefined
 }

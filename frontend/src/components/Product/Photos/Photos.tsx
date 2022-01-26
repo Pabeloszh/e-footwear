@@ -1,10 +1,9 @@
 import { Skeleton } from '@mui/material'
-import React from 'react'
-import { useQuery } from '../../../utils'
 import { PhotosInterfaces } from './Photos.interfaces'
 import { StyledPhotos } from "./Photos.style"
+import { useQuery } from '../../../utils'
 
-export const Photos = ({product} : PhotosInterfaces) => {
+export const Photos = ({ product } : PhotosInterfaces) => {
     const query = useQuery()
 
     return (

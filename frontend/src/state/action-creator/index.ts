@@ -29,7 +29,7 @@ export const setUser = (payload : object | null) => {
 
 export const setFavorites = (payload : any) =>{
     return async (dispatch : any) => {
-        await axios.get('https://efootwear.herokuapp.com/api/users/liked_products/',
+        await axios.get(`${process.env.REACT_APP_API_KEY}/users/liked_products/`,
         {
             headers: {
                 'Authorization': `Bearer ${payload}` 
@@ -53,7 +53,7 @@ export const clearFavorites = () => {
 
 export const addToFavorites = (payload : any) => {
     return async (dispatch : any) => {
-        await axios.post('https://efootwear.herokuapp.com/api/users/liked_products/', { product: payload.id }, { headers: {'Authorization': `Bearer ${payload.auth}` }})
+        await axios.post(`${process.env.REACT_APP_API_KEY}/users/liked_products/`, { product: payload.id }, { headers: {'Authorization': `Bearer ${payload.auth}` }})
         await dispatch(setFavorites(payload.auth))
     }
 }
@@ -61,7 +61,7 @@ export const addToFavorites = (payload : any) => {
 export const deleteFromFavorites = (payload : any) => {
     return async (dispatch : any) => {
         //@ts-ignore
-        await axios.delete('https://efootwear.herokuapp.com/api/users/liked_products/', { headers: { 'Authorization': `Bearer ${payload.auth}`  }, data: { product: payload.id }})
+        await axios.delete(`${process.env.REACT_APP_API_KEY}/users/liked_products/`, { headers: { 'Authorization': `Bearer ${payload.auth}`  }, data: { product: payload.id }})
         await dispatch(setFavorites(payload.auth))
     }
 }

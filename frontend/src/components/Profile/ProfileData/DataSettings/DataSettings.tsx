@@ -1,23 +1,19 @@
 import React from 'react'
-import { StyledSettings } from "./DataSettings.style"
-import { SettingsProps } from "./DataSettings.interfaces"
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../state/reducers';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../../../state';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import CloseIcon from '@material-ui/icons/Close';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../state/reducers';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import axios from 'axios';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../../state';
+import { SettingsProps } from "./DataSettings.interfaces"
+import { StyledSettings } from "./DataSettings.style"
 
 const validationSchema = yup.object({
     email: yup
@@ -26,11 +22,16 @@ const validationSchema = yup.object({
         .required('Email is required'),
     password: yup
         .string()
-        .required('Password is required'),
+        .min(8),
     passwordConfirmation: yup
         .string()
         .oneOf([yup.ref('password'), null], 'Passwords must match')
-        .required('Password Confirmation is required'),
+        .when('password', {
+            is: (value : any) => value && value.length > 0,
+            then: yup
+                .string()
+                .required("Password must be confirmed")
+        })
 });
 
 export const DataSettings:React.FC<SettingsProps> = ({settings, toggleSettings}) => {
@@ -39,7 +40,7 @@ export const DataSettings:React.FC<SettingsProps> = ({settings, toggleSettings})
 
     const dispatch = useDispatch();
 
-    const { setUser} = bindActionCreators(actionCreators, dispatch);
+    const { setUser, setAlert } = bindActionCreators(actionCreators, dispatch);
     
     const formik = useFormik({
         initialValues: {
@@ -49,31 +50,30 @@ export const DataSettings:React.FC<SettingsProps> = ({settings, toggleSettings})
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            console.log({
-                email: values.email,
-                password: values.password,
-                first_name: "wyjeb to",
-                last_name: "w koncu kurwa",
-                phone_number: "123456789",
-            });
-            authToken && axios.patch('https://efootwear.herokuapp.com/api/users/edit/', 
-            {
-                email: values.email,
-                // password: values.password,
-                first_name: "wyjeb to",
-                last_name: "w koncu kurwa",
-                phone_number: "123456789",
-            }, 
-            {
-                headers: {
-                    'Authorization': `Bearer ${authToken}` 
-                }
-            }).then(({data}) => {
-                setUser(data)
-                toggleSettings(false)
-            }).catch(err => {
-                console.log(err);
-            })
+            let payload = {}
+            
+            if(values.email !== user.email){
+                payload = { ...payload, email: values.email}
+            }
+            if(values.password){
+                payload = { ...payload, password: values.password}
+            }
+
+            if(Object.keys(payload).length !== 0){
+                axios.patch(`${process.env.REACT_APP_API_KEY}/users/edit/`, payload, 
+                {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}` 
+                    }
+                })
+                .then(({data}) => {
+                    setUser(data)
+                    toggleSettings(false)
+                })
+                .catch(err => {
+                    setAlert({message: err.response.data.email[0], type: 'error'})
+                })
+            }
         },
     });
     return (

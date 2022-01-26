@@ -1,24 +1,27 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/reducers';
-import { HistoryItem } from './HistoryItem';
-import { StyledHistory } from "./ProfileHistory.style"
-import { HistoryItemSkeleton } from './HistoryItemSkeleton';
+import axios from 'axios';
+import { useLocation, useParams } from 'react-router-dom';
 import { Skeleton } from '@mui/material';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { HistoryItem } from './HistoryItem';
+import { HistoryItemSkeleton } from './HistoryItemSkeleton';
+import { OrderProps } from './ProfileHistory.interfaces';
+import { StyledHistory } from "./ProfileHistory.style"
 
 export const ProfileHistory:React.FC = () => {
-    const authToken = useSelector((state : RootState) => state.auth);
-    const [orders, setOrders] = useState<any>(null)
-    const { pathname } = useLocation()
     let { id } = useParams() as {
         id: string;
     }
+    
+    const [orders, setOrders] = useState<OrderProps | null[] | null>(null)
+    const authToken = useSelector((state : RootState) => state.auth);
+    
+    const { pathname } = useLocation()
 
     useEffect(() => {
         if(pathname === '/user'){
-            axios.get('https://efootwear.herokuapp.com/api/orders/', {
+            axios.get(`${process.env.REACT_APP_API_KEY}/orders/`, {
                 headers: {
                     "Authorization": `Bearer ${authToken}`
                 }
@@ -30,10 +33,9 @@ export const ProfileHistory:React.FC = () => {
 
     useEffect(() => {
         if(id){
-            axios.get(`https://efootwear.herokuapp.com/api/orders/order_detail/?order_number=${id}`)
+            axios.get(`${process.env.REACT_APP_API_KEY}/orders/order_detail/?order_number=${id}`)
             .then(({data}) => {
                 setOrders(data);
-                console.log(data);
             })
             .catch(() => {
                 setOrders([])
@@ -47,9 +49,9 @@ export const ProfileHistory:React.FC = () => {
             {!orders
                 ? <div>
                     <div className='header'>
-                        <h4><Skeleton width={80}/></h4>
-                        <p><Skeleton width={60}/></p>
-                        <h4><Skeleton width={65}/></h4>
+                        <Skeleton width={80}/>
+                        <Skeleton width={60}/>
+                        <Skeleton width={65}/>
                     </div>
                     <HistoryItemSkeleton/>
                     <hr />
@@ -57,6 +59,7 @@ export const ProfileHistory:React.FC = () => {
                 </div>
                 : !orders.length 
                     ? (id ? <p>Sorry, we do not have matching order </p> : <p>You didn't purchase anything</p>)
+                    //@ts-ignore
                     : orders.map((el : any) => (
                         <div key={el.id}>
                             <div className='header'>
