@@ -6,7 +6,7 @@ import { LikedItemSkeleton } from './LikedItemSkeleton';
 import { StyledLiked } from "./ProfileLiked.style"
 
 export const ProfileLiked:React.FC = () => {
-    const favorites = useSelector((state :RootState) => state.favorites);
+    const favorites = useSelector((state:RootState) => state.favorites);
 
     return (
         <StyledLiked>

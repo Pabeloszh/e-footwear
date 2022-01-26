@@ -1,24 +1,25 @@
-import React from 'react'
-import { capitalizeFirstLetter } from '../../../../utils'
 import { HistoryItemInterfaces } from './HistoryItem.interfaces'
 import { StyledItem } from "./HistoryItem.style"
+import { capitalizeFirstLetter } from '../../../../utils'
 
-export const HistoryItem = ({item} : HistoryItemInterfaces) => {
+export const HistoryItem = ({ item } : HistoryItemInterfaces) => {
+    const { color, model, quantity, size, discount_price, price} = item
+
     return (
         <StyledItem>
-            <img src={require(`../../../../img/product-photos/${item.color}/1.jpg`).default}  alt="" />
+            <img src={require(`../../../../img/product-photos/${color}/1.jpg`).default}  alt="" />
             <div className="info">
                 <div>
-                    <h4>{item.model}</h4>
+                    <h4>{model}</h4>
                     <div>
-                        <p>Quantity: {item.quantity}</p>
+                        <p>Quantity: {quantity}</p>
                     </div>
                     <div>
-                        <p>Color: {capitalizeFirstLetter(item.color)}</p>
-                        <p>Size: {item.size}</p>
+                        <p>Color: {capitalizeFirstLetter(color)}</p>
+                        <p>Size: {size}</p>
                     </div>
                 </div>
-                <h4>{item.discount_price || item.price}zł</h4>
+                <h4>{discount_price || price}zł</h4>
             </div>
         </StyledItem>
     )

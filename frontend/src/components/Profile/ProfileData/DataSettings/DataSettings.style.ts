@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledSettings = styled.div`
-    .MuiInputBase-root{
+    .MuiFormControl-root{
         margin-bottom:15px;
     }
     .MuiSvgIcon-root:first-child{
