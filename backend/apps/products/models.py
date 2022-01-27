@@ -42,6 +42,7 @@ class Product(models.Model):
 
     @property
     def first_color(self):
+        """Return product's first color, used for preview version of the project"""
         return self.colors[0]
 
 
@@ -61,12 +62,12 @@ class Rating(models.Model):
     """Product rating"""
     model = models.ForeignKey(Product, related_name='rating', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
-    title = models.CharField(max_length=120)
     message = models.TextField(max_length=350)
     rate = models.SmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        """User cannot rate same product twice"""
         unique_together = ['user', 'model']
         
     def __str__(self):

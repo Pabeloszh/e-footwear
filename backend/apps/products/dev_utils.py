@@ -109,6 +109,5 @@ def populate_reviews(request):
             Rating.objects.create(model=product,
                                   user=user,
                                   rate=rate,
-                                  title="Lorem ipsum dolor sit amet.",
                                   message=message)
     return redirect("list_reviews")

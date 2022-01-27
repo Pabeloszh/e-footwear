@@ -4,18 +4,16 @@ from .models import Product, ProductPictures, Rating
 from apps.user.models import User
 
 
-class RatingSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Rating
-        fields = ['model', 'title', 'message', 'rate', 'date_added']
-
-
 class CreateReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ['user', 'model', 'rate', 'message']
+        fields = ['user', 'model', 'rate', 'message', 'date_added']
+
+
+class RatingSerializer(CreateReviewSerializer):
+
+    user = serializers.StringRelatedField(read_only=True)
 
 
 class ProductPicturesSerializer(serializers.ModelSerializer):
@@ -52,11 +50,13 @@ class ProductDetailSerializer(serializers.ModelSerializer):
                   'average_rating', 'colors', 'sizes', 'pictures', 'is_reviewed']
 
     def get_is_reviewed(self, obj):
-        if self.context['request'].user.is_anonymous:
-            return False
-        else:
-            user = self.context['request'].user
-            is_reviewed = Rating.objects.filter(model=obj, user=user)
-            if not is_reviewed:
+        if self.context:
+            if self.context['request'].user.is_anonymous:
                 return False
-        return True
+            else:
+                user = self.context['request'].user
+                is_reviewed = Rating.objects.filter(model=obj, user=user)
+                if not is_reviewed:
+                    return False
+            return True
+        return False

@@ -47,7 +47,8 @@ class ProductsViewSet(viewsets.GenericViewSet,
 
 class ProductDetailViewSet(viewsets.GenericViewSet,
                            mixins.RetrieveModelMixin):
-    queryset = Product.objects.all().annotate(_average_rating=Avg('rating__rate'))
+    queryset = Product.objects.all().annotate(_average_rating=Coalesce(Avg(F('rating__rate'),
+                                                                           output_field=FloatField()), 0.0))
     serializer_class = ProductDetailSerializer
 
 
