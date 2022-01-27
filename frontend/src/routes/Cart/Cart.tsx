@@ -3,12 +3,17 @@ import { CartItem } from '../../components/Cart/CartItem'
 import Button from '@material-ui/core/Button';
 import { StyledCart } from "./Cart.style"
 import { RootState } from '../../state/reducers';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Shipping } from '../../components/Cart/Shipping/Shipping';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state';
 
 export const Cart:React.FC = () => {
     const [shippingWindow, setShippingWindow] = useState<boolean>(false)
     const cart = useSelector((state : RootState) => state.cart);
+
+    const dispatch = useDispatch();
+    const { setLoginWindow, setRegisterWindow} = bindActionCreators(actionCreators, dispatch);
     
     function subtotalPrice(payload : any){
         if(payload?.length){
@@ -41,7 +46,7 @@ export const Cart:React.FC = () => {
                                 <hr/>
                             </>
                         }
-                        <p>Please note that you need to be <span>registered</span> to purchase, or <span>logged in</span> if you already have and account.</p>
+                        <p>Please note that you don't need to be <span onClick={() => setRegisterWindow()}>registered</span> to purchase, or <span onClick={() => setLoginWindow()}>logged in</span> if you already have and account.</p>
                     </div>
                     <div className="summary">
                         <h2>Summary</h2>
