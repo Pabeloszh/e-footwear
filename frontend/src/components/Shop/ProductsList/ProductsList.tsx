@@ -27,6 +27,7 @@ export const ProductsList: React.FC = () => {
     };
 
     useEffect(()=>{
+        window.scrollTo(0,0)
         setHasMore(false)
         setPage(1)
     }, [type])

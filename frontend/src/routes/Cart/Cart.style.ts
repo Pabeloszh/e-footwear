@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const StyledCart = styled.div`
     padding: 50px 0;
     padding-top:100px;
+    min-height:80vh;
     > div{
         width:1020px;
         margin:auto;
@@ -31,7 +32,8 @@ export const StyledCart = styled.div`
                 font-size:12px;
                 color:#170312;
                 span{
-                    text-decoration:underline;  
+                    text-decoration:underline;
+                    cursor: pointer;
                 }
             }
             >h4{

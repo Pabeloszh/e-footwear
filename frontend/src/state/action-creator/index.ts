@@ -68,7 +68,6 @@ export const deleteFromFavorites = (payload : any) => {
 
 export const setCart = () => {
     return (dispatch : any) => {
-        console.log(123)
         dispatch({
             type: "setCart",
         })

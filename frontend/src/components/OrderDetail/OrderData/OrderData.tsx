@@ -1,30 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../state/reducers';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../../state';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { Skeleton } from '@mui/material';
-import { HistoryItem } from './HistoryItem';
-import { HistoryItemSkeleton } from './HistoryItemSkeleton';
-import { OrderProps } from './ProfileHistory.interfaces';
-import { StyledHistory } from "./ProfileHistory.style"
+import { HistoryItemSkeleton } from '../../Profile/ProfileHistory/HistoryItemSkeleton';
+import { HistoryItem } from '../../Profile/ProfileHistory/HistoryItem';
+import { OrderProps } from '../../Profile/ProfileHistory/ProfileHistory.interfaces';
+import { StyledHistory } from '../../Profile/ProfileHistory/ProfileHistory.style';
+export const OrderData:React.FC = () => {
+  let { id } = useParams() as {
+    id: string;
+  }
+  const [orders, setOrders] = useState<OrderProps | null[] | null>(null)
 
-export const ProfileHistory:React.FC = () => {  
-    const [orders, setOrders] = useState<OrderProps | null[] | null>(null)
-    const authToken = useSelector((state : RootState) => state.auth);
+  const dispatch = useDispatch();
+  const { setAlert } = bindActionCreators(actionCreators, dispatch);
 
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_KEY}/orders/`, {
-            headers: {
-                "Authorization": `Bearer ${authToken}`
-            }
-        }).then(({data}) => {
+  useEffect(() => {
+    if(id){
+        axios.get(`${process.env.REACT_APP_API_KEY}/orders/order_detail/?order_number=${id}`)
+        .then(({data}) => {
             setOrders(data);
         })
-    }, [])
+        .catch(() => {
+            setOrders([])
+            setAlert({message: 'We could not find an order with the matching id', type: 'error'})
+        })
+    }
+    if(!id){
+      setOrders([])
+    }
+  }, [id])
 
-    return (
-        <StyledHistory>
-            {!orders
+  return (
+    <StyledHistory>
+        {!orders
                 ? <div>
                     <div className='header'>
                         <Skeleton width={80}/>
@@ -36,7 +48,7 @@ export const ProfileHistory:React.FC = () => {
                     <HistoryItemSkeleton/>
                 </div>
                 : !orders.length 
-                    ? <p>You didn't purchase anything</p>
+                    ? <p>Sorry, we do not have matching order </p>
                     //@ts-ignore
                     : orders.map((el : any) => (
                         <div key={el.id}>
@@ -55,6 +67,6 @@ export const ProfileHistory:React.FC = () => {
                         </div>
                     )) 
             }
-        </StyledHistory>
-    )
-}
+    </StyledHistory>
+  );
+};

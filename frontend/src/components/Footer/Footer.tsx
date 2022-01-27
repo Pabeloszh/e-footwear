@@ -22,6 +22,7 @@ export const Footer: React.FC = () => {
 
     function redirect(path: string) {
         history.push(`/${path}`);
+        window.scrollTo(0,0)
     }
 
     return (
@@ -53,6 +54,9 @@ export const Footer: React.FC = () => {
                             </ListItem>
                             <ListItem button>
                                 <KeyboardArrowRightIcon /><ListItemText primary="Sales" onClick={() => redirect('shop/sales?order=date_added')}/>
+                            </ListItem>
+                            <ListItem button>
+                                <KeyboardArrowRightIcon /><ListItemText primary="Order" onClick={() => redirect('order-detail')}/>
                             </ListItem>
                         </List>
                     </div>
