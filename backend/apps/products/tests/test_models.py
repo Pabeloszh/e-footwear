@@ -16,6 +16,7 @@ class ProductsModelsTests(TestCase):
         self.assertEqual(product, res)
 
     def test_product_first_color_property(self):
+        """Test first color property for display version of project"""
         product = sample_product()
         self.assertEqual(product.first_color, "red")
 

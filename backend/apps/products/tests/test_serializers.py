@@ -12,7 +12,7 @@ class ProductsSerializersTests(TestCase):
     def test_product_serializer(self):
         """Test product serializer"""
         prod = sample_product(discount_price=130)
-        pic = sample_product_picture(prod, True)
+        sample_product_picture(prod, True)
 
         serializer = ProductsSerializer(prod)
         self.assertEqual(serializer.data['model'], prod.model)
@@ -23,8 +23,8 @@ class ProductsSerializersTests(TestCase):
     def test_product_detail_serializer(self):
         """Test product detail serializer"""
         prod = sample_product()
-        pic1 = sample_product_picture(prod, True)
-        pic2 = sample_product_picture(prod, False)
+        sample_product_picture(prod, True)
+        sample_product_picture(prod, False)
 
         serializer = ProductDetailSerializer(prod)
         self.assertEqual(serializer.data['brand'], prod.brand)

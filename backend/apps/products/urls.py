@@ -4,6 +4,7 @@ from apps.products.views import ProductsViewSet, ProductDetailViewSet,\
 
 from .dev_utils import populate_db, populate_with_users, populate_reviews
 
+app_name = "products"
 
 urlpatterns = [
     path('shoes/',

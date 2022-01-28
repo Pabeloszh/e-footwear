@@ -42,7 +42,7 @@ class ProductsViewSet(viewsets.GenericViewSet,
         # Add average rating field
         queryset = queryset.annotate(_average_rating=Coalesce(Avg(F('rating__rate'),
                                                                   output_field=FloatField()), 0.0))
-        return queryset
+        return queryset.order_by("id")
 
 
 class ProductDetailViewSet(viewsets.GenericViewSet,
@@ -56,7 +56,7 @@ class RatingViewSet(viewsets.GenericViewSet,
                     mixins.ListModelMixin):
 
     serializer_class = RatingSerializer
-    queryset = Rating.objects.all()
+    queryset = Rating.objects.all().order_by("id")
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductRatingFilter
     pagination_class = StandardResultsSetPagination

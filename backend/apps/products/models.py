@@ -53,9 +53,9 @@ class ProductPictures(models.Model):
     picture = models.ImageField(upload_to="pictures/product_pictures")
     primary_placeholder = models.BooleanField(default=False)
     color_placeholder = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.model.brand
+    #
+    # def __str__(self):
+    #     return self.color
 
 
 class Rating(models.Model):

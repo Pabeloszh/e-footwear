@@ -75,10 +75,11 @@ def populate_db(request):
 
         ProductPictures.objects.create(model=prod,
                                        picture=pic.picture,
-                                       primary_placeholder=True
+                                       primary_placeholder=True,
+                                       color=pic.color
                                        )
 
-    return redirect("products_all")
+    return redirect("products:products_all")
 
 
 def populate_with_users(request):
@@ -90,7 +91,7 @@ def populate_with_users(request):
         User.objects.create(email=f'test{i}@test{i}.com',
                             password='password123')
 
-    return redirect("products_all")
+    return redirect("products:products_all")
 
 
 def populate_reviews(request):
@@ -110,4 +111,4 @@ def populate_reviews(request):
                                   user=user,
                                   rate=rate,
                                   message=message)
-    return redirect("list_reviews")
+    return redirect("products:list_reviews")

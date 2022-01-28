@@ -28,6 +28,7 @@ class ProductsFilter(filters.FilterSet):
     )
 
     class Meta:
+
         model = Product
         fields = {
             'brand': ['in'],
