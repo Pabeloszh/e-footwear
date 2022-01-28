@@ -9,7 +9,7 @@ export const TypeFilter:React.FC = () => {
 
 
     function setType(el : string){
-        query.set('type',el)
+        query.set('type', el)
         history.push({
             search: query.toString(),
         })

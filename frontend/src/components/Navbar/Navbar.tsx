@@ -31,7 +31,8 @@ export const Navbar:React.FC = () => {
     const history = useHistory();
 
     function redirect(path: string) {
-        history.push(`/${path}`);
+        window.scrollTo(0,0)
+        history.push(`/${path}`)
         setOpen(false);
     }
 
@@ -53,7 +54,7 @@ export const Navbar:React.FC = () => {
                         </Typography>
                         <Button color="inherit" 
                             className={'/' === location.pathname ? "active" : ""} 
-                            onClick={() => history.push('')}
+                            onClick={() => redirect('')}
                         >
                             Home
                         </Button>
@@ -62,13 +63,14 @@ export const Navbar:React.FC = () => {
                                 key={text}
                                 color="inherit" 
                                 onClick={() => redirect(`shop/${text.toLowerCase()}?order=date_added`)} 
-                                className={`/shop/${text.toLowerCase()}` === location.pathname ? "active" : ""}>
+                                className={`/shop/${text.toLowerCase()}` === location.pathname ? "active" : ""}
+                            >
                                 {text}
                             </Button>
                         ))}
                     </div>
                     <div className="auth">
-                        <div className="cart-icon" onClick={() => history.push('/cart')}>
+                        <div className="cart-icon" onClick={() => redirect('cart')}>
                             <Badge badgeContent={cart?.length} color="primary">
                                 <ShoppingCartIcon color="action" />
                             </Badge>

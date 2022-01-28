@@ -23,11 +23,11 @@ const reducer = (
                 return state
             }
         case "deleteFromCart":
-            state = state.filter((el : any) => el.product !== action.payload)
+            state = state.filter((el : any) => !(el.product === action.payload.product && el.color === action.payload.color && el.size === action.payload.size))
             return state
         case "changeQuantity":
             state = state?.map((el : any) => {
-                if(el.product === action.payload.product){
+                if(el.product === action.payload.product && el.color === action.payload.color && el.size === action.payload.size){
                     return {...el, quantity: el.quantity + action.payload.value}
                 }
                 return el

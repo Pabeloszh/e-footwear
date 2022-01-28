@@ -27,14 +27,14 @@ export const CartItem = ({item} : CartItemInterfaces) => {
                         <p>Size: {size}</p>
                     </div>
                     <p className="brand">{brand}</p>
-                    <p onClick={() => deleteFromCart(product)}>Remove</p>
+                    <p onClick={() => deleteFromCart(item)}>Remove</p>
                 </div>
                 <div>
-                    <IconButton onClick={() => changeQuantity({product: product, value: quantity > 1 && -1})}>
+                    <IconButton onClick={() => changeQuantity({...item, value: quantity > 1 && -1})}>
                         <RemoveIcon/>
                     </IconButton>
                     <p>{quantity}</p>
-                    <IconButton onClick={() => changeQuantity({product: product, value: 1})}>
+                    <IconButton onClick={() => changeQuantity({...item, value: 1})}>
                         <AddIcon/>
                     </IconButton>
                 </div>

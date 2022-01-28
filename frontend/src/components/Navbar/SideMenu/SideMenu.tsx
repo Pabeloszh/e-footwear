@@ -29,6 +29,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({open, setOpen}) => {
     const location = useLocation();
 
     function redirect(path: string){
+        window.scrollTo(0,0)
         history.push(`/${path}`);
         setOpen(false)
     }
